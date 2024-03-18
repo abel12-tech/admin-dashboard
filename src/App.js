@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
       <Sidebar isSideMenuOpen={isSideMenuOpen} />
-      <div class="flex flex-col flex-1 w-full">
+      <div className="flex flex-col flex-1 w-full">
         <Header toggleSideMenu={toggleSideMenu} />
         <MainContent />
       </div>

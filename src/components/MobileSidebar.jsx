@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const MobileSidebar = () => {
   return (
@@ -7,9 +8,9 @@ const MobileSidebar = () => {
         <div className="absolute inset-0 z-20 w-full h-full bg-gray-600 opacity-75"></div>
         <div className="relative z-30 w-full max-w-md bg-white shadow-xl">
           <div className="flex items-center justify-between px-4 py-3 bg-purple-600">
-            <a className="text-lg font-semibold text-white" href="#">
+            <Link to="/" className="text-lg font-semibold text-white">
               Windmill
-            </a>
+            </Link>
             <button
               className="text-white focus:outline-none"
               aria-label="Close sidebar"
@@ -30,30 +31,25 @@ const MobileSidebar = () => {
             </button>
           </div>
           <nav className="flex flex-col mt-10">
-            <a
+            <Link
+              to="/"
               className="px-4 py-2 text-lg font-medium text-gray-800 border-l-4 border-purple-600"
-              href="index.html"
             >
               Dashboard
-            </a>
-            <a
+            </Link>
+            <Link
               className="px-4 py-2 mt-2 text-lg font-medium text-gray-800 hover:bg-purple-100"
-              href="forms.html"
+              to="/manage-products"
             >
-              Forms
-            </a>
-            <a
+              Manage Products
+            </Link>
+            <Link
+              to="/manage-orders"
               className="px-4 py-2 mt-2 text-lg font-medium text-gray-800 hover:bg-purple-100"
-              href="cards.html"
             >
-              Cards
-            </a>
+              Manage Orders
+            </Link>
           </nav>
-          <div className="mt-auto">
-            <button className="block w-full px-4 py-2 text-lg font-semibold text-white bg-purple-600 hover:bg-purple-700">
-              Create account
-            </button>
-          </div>
         </div>
       </aside>
     </div>

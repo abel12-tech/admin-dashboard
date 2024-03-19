@@ -4,7 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ManageProducts from './pages/ManageProducts';
+import ManageProducts from './features/manage-products/pages/ManageProducts';
+import ManageOrders from './features/manage-orders/pages/ManageOrders';
+import ManageBlogs from './features/manage-blogs/pages/ManageBlogs';
+
 
 
 
@@ -16,6 +19,8 @@ root.render(
       <Routes>
         <Route path="/" element={<App />}/>
         <Route path='/manage-products' element ={<ManageProducts/>}/>
+        <Route path='/manage-orders' element ={<ManageOrders/>}/>
+        <Route path='/manage-blogs' element ={<ManageBlogs/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

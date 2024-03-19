@@ -1,6 +1,30 @@
 import React from "react";
+import { useState } from "react";
+
 
 const Table = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    // Assuming there are more pages, you can add your condition here
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const goToPage = (page) => {
+    setCurrentPage(page);
+  };
+
+  // Total number of pages (for example, you may get this from an API)
+  const totalPages = 9;
+
+  // Array of page numbers
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
   return (
     <div className="w-full overflow-hidden rounded-lg shadow-xs">
       <div className="w-full overflow-x-auto">

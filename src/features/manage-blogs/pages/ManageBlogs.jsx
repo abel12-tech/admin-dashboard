@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
+import Sidebar from "../../../components/Sidebar";
+import Header from "../../../components/Header";
 
-const ManageProducts = () => {
+const ManageBlogs = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
 
   const toggleSideMenu = () => {
@@ -19,7 +19,7 @@ const ManageProducts = () => {
           <div className="container px-6 mx-auto grid">
             {/* General elements */}
             <h4 className="mb-4 text-center p-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-              Manage Products
+              Manage Blogs
             </h4>
             <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
               <label className="block text-sm">
@@ -99,4 +99,4 @@ const ManageProducts = () => {
   );
 };
 
-export default ManageProducts;
+export default ManageBlogs;

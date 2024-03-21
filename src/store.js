@@ -12,7 +12,11 @@ export const store = configureStore({
   },
 
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(productsApi.middleware, ordersApi.middleware),
+    getDefaultMiddleware().concat(
+      productsApi.middleware,
+      ordersApi.middleware,
+      blogApi.middleware
+    ),
 });
 
 setupListeners(store.dispatch);

@@ -7,8 +7,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ManageProducts from "./features/manage-products/pages/ManageProducts";
 import ManageOrders from "./features/manage-orders/pages/ManageOrders";
 import ManageBlogs from "./features/manage-blogs/pages/ManageBlogs";
+
 import { store } from "./store";
 import { Provider } from "react-redux";
+import AddProduct from "./features/manage-products/pages/AddProduct";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,6 +22,7 @@ root.render(
           <Route path="/manage-products" element={<ManageProducts />} />
           <Route path="/manage-orders" element={<ManageOrders />} />
           <Route path="/manage-blogs" element={<ManageBlogs />} />
+          <Route path="/add-product" element={<AddProduct />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

@@ -1,16 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
-import { useAddBlogCategoryMutation } from "../api/blogApi";
-import { useDispatch, useSelector } from "react-redux";
-import { updateCategories } from "../slice/blogCategorySlice";
+import {
+  useGetBlogCategoryByIdQuery,
+  useUpdateBlogCategoryMutation,
+} from "../api/blogApi";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddBlogCategory = () => {
+
+const EditBlogCategory = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
-  const [addBlogCategory] = useAddBlogCategoryMutation();
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { data: categoryData, isSuccess } = useGetBlogCategoryByIdQuery(id);
+  const [updateBlogCategory] = useUpdateBlogCategoryMutation();
+
+  useEffect(() => {
+    if (isSuccess && categoryData) {
+      setCategoryName(categoryData?.blogcategory.name);
+      setDescription(categoryData?.blogcategory.description);
+    }
+  }, [isSuccess, categoryData]);
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
@@ -19,22 +32,20 @@ const AddBlogCategory = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await addBlogCategory({
+      await updateBlogCategory({
+        _id: id,
         name: categoryName,
         description,
       }).unwrap();
 
-      // Assuming response includes the added category data
-      const newCategory = response.newBlogCategory;
-      console.log("newww",newCategory) // Access the added category data
-      dispatch(updateCategories([...newCategory])); // Dispatch the action to update the state
-
       setCategoryName("");
       setDescription("");
 
-      console.log("Blog category added successfully");
+      console.log("Category updated successfully");
+      navigate("/manage-blog-category");
+       window.location.reload(); 
     } catch (error) {
-      console.error("Error adding blog category:", error);
+      console.error("Error updating category:", error);
     }
   };
 
@@ -48,7 +59,7 @@ const AddBlogCategory = () => {
           <div className="container px-6 mx-auto grid">
             {/* General elements */}
             <h4 className="mb-4 text-center p-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-              Add Blog Category
+              Edit Blog Category
             </h4>
             <form onSubmit={handleSubmit}>
               <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -77,7 +88,7 @@ const AddBlogCategory = () => {
                   type="submit"
                   className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
                 >
-                  Add Category
+                  Update Category
                 </button>
               </div>
             </form>
@@ -88,4 +99,4 @@ const AddBlogCategory = () => {
   );
 };
 
-export default AddBlogCategory;
+export default EditBlogCategory;

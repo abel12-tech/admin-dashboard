@@ -114,10 +114,10 @@ const MainContent = () => {
             </div>
             <div>
               <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                Total clients
+                Total Farmers
               </p>
               <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                6389
+                60
               </p>
             </div>
           </div>
@@ -134,10 +134,10 @@ const MainContent = () => {
             </div>
             <div>
               <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                Account balance
+                Total Products
               </p>
               <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                $ 46,760.89
+                40
               </p>
             </div>
           </div>
@@ -150,10 +150,10 @@ const MainContent = () => {
             </div>
             <div>
               <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                New sales
+                Total Orders
               </p>
               <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                376
+                10
               </p>
             </div>
           </div>
@@ -170,10 +170,10 @@ const MainContent = () => {
             </div>
             <div>
               <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                Pending contacts
+                New Orders
               </p>
               <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                35
+                5
               </p>
             </div>
           </div>
@@ -181,9 +181,7 @@ const MainContent = () => {
         {/* New Table */}
 
         {/* Charts */}
-        <h2 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-          Charts
-        </h2>
+
         <div className="grid gap-6 mb-8 md:grid-cols-2">
           <div className="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <h4 className="mb-4 font-semibold text-gray-800 dark:text-gray-300">

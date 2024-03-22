@@ -147,7 +147,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
           </li>
           <li className="relative px-6 py-3">
             <Link
-              to="/manage-payments"
+              to="/"
               className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
             >
               <svg
@@ -167,7 +167,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
           </li>
           <li className="relative px-6 py-3">
             <Link
-              to="/manage-warehouses"
+              to="/"
               className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
             >
               <svg

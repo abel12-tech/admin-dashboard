@@ -16,6 +16,7 @@ import ManageProductCategories from "./features/manage-products/pages/ManageProd
 import AddProductCategory from "./features/manage-products/pages/AddProductCategory";
 import ManageBlogCategory from "./features/manage-blogs/pages/ManageBlogCategory";
 import AddBlogCategory from "./features/manage-blogs/pages/AddBlogCategory";
+import EditBlogCategory from "./features/manage-blogs/pages/EditBlogCategory";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -34,9 +35,19 @@ root.render(
             path="/manage-product-category"
             element={<ManageProductCategories />}
           />
-          <Route path="/add-product-category" element={<AddProductCategory />} />
-          <Route path="/manage-blog-category" element={<ManageBlogCategory />} />
+          <Route
+            path="/add-product-category"
+            element={<AddProductCategory />}
+          />
+          <Route
+            path="/manage-blog-category"
+            element={<ManageBlogCategory />}
+          />
           <Route path="/add-blog-category" element={<AddBlogCategory />} />
+          <Route
+            path="/edit-blog-category/:id"
+            element={<EditBlogCategory />}
+          />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

@@ -10,7 +10,10 @@ import ManageBlogs from "./features/manage-blogs/pages/ManageBlogs";
 
 import { store } from "./store";
 import { Provider } from "react-redux";
-import AddProduct from "./features/manage-products/pages/AddProduct";
+import AddBlog from "./features/manage-blogs/pages/AddBlog";
+import EditProduct from "./features/manage-products/pages/EditProduct";
+import EditBlog from "./features/manage-blogs/pages/EditBlog";
+import ManageProductCategories from "./features/manage-products/pages/ManageProductCategories";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,7 +25,10 @@ root.render(
           <Route path="/manage-products" element={<ManageProducts />} />
           <Route path="/manage-orders" element={<ManageOrders />} />
           <Route path="/manage-blogs" element={<ManageBlogs />} />
-          <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/edit-product" element={<EditProduct />} />
+          <Route path="/add-blog" element={<AddBlog />} />
+          <Route path="/edit-blog" element={<EditBlog />} />
+          <Route path="/manage-product-category" element={<ManageProductCategories />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

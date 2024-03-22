@@ -7,7 +7,6 @@ import { useGetAllProductsQuery } from "../api/productsApi";
 const ManageProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data: products, isLoading, isSuccess } = useGetAllProductsQuery();
-  console.log("ooooooo", products);
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
@@ -41,15 +40,15 @@ const ManageProducts = () => {
       <div className="flex flex-col flex-1 w-full">
         <Header toggleSideMenu={toggleSideMenu} />
 
-        <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
-          <div className="flex justify-end mt-4 mb-4">
+        <div className="w-full container h-screen mt-8 p-6 overflow-y-auto rounded-lg shadow-xs">
+          {/* <div className="flex justify-end mt-4 mb-4">
             <Link
               to="/add-product"
               className="items text-gray-600 dark:text-gray-300 bg-green-500 px-3 py-2 rounded"
             >
               Add Product
             </Link>
-          </div>
+          </div> */}
 
           <div className="w-full overflow-x-auto">
             <table className="w-full whitespace-no-wrap">
@@ -112,7 +111,8 @@ const ManageProducts = () => {
                       <td className="px-4 py-3 text-sm">{product.farmer}</td>
                       <td className="px-4 py-3 text-sm">
                         <div className="flex items-center space-x-4 text-sm">
-                          <button
+                          <Link
+                            to="/edit-product"
                             className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
@@ -124,7 +124,7 @@ const ManageProducts = () => {
                             >
                               <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                             </svg>
-                          </button>
+                          </Link>
                           <button
                             className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"

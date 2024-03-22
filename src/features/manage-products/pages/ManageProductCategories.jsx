@@ -3,8 +3,7 @@ import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
 import { Link } from "react-router-dom";
 
-
-const ManageBlogs = () => {
+const ManageProductCategories = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const goToPreviousPage = () => {
@@ -45,7 +44,7 @@ const ManageBlogs = () => {
               to="/add-blog"
               className="items text-gray-600 dark:text-gray-300 bg-[#9333EA] px-3 py-2 rounded"
             >
-              Add Blog
+              Add Category
             </Link>
           </div>
 
@@ -53,36 +52,19 @@ const ManageBlogs = () => {
             <table className="w-full whitespace-no-wrap">
               <thead>
                 <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                  <th className="px-4 py-3">image</th>
-                  <th className="px-4 py-3">title</th>
-                  <th className="px-4 py-3">content</th>
+                  <th className="px-4 py-3">name</th>
+                  <th className="px-4 py-3">description</th>
                   <th className="px-4 py-3">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 <tr className="text-gray-700 dark:text-gray-400">
-                  <td className="px-4 py-3">
-                    <div className="flex items-center text-sm">
-                      {/* Avatar with inset shadow */}
-                      <div className="relative hidden w-16 h-8 mr-3  md:block">
-                        <img
-                          className="object-cover w-full h-full "
-                          src="https://up.yimg.com/ib/th?id=OIP.O8lKDwWSZP_Cfm8eeyw3wAHaFu&%3Bpid=Api&rs=1&c=1&qlt=95&w=154&h=119"
-                          alt="."
-                          loading="lazy"
-                        />
-                        <div
-                          className="absolute inset-0 rounded-full shadow-inner"
-                          aria-hidden="true"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 text-sm">Banana</td>
-                  <td className="px-4 py-3 text-sm">5</td>
+                  <td className="px-4 py-3 text-sm">Diary Products</td>
+                  <td className="px-4 py-3 text-sm">Diary products are ...</td>
                   <td className="px-4 py-3 text-sm">
                     <div className="flex items-center space-x-4 text-sm">
-                      <Link to='/edit-blog'
+                      <Link
+                        to="/edit-product"
                         className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                         aria-label="Edit"
                       >
@@ -189,4 +171,4 @@ const ManageBlogs = () => {
   );
 };
 
-export default ManageBlogs;
+export default ManageProductCategories;

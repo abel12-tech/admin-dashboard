@@ -4,6 +4,11 @@ import Header from "../../../components/Header";
 
 const AddProduct = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
+  const [productName, setProductName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
+  const [farmer, setFarmer] = useState("");
+  const [description, setDescription] = useState("");
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
@@ -11,7 +16,6 @@ const AddProduct = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission logic here
   };
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
@@ -31,76 +35,63 @@ const AddProduct = () => {
                   <span className="text-gray-700 dark:text-gray-400">Name</span>
                   <input
                     className="block h-10 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray"
-                    placeholder="Jane Doe"
+                    placeholder="Product Name"
+                    value={productName}
+                    onChange={(e) => setProductName(e.target.value)}
                   />
                 </label>
-                <div className="mt-4 text-sm">
-                  <span className="text-gray-700 dark:text-gray-400">
-                    Account Type
-                  </span>
-                  <div className="mt-2">
-                    <label className="inline-flex items-center text-gray-600 dark:text-gray-400">
-                      <input
-                        type="radio"
-                        className="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                        name="accountType"
-                        defaultValue="personal"
-                      />
-                      <span className="ml-2">Personal</span>
-                    </label>
-                    <label className="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
-                      <input
-                        type="radio"
-                        className="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                        name="accountType"
-                        defaultValue="busines"
-                      />
-                      <span className="ml-2">Business</span>
-                    </label>
-                  </div>
-                </div>
                 <label className="block mt-4 text-sm">
                   <span className="text-gray-700 dark:text-gray-400">
-                    Requested Limit
+                    Quantity
                   </span>
-                  <select className="block h-10 w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                    <option>$1,000</option>
-                    <option>$5,000</option>
-                    <option>$10,000</option>
-                    <option>$25,000</option>
-                  </select>
+                  <input
+                    type="number"
+                    className="block h-10 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray"
+                    placeholder="Quantity"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />
                 </label>
                 <label className="block mt-4 text-sm">
                   <span className="text-gray-700 dark:text-gray-400">
-                    Multiselect
+                    Price
                   </span>
-                  <select
-                    className="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-multiselect focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                    multiple
-                  >
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
-                    <option>Option 4</option>
-                    <option>Option 5</option>
-                  </select>
+                  <input
+                    type="number"
+                    className="block h-10 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray"
+                    placeholder="Price"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
                 </label>
                 <label className="block mt-4 text-sm">
                   <span className="text-gray-700 dark:text-gray-400">
-                    Message
+                    Farmer
+                  </span>
+                  <input
+                    className="block h-10 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray"
+                    placeholder="Farmer"
+                    value={farmer}
+                    onChange={(e) => setFarmer(e.target.value)}
+                  />
+                </label>
+                <label className="block mt-4 text-sm">
+                  <span className="text-gray-700 dark:text-gray-400">
+                    Description
                   </span>
                   <textarea
                     className="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                     rows={3}
-                    placeholder="Enter some long form content."
-                    defaultValue={""}
+                    placeholder="Enter product description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                 </label>
                 <button
                   type="submit"
                   className="mt-4 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded"
                 >
-                  submit
+                  Submit
                 </button>
               </div>
             </form>

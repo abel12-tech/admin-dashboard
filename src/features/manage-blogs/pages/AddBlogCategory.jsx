@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
 
-const EditProduct = () => {
+const AddBlogCategory = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
@@ -24,7 +24,7 @@ const EditProduct = () => {
           <div className="container px-6 mx-auto grid">
             {/* General elements */}
             <h4 className="mb-4 text-center p-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-              Add Product Category
+              Add Blog Category
             </h4>
             <form onSubmit={handleSubmit}>
               <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -53,7 +53,7 @@ const EditProduct = () => {
                   type="submit"
                   className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
                 >
-                  Edit
+                  Add Category
                 </button>
               </div>
             </form>
@@ -64,4 +64,4 @@ const EditProduct = () => {
   );
 };
 
-export default EditProduct;
+export default AddBlogCategory;

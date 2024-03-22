@@ -3,7 +3,7 @@ import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
 import { Link } from "react-router-dom";
 
-const ManageProductCategories = () => {
+const ManageBlogCategory = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const goToPreviousPage = () => {
@@ -41,7 +41,7 @@ const ManageProductCategories = () => {
         <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
           <div className="flex justify-end mt-4 mb-4">
             <Link
-              to="/add-product-category"
+              to="/add-blog-category"
               className="items text-gray-600 dark:text-gray-300 bg-[#9333EA] px-3 py-2 rounded"
             >
               Add Category
@@ -59,8 +59,8 @@ const ManageProductCategories = () => {
               </thead>
               <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 <tr className="text-gray-700 dark:text-gray-400">
-                  <td className="px-4 py-3 text-sm">Diary Products</td>
-                  <td className="px-4 py-3 text-sm">Diary products are ...</td>
+                  <td className="px-4 py-3 text-sm">Category name</td>
+                  <td className="px-4 py-3 text-sm">This is...</td>
                   <td className="px-4 py-3 text-sm">
                     <div className="flex items-center space-x-4 text-sm">
                       <Link
@@ -171,4 +171,4 @@ const ManageProductCategories = () => {
   );
 };
 
-export default ManageProductCategories;
+export default ManageBlogCategory;

@@ -1,27 +1,29 @@
-import React, { useState } from "react";
-import Sidebar from "../../../components/Sidebar";
-import Header from "../../../components/Header";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
-  useDeleteBlogCategoryMutation,
-  useGetAllBlogCategoriesQuery,
-} from "../api/blogApi";
+  fetchAllBlogCategories,
+  deleteBlogCategory,
+  selectAllBlogCategories,
+  selectBlogsStatus,
+} from "../slice/blogSlice";
+import Sidebar from "../../../components/Sidebar";
+import Header from "../../../components/Header";
 
 const ManageBlogCategory = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const {
-    data: categories,
-    isLoading,
-    isSuccess,
-  } = useGetAllBlogCategoriesQuery();
-  const [deleteCategory] = useDeleteBlogCategoryMutation();
+  const dispatch = useDispatch();
+  const categories = useSelector(selectAllBlogCategories);
+  const isLoading = useSelector(selectBlogsStatus) === "loading";
+  const isSuccess = useSelector(selectBlogsStatus) === "succeeded";
+
+  useEffect(() => {
+    dispatch(fetchAllBlogCategories());
+  }, [dispatch]);
 
   const onDelete = async (id) => {
-    console.log("iddddd", id);
     try {
-      const response = await deleteCategory(id).unwrap();
-      console.log("deleted:", response);
-      window.location.reload()
+      await dispatch(deleteBlogCategory(id)).unwrap();
     } catch (error) {
       console.error("Error deleting:", error);
     }
@@ -34,7 +36,6 @@ const ManageBlogCategory = () => {
   };
 
   const goToNextPage = () => {
-    // Assuming there are more pages, you can add your condition here
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
@@ -42,13 +43,10 @@ const ManageBlogCategory = () => {
     setCurrentPage(page);
   };
 
-  // Total number of pages (for example, you may get this from an API)
   const totalPages = 9;
-
-  // Array of page numbers
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
 
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
   };

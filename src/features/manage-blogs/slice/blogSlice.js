@@ -41,7 +41,14 @@ export const updateBlogCategory = createAsyncThunk(
     return response.data;
   }
 );
-
+export const deleteBlogCategory = createAsyncThunk(
+  "blogs/deleteBlogCategory",
+  async (categoryId) => {
+    const response = await blogApi.endpoints.deleteBlogCategory(categoryId);
+    console.log('dattttaaaaaaa',response)
+    return response.data;
+  }
+);
 const initialState = {
   blogs: [],
   categories: [],
@@ -87,6 +94,12 @@ const blogSlice = createSlice({
         const updatedCategory = action.payload;
         state.categories = state.categories.map((category) =>
           category._id === updatedCategory._id ? updatedCategory : category
+        );
+      })
+      .addCase(deleteBlogCategory.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.categories = state.categories.filter(
+          (category) => category._id !== action.payload.categoryId
         );
       });
   },

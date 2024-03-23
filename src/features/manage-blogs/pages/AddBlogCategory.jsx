@@ -1,34 +1,28 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
-import { useAddBlogCategoryMutation } from "../api/blogApi";
+import { addNewBlogCategory } from "../slice/blogSlice";
 import { useNavigate } from "react-router-dom";
-
 
 const AddBlogCategory = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
-  const [addBlogCategory] = useAddBlogCategoryMutation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     try {
-      const response = await addBlogCategory({
-        name: categoryName,
-        description,
-      }).unwrap();
-
+      dispatch(addNewBlogCategory({ name: categoryName, description }));
+      navigate("/manage-blog-category");
       setCategoryName("");
       setDescription("");
-       navigate("/manage-blog-category")
-       window.location.reload()
-      console.log("Blog category added successfully");
     } catch (error) {
       console.error("Error adding blog category:", error);
     }

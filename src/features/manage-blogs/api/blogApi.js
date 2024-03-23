@@ -37,6 +37,12 @@ export const blogApi = createApi({
         body: data,
       }),
     }),
+    deleteBlogCategory: builder.mutation({
+      query: (categoryId) => ({
+        url: `blog-category/${categoryId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -47,4 +53,5 @@ export const {
   useAddBlogCategoryMutation,
   useUpdateBlogCategoryMutation,
   useGetBlogCategoryByIdQuery,
+  useDeleteBlogCategoryMutation,
 } = blogApi;

@@ -2,13 +2,30 @@ import React, { useState } from "react";
 import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
 import { Link } from "react-router-dom";
-import { useGetAllBlogCategoriesQuery } from "../api/blogApi";
-
+import {
+  useDeleteBlogCategoryMutation,
+  useGetAllBlogCategoriesQuery,
+} from "../api/blogApi";
 
 const ManageBlogCategory = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: categories, isLoading, isSuccess } = useGetAllBlogCategoriesQuery();
+  const {
+    data: categories,
+    isLoading,
+    isSuccess,
+  } = useGetAllBlogCategoriesQuery();
+  const [deleteCategory] = useDeleteBlogCategoryMutation();
 
+  const onDelete = async (id) => {
+    console.log("iddddd", id);
+    try {
+      const response = await deleteCategory(id).unwrap();
+      console.log("deleted:", response);
+      window.location.reload()
+    } catch (error) {
+      console.error("Error deleting:", error);
+    }
+  };
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
@@ -70,9 +87,14 @@ const ManageBlogCategory = () => {
                   </tr>
                 ) : isSuccess && categories ? (
                   categories.map((category) => (
-                    <tr key={category.id} className="text-gray-700 dark:text-gray-400">
+                    <tr
+                      key={category.id}
+                      className="text-gray-700 dark:text-gray-400"
+                    >
                       <td className="px-4 py-3 text-sm">{category.name}</td>
-                      <td className="px-4 py-3 text-sm">{category.description}</td>
+                      <td className="px-4 py-3 text-sm">
+                        {category.description}
+                      </td>
                       <td className="px-4 py-3 text-sm">
                         <div className="flex items-center space-x-4 text-sm">
                           <Link
@@ -92,6 +114,7 @@ const ManageBlogCategory = () => {
                           <button
                             className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
+                            onClick={() => onDelete(category._id)}
                           >
                             <svg
                               className="w-5 h-5"

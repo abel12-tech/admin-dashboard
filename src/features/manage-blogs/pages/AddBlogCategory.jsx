@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
 import { useAddBlogCategoryMutation } from "../api/blogApi";
+import { useNavigate } from "react-router-dom";
+
 
 const AddBlogCategory = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
   const [addBlogCategory] = useAddBlogCategoryMutation();
+  const navigate = useNavigate();
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
@@ -23,7 +26,8 @@ const AddBlogCategory = () => {
 
       setCategoryName("");
       setDescription("");
-
+       navigate("/manage-blog-category")
+       window.location.reload()
       console.log("Blog category added successfully");
     } catch (error) {
       console.error("Error adding blog category:", error);

@@ -62,9 +62,7 @@ const blogSlice = createSlice({
     },
     // Reducer for adding a new category to the state
     addNewCategoryToState: (state, action) => {
-      console.log(action.payload)
       state.categories.push(action.payload);
-      console.log('updated', categories)
     },
     // Reducer for updating a category in the state
     updateCategoryInState: (state, action) => {
@@ -102,7 +100,6 @@ const blogSlice = createSlice({
         state.blogs.push(action.payload);
       })
       .addCase(addNewBlogCategory.fulfilled, (state, action) => {
-        console.log("actionnnn", action.payload);
         state.categories.push(action.payload);
       })
       .addCase(updateBlogCategory.fulfilled, (state, action) => {

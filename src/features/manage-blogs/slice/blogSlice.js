@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { blogApi } from "../api/blogApi";
 
-// Thunks for fetching data
 export const fetchAllBlogs = createAsyncThunk(
   "blogs/fetchAllBlogs",
   async () => {
@@ -43,7 +42,6 @@ export const updateBlogCategory = createAsyncThunk(
   }
 );
 
-// Initial state
 const initialState = {
   blogs: [],
   categories: [],
@@ -51,27 +49,10 @@ const initialState = {
   error: null,
 };
 
-// Slice for managing state
 const blogSlice = createSlice({
   name: "blogs",
   initialState,
-  reducers: {
-    // Reducer for adding a new blog to the state
-    addNewBlogToState: (state, action) => {
-      state.blogs.push(action.payload);
-    },
-    // Reducer for adding a new category to the state
-    addNewCategoryToState: (state, action) => {
-      state.categories.push(action.payload);
-    },
-    // Reducer for updating a category in the state
-    updateCategoryInState: (state, action) => {
-      const updatedCategory = action.payload;
-      state.categories = state.categories.map((category) =>
-        category._id === updatedCategory._id ? updatedCategory : category
-      );
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllBlogs.pending, (state) => {
@@ -111,15 +92,8 @@ const blogSlice = createSlice({
   },
 });
 
-export const {
-  addNewBlogToState,
-  addNewCategoryToState,
-  updateCategoryInState,
-} = blogSlice.actions;
-
 export default blogSlice.reducer;
 
-// Selectors
 export const selectAllBlogs = (state) => state.blogs.blogs;
 export const selectAllBlogCategories = (state) => state.blogs.categories;
 export const selectBlogsStatus = (state) => state.blogs.status;

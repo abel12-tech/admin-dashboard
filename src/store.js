@@ -19,6 +19,7 @@ export const store = configureStore({
       ordersApi.middleware,
       blogApi.middleware
     ),
+  devTools: true,
 });
 
 setupListeners(store.dispatch);

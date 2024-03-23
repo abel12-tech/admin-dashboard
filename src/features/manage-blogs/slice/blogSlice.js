@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { blogApi } from "../api/blogApi";
+import { blogApi, useGetAllBlogCategoriesQuery } from "../api/blogApi";
+
 
 export const fetchAllBlogs = createAsyncThunk(
   "blogs/fetchAllBlogs",
@@ -12,10 +13,17 @@ export const fetchAllBlogs = createAsyncThunk(
 export const fetchAllBlogCategories = createAsyncThunk(
   "blogs/fetchAllBlogCategories",
   async () => {
-    const response = await blogApi.endpoints.getAllBlogCategories();
-    return response.data;
+    try {
+      const response = await blogApi.endpoints.getAllBlogCategories();
+
+      console.log('responseee', response);
+      return response.data; 
+    } catch (error) {
+      throw new Error("Failed to fetch blog categories: " + error);
+    }
   }
 );
+
 
 export const addNewBlog = createAsyncThunk(
   "blogs/addNewBlog",

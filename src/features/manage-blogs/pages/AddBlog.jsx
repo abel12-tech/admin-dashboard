@@ -3,12 +3,15 @@ import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
 import QuillEditor from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
+import { useAddBlogMutation } from "../api/blogApi";
+import { useNavigate } from "react-router-dom";
 
 const AddBlog = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   const [content, setContent] = useState("");
+  const navigate = useNavigate();
+  const [addPost] = useAddBlogMutation();
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -20,10 +23,6 @@ const AddBlog = () => {
 
   const handleContentChange = (value) => {
     setContent(value);
-  };
-
-  const submitFormHandler = async (event) => {
-    event.preventDefault();
   };
 
   let toolbarOptions = [
@@ -50,6 +49,27 @@ const AddBlog = () => {
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
+  };
+
+  const submitFormHandler = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await addPost({
+        title,
+        image: image.name,
+        content,
+      }).unwrap();
+
+      setTitle("");
+      setImage(null);
+      setContent("");
+
+      navigate("/manage-blogs");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error adding post:", error);
+    }
   };
 
   return (
@@ -95,7 +115,6 @@ const AddBlog = () => {
                     type="file"
                     name="image"
                     id="image"
-                    value={image}
                     className="bg-gray-700 border-gray-700 text-white text-sm rounded-lg outline-none block w-full p-2.5"
                     onChange={handleImageChange}
                   />
@@ -123,7 +142,6 @@ const AddBlog = () => {
                   Post
                 </button>
               </div>
-
             </form>
           </div>
         </main>

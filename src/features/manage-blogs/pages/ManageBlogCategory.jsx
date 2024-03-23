@@ -1,29 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import {
-  fetchAllBlogCategories,
-  deleteBlogCategory,
-  selectAllBlogCategories,
-  selectBlogsStatus,
-} from "../slice/blogSlice";
+import React, { useState } from "react";
 import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
+import { Link } from "react-router-dom";
+import {
+  useDeleteBlogCategoryMutation,
+  useGetAllBlogCategoriesQuery,
+} from "../api/blogApi";
 
 const ManageBlogCategory = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const dispatch = useDispatch();
-  const categories = useSelector(selectAllBlogCategories);
-  const isLoading = useSelector(selectBlogsStatus) === "loading";
-  const isSuccess = useSelector(selectBlogsStatus) === "succeeded";
-
-  useEffect(() => {
-    dispatch(fetchAllBlogCategories());
-  }, [dispatch]);
+  const {
+    data: categories,
+    isLoading,
+    isSuccess,
+  } = useGetAllBlogCategoriesQuery();
+  const [deleteCategory] = useDeleteBlogCategoryMutation();
 
   const onDelete = async (id) => {
+    console.log("iddddd", id);
     try {
-      await dispatch(deleteBlogCategory(id)).unwrap();
+      const response = await deleteCategory(id).unwrap();
+      console.log("deleted:", response);
+      window.location.reload();
     } catch (error) {
       console.error("Error deleting:", error);
     }
@@ -36,6 +34,7 @@ const ManageBlogCategory = () => {
   };
 
   const goToNextPage = () => {
+    // Assuming there are more pages, you can add your condition here
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
@@ -43,10 +42,13 @@ const ManageBlogCategory = () => {
     setCurrentPage(page);
   };
 
+  // Total number of pages (for example, you may get this from an API)
   const totalPages = 9;
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
+  // Array of page numbers
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
+
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
   };
@@ -79,7 +81,10 @@ const ManageBlogCategory = () => {
               <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {isLoading ? (
                   <tr>
-                    <td colSpan="3" className="text-center py-4">
+                    <td
+                      colSpan="6"
+                      className="px-4 py-3 text-center text-gray-500"
+                    >
                       Loading...
                     </td>
                   </tr>
@@ -133,8 +138,11 @@ const ManageBlogCategory = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="3" className="text-center py-4">
-                      Error loading data.
+                    <td
+                      colSpan="6"
+                      className="px-4 py-3 text-center text-red-500"
+                    >
+                      Error fetching data. Please try again later.
                     </td>
                   </tr>
                 )}

@@ -15,7 +15,6 @@ const ManageProducts = () => {
   };
 
   const goToNextPage = () => {
-    // Assuming there are more pages, you can add your condition here
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
@@ -23,10 +22,8 @@ const ManageProducts = () => {
     setCurrentPage(page);
   };
 
-  // Total number of pages (for example, you may get this from an API)
   const totalPages = 9;
 
-  // Array of page numbers
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
 
@@ -147,7 +144,6 @@ const ManageProducts = () => {
                     </tr>
                   ))
                 ) : (
-                  // Render error message if fetching data fails
                   <tr>
                     <td
                       colSpan="6"

@@ -17,6 +17,8 @@ import AddProductCategory from "./features/manage-products/pages/AddProductCateg
 import ManageBlogCategory from "./features/manage-blogs/pages/ManageBlogCategory";
 import AddBlogCategory from "./features/manage-blogs/pages/AddBlogCategory";
 import EditBlogCategory from "./features/manage-blogs/pages/EditBlogCategory";
+import Register from "./features/authentication/pages/Register";
+import Login from "./features/authentication/pages/Login";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -48,6 +50,8 @@ root.render(
             path="/edit-blog-category/:id"
             element={<EditBlogCategory />}
           />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

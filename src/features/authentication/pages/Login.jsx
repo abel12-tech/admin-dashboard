@@ -1,6 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLoginMutation } from "../api/authApi";
+import { setToken } from "../slice/authSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [login] = useLoginMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const response = await login({
+        phoneNumber,
+        password,
+      });
+
+      const data = response.data.data;
+
+      dispatch(setToken(data));
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      setError("Invalid phone number or password");
+    }
+  };
+
   return (
     <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
       <div className="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
@@ -11,10 +39,14 @@ const Login = () => {
                 Login
               </h1>
               <label className="block text-sm">
-                <span className="text-gray-700 dark:text-gray-400">Email</span>
+                <span className="text-gray-700 dark:text-gray-400">
+                  Phone Number
+                </span>
                 <input
                   className="bg-gray-700 border-gray-700 text-white text-sm rounded-lg outline-none block w-full p-2.5"
-                  placeholder="Jane Doe"
+                  placeholder="Enter your phone number"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                 />
               </label>
               <label className="block mt-4 text-sm">
@@ -23,11 +55,15 @@ const Login = () => {
                 </span>
                 <input
                   className="bg-gray-700 border-gray-700 text-white text-sm rounded-lg outline-none block w-full p-2.5"
-                  placeholder="***************"
+                  placeholder="Enter your password"
                   type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </label>
+              {error && <p className="text-red-500">{error}</p>}
               <button
+                onClick={handleLogin}
                 className="block w-full mt-8 px-4 py-2 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
               >
                 Log in

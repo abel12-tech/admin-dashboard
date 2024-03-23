@@ -1,0 +1,21 @@
+POST https://farmerecommerce.onrender.com/api/v1/admin
+content-type: application/json
+
+{
+    "fullName": "Abel KInfu3",
+    "image": "https://example.com/avatar.jpg",
+    "userName": "abelk3",
+    "password":"123456",
+    "email": "abelk3@gmail.com",
+    "phoneNumber": "936722189",
+    "role": "Admin"
+}
+### 
+
+POST https://farmerecommerce.onrender.com/api/v1/admin/login
+content-type: application/json
+
+{
+    "password":"123456",
+    "phoneNumber": "936722189"
+}

@@ -1,9 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../../constants";
+import { selectToken } from "../../authentication/slice/authSlice"; // Import selectToken from your authSlice
 
 export const blogApi = createApi({
   reducerPath: "blogApi",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  prepareHeaders: (headers, { getState }) => {
+    const token = selectToken(getState());
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+    return headers;
+  },
   endpoints: (builder) => ({
     getAllBlogs: builder.query({
       query: () => `/blog`,

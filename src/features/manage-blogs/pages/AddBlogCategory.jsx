@@ -2,15 +2,12 @@ import React, { useState } from "react";
 import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
 import { useAddBlogCategoryMutation } from "../api/blogApi";
-import { useDispatch, useSelector } from "react-redux";
-import { updateCategories } from "../slice/blogCategorySlice";
 
 const AddBlogCategory = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
   const [addBlogCategory] = useAddBlogCategoryMutation();
-  const dispatch = useDispatch()
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
@@ -23,11 +20,6 @@ const AddBlogCategory = () => {
         name: categoryName,
         description,
       }).unwrap();
-
-      // Assuming response includes the added category data
-      const newCategory = response.newBlogCategory;
-      console.log("newww",newCategory) // Access the added category data
-      dispatch(updateCategories([...newCategory])); // Dispatch the action to update the state
 
       setCategoryName("");
       setDescription("");

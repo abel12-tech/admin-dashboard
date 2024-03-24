@@ -28,3 +28,7 @@ content-type: application/json
     "image": "https://www.iwmi.cgiar.org/wp-content/uploads/2015/09/sudan_farmer.jpg",
     "content":"Hello"
 }
+
+###
+GET https://farmerecommerce.onrender.com/api/v1/warehouse
+

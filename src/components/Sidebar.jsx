@@ -167,7 +167,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
           </li>
           <li className="relative px-6 py-3">
             <Link
-              to="/"
+              to="/manage-warehouse"
               className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
             >
               <svg

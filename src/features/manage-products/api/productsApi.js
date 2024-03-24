@@ -8,7 +8,6 @@ export const productsApi = createApi({
     getAllProducts: builder.query({
       query: () => `/product`,
     }),
-
     addProduct: builder.mutation({
       query: (data) => ({
         url: `/product`,

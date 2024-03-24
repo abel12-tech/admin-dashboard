@@ -29,7 +29,7 @@ const AddBlogCategory = () => {
   return (
     <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col flex-1 w-full">
-        <main className="h-full pb-16 overflow-y-scroll">
+        <main className="h-full pb-16">
           <div className="container px-6 mx-auto grid">
             {/* General elements */}
             <h4 className="mb-4 text-center p-4 text-lg font-semibold text-gray-600 dark:text-gray-300">

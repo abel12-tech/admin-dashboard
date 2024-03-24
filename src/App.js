@@ -15,6 +15,9 @@ import Login from "./features/authentication/pages/Login";
 import Layout from "./shared/Layout";
 import { selectIsAuthenticated } from "./features/authentication/slice/authSlice";
 import { useSelector } from "react-redux";
+import AddWarehouse from "./features/manage-warehouse/pages/AddWarehouse";
+import ManageWareHouses from "./features/manage-warehouse/pages/ManageWareHouses";
+import EditWarehouse from "./features/manage-warehouse/pages/EditWarehouse";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -87,6 +90,42 @@ function App() {
           isAuthenticated ? (
             <Layout>
               <AddBlog />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/manage-warehouse"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <ManageWareHouses />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/add-warehouse"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <AddWarehouse />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/edit-warehouse/:id"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <EditWarehouse />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

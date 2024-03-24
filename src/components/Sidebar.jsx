@@ -1,21 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDarkMode } from "../shared/darkModeContext";
 
 const Sidebar = ({ isSideMenuOpen }) => {
+  const { isDarkMode } = useDarkMode();
   return (
     <aside
       className={`${
         isSideMenuOpen ? "block" : "hidden"
-      } z-20 w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0`}
+      } z-20 w-64 overflow-y-auto ${
+        isDarkMode ? "bg-gray-800" : "bg-white"
+      } md:block flex-shrink-0`}
     >
-      <div className="py-4 text-gray-500 dark:text-gray-400">
+      <div className={`py-4 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
         {/* Logo */}
         <Link
           to="/"
-          className="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
+          className={`ml-6 text-lg font-bold ${
+            isDarkMode ? "text-gray-200" : "text-gray-800"
+          }`}
         >
           Admin Dashboard
         </Link>
+
         {/* Navigation links */}
         <ul className="mt-6">
           <li className="relative px-6 py-3">
@@ -25,7 +32,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
             ></span>
             <Link
               to="/"
-              className="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "text-gray-100 dark:hover:text-gray-200"
+                  : "text-gray-800 dark:hover:text-gray-200"
+              }`}
             >
               <svg
                 className="w-5 h-5"

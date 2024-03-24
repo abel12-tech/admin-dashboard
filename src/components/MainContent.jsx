@@ -1,10 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import "alpinejs";
 import { Chart } from "chart.js/auto";
+import { useDarkMode } from "../shared/darkModeContext";
 
 const MainContent = () => {
   const pieChartRef = useRef(null);
   const lineChartRef = useRef(null);
+  const { isDarkMode } = useDarkMode();
+  console.log(isDarkMode)
+
 
   useEffect(() => {
     const pieConfig = {
@@ -96,9 +100,9 @@ const MainContent = () => {
   }, []);
 
   return (
-    <main className="h-full overflow-y-auto">
+    <main className={`h-full overflow-y-auto ${isDarkMode ? 'dark' : ''}`}>
       <div className="container px-6 mx-auto grid">
-        <h2 className="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        <h2 className={`my-6 text-2xl font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
           Dashboard
         </h2>
         {/* CTA */}

@@ -3,7 +3,6 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 
 
-
 const Layout = ({ children }) => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
 

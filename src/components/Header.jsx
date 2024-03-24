@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../features/authentication/slice/authSlice";
+import { useDarkMode } from "../shared/darkModeContext";
 
 const Header = ({ toggleSideMenu }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Header = ({ toggleSideMenu }) => {
   };
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+    return toggleDarkMode();
   };
 
   const toggleNotificationsMenu = () => {
@@ -36,8 +37,16 @@ const Header = ({ toggleSideMenu }) => {
   };
 
   return (
-    <header className="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
-      <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
+    <header
+      className={`z-10 py-4 bg-white shadow-md ${
+        isDarkMode ? "dark:bg-gray-800" : ""
+      }`}
+    >
+      <div
+        className={`container flex items-center justify-between h-full px-6 mx-auto ${
+          isDarkMode ? "text-purple-300" : "text-purple-600"
+        }`}
+      >
         {/* Mobile hamburger */}
         <button
           className="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
@@ -89,7 +98,7 @@ const Header = ({ toggleSideMenu }) => {
               onClick={toggleTheme}
               aria-label="Toggle color mode"
             >
-              {!isDarkMode ? (
+              {isDarkMode ? (
                 <svg
                   className="w-5 h-5"
                   aria-hidden="true"

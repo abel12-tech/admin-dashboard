@@ -6,12 +6,15 @@ import reportWebVitals from "./reportWebVitals";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { DarkModeProvider } from "./shared/darkModeContext";
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <BrowserRouter>
-        <App />
+        <DarkModeProvider>
+          <App />
+        </DarkModeProvider>
       </BrowserRouter>
     </React.StrictMode>
   </Provider>,

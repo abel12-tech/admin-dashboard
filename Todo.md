@@ -1,12 +1,16 @@
-# logout
-# warehouse management
-# product-category management
-# editing and deleting product
-# profile
-# light mode
-# using react-icons instead of svg
-# confrim for deleting item
+@ Active sidebar
+@ Form on light mode
+@ replacing sidebar icon by real icon
+@ profile
+@ paginating table
+@ search in table
 
-@ Orders
-@ Payments
-@ pageniting the table
+
+# product categories management
+# Editing product added by farmers
+# posting blog by selecting blog category
+# adding location of warehouses from map
+
+## Manage Users
+## Manage Orders
+## Manage Payments

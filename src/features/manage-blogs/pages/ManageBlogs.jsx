@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDeleteBlogMutation, useGetAllBlogsQuery } from "../api/blogApi";
 import parse from "html-react-parser";
+import { useDarkMode } from "../../../shared/darkModeContext";
 
 const ManageBlogs = () => {
+  const { isDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: blogs, isLoading, isSuccess } = useGetAllBlogsQuery();
   const [deletePost] = useDeleteBlogMutation();
@@ -36,13 +38,19 @@ const ManageBlogs = () => {
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
+    <div
+      className={`h-full overflow-y-auto ${
+        isDarkMode ? "bg-gray-900" : "bg-gray-50"
+      }`}
+    >
       <div className="flex flex-col flex-1 w-full">
         <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
           <div className="flex justify-end mt-4 mb-4">
             <Link
               to="/add-blog"
-              className="items text-gray-600 dark:text-gray-300 bg-[#9333EA] px-3 py-2 rounded"
+              className={`items ${
+                isDarkMode ? "text-gray-300" : "text-gray-100"
+              } bg-[#9333EA] px-3 py-2 rounded`}
             >
               Add Blog
             </Link>
@@ -51,14 +59,24 @@ const ManageBlogs = () => {
           <div className="w-full overflow-x-auto">
             <table className="w-full whitespace-no-wrap">
               <thead>
-                <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <tr
+                  className={`text-xs font-semibold tracking-wide text-left ${
+                    isDarkMode
+                      ? "border-gray-700 text-gray-400 bg-gray-800"
+                      : "text-gray-500 bg-gray-50"
+                  } text-gray-500 uppercase border-b`}
+                >
                   <th className="px-4 py-3">image</th>
                   <th className="px-4 py-3">title</th>
                   <th className="px-4 py-3">content</th>
                   <th className="px-4 py-3">Actions</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+              <tbody
+                className={`divide-y  ${
+                  isDarkMode ? "divide-gray-700 bg-gray-800" : "bg-white"
+                }`}
+              >
                 {isLoading ? (
                   <tr>
                     <td colSpan="4" className="px-4 py-3 text-center">
@@ -69,7 +87,9 @@ const ManageBlogs = () => {
                   blogs.map((blog) => (
                     <tr
                       key={blog.id}
-                      className="text-gray-700 dark:text-gray-400"
+                      className={`${
+                        isDarkMode ? "text-gray-400" : "text-gray-700"
+                      }`}
                     >
                       <td className="px-4 py-3">
                         <div className="flex items-center text-sm">
@@ -140,7 +160,13 @@ const ManageBlogs = () => {
               </tbody>
             </table>
           </div>
-          <div className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+          <div
+            className={`grid px-4 py-3 text-xs font-semibold tracking-wide ${
+              isDarkMode
+                ? "border-gray-700 text-gray-400 bg-gray-800"
+                : "text-gray-500 bg-gray-50"
+            }  uppercase border-t  sm:grid-cols-9`}
+          >
             <span className="flex items-center col-span-3">
               Showing 21-30 of 100
             </span>

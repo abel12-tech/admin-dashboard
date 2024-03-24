@@ -59,7 +59,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
           <li className="relative px-6 py-3">
             <Link
               to="/manage-products"
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "dark:hover:text-gray-200"
+              }`}
             >
               <svg
                 className="w-5 h-5"
@@ -79,7 +83,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
           <li className="relative px-6 py-3">
             <Link
               to="/manage-product-category"
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "dark:hover:text-gray-200"
+              }`}
             >
               <svg
                 className="w-5 h-5"
@@ -99,7 +107,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
           <li className="relative px-6 py-3">
             <Link
               to="/manage-orders"
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "dark:hover:text-gray-200"
+              }`}
             >
               <svg
                 className="w-5 h-5"
@@ -119,7 +131,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
           <li className="relative px-6 py-3">
             <Link
               to="/manage-blogs"
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "dark:hover:text-gray-200"
+              }`}
             >
               <svg
                 className="w-5 h-5"
@@ -139,7 +155,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
           <li className="relative px-6 py-3">
             <Link
               to="/manage-blog-category"
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "dark:hover:text-gray-200"
+              }`}
             >
               <svg
                 className="w-5 h-5"
@@ -159,7 +179,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
           <li className="relative px-6 py-3">
             <Link
               to="/"
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "dark:hover:text-gray-200"
+              }`}
             >
               <svg
                 className="w-5 h-5"
@@ -179,7 +203,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
           <li className="relative px-6 py-3">
             <Link
               to="/manage-warehouse"
-              className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "dark:hover:text-gray-200"
+              }`}
             >
               <svg
                 className="w-5 h-5"
@@ -197,7 +225,6 @@ const Sidebar = ({ isSideMenuOpen }) => {
             </Link>
           </li>
         </ul>
-        {/* Create account button */}
       </div>
     </aside>
   );

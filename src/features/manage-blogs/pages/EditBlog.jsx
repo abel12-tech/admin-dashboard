@@ -40,7 +40,7 @@ const EditBlog = () => {
   const submitFormHandler = async (event) => {
     event.preventDefault();
     try {
-      let imageUrl = blog.blog.image; 
+      let imageUrl = blog.blog.image;
 
       if (image !== null) {
         const imageRef = ref(storage, `Blog-images/${image.name + v4()}`);
@@ -93,11 +93,8 @@ const EditBlog = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      <Sidebar isSideMenuOpen={isSideMenuOpen} />
+    <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col flex-1 w-full">
-        <Header toggleSideMenu={toggleSideMenu} />
-
         <main className="h-full pb-16 overflow-y-scroll">
           <div className="container px-6 mx-auto grid">
             {/* General elements */}

@@ -46,11 +46,8 @@ const ManageBlogs = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      <Sidebar isSideMenuOpen={isSideMenuOpen} />
+    <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col flex-1 w-full">
-        <Header toggleSideMenu={toggleSideMenu} />
-
         <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
           <div className="flex justify-end mt-4 mb-4">
             <Link

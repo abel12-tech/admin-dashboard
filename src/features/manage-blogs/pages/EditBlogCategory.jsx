@@ -7,7 +7,6 @@ import {
 } from "../api/blogApi";
 import { useNavigate, useParams } from "react-router-dom";
 
-
 const EditBlogCategory = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
@@ -43,18 +42,15 @@ const EditBlogCategory = () => {
 
       console.log("Category updated successfully");
       navigate("/manage-blog-category");
-       window.location.reload(); 
+      window.location.reload();
     } catch (error) {
       console.error("Error updating category:", error);
     }
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      <Sidebar isSideMenuOpen={isSideMenuOpen} />
+    <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col flex-1 w-full">
-        <Header toggleSideMenu={toggleSideMenu} />
-
         <main className="h-full pb-16 overflow-y-scroll">
           <div className="container px-6 mx-auto grid">
             {/* General elements */}

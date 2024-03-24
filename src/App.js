@@ -1,23 +1,120 @@
-import { useState } from "react";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import { Route, Routes } from "react-router-dom";
 import MainContent from "./components/MainContent";
+import ManageProducts from "./features/manage-products/pages/ManageProducts";
+import ManageOrders from "./features/manage-orders/pages/ManageOrders";
+import ManageBlogs from "./features/manage-blogs/pages/ManageBlogs";
+import AddBlog from "./features/manage-blogs/pages/AddBlog";
+import EditProduct from "./features/manage-products/pages/EditProduct";
+import EditBlog from "./features/manage-blogs/pages/EditBlog";
+import ManageProductCategories from "./features/manage-products/pages/ManageProductCategories";
+import AddProductCategory from "./features/manage-products/pages/AddProductCategory";
+import ManageBlogCategory from "./features/manage-blogs/pages/ManageBlogCategory";
+import AddBlogCategory from "./features/manage-blogs/pages/AddBlogCategory";
+import EditBlogCategory from "./features/manage-blogs/pages/EditBlogCategory";
+import Login from "./features/authentication/pages/Login";
+import Layout from "./shared/Layout";
 
 function App() {
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
-
-  const toggleSideMenu = () => {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  };
-
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      <Sidebar isSideMenuOpen={isSideMenuOpen} />
-      <div className="flex flex-col flex-1 w-full">
-        <Header toggleSideMenu={toggleSideMenu} />
-        <MainContent />
-      </div>
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <Layout>
+            <MainContent />
+          </Layout>
+        }
+      />
+      <Route
+        path="/manage-products"
+        element={
+          <Layout>
+            <ManageProducts />
+          </Layout>
+        }
+      />
+      <Route
+        path="/manage-orders"
+        element={
+          <Layout>
+            <ManageOrders />
+          </Layout>
+        }
+      />
+      <Route
+        path="/manage-blogs"
+        element={
+          <Layout>
+            <ManageBlogs />
+          </Layout>
+        }
+      />
+      <Route
+        path="/edit-product"
+        element={
+          <Layout>
+            <EditProduct />
+          </Layout>
+        }
+      />
+      <Route
+        path="/add-blog"
+        element={
+          <Layout>
+            <AddBlog />
+          </Layout>
+        }
+      />
+      <Route
+        path="/edit-blog/:id"
+        element={
+          <Layout>
+            <EditBlog />
+          </Layout>
+        }
+      />
+      <Route
+        path="/manage-product-category"
+        element={
+          <Layout>
+            <ManageProductCategories />
+          </Layout>
+        }
+      />
+      <Route
+        path="/add-product-category"
+        element={
+          <Layout>
+            <AddProductCategory />
+          </Layout>
+        }
+      />
+      <Route
+        path="/manage-blog-category"
+        element={
+          <Layout>
+            <ManageBlogCategory />
+          </Layout>
+        }
+      />
+      <Route
+        path="/add-blog-category"
+        element={
+          <Layout>
+            <AddBlogCategory />
+          </Layout>
+        }
+      />
+      <Route
+        path="/edit-blog-category/:id"
+        element={
+          <Layout>
+            <EditBlogCategory />
+          </Layout>
+        }
+      />
+      <Route path="/login" element={<Login />} />
+    </Routes>
   );
 }
 

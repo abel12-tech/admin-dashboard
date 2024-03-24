@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Sidebar from "../../../components/Sidebar";
-import Header from "../../../components/Header";
 import { Link } from "react-router-dom";
 import { useGetAllProductsQuery } from "../api/productsApi";
 
@@ -32,11 +30,8 @@ const ManageProducts = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      <Sidebar isSideMenuOpen={isSideMenuOpen} />
+    <div className="h-full overflow-y-auto dark:bg-gray-900">
       <div className="flex flex-col flex-1 w-full">
-        <Header toggleSideMenu={toggleSideMenu} />
-
         <div className="w-full container h-screen mt-8 p-6 overflow-y-auto rounded-lg shadow-xs">
           {/* <div className="flex justify-end mt-4 mb-4">
             <Link

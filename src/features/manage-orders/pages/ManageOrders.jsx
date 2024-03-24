@@ -32,11 +32,8 @@ const ManageOrders = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      <Sidebar isSideMenuOpen={isSideMenuOpen} />
+    <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col flex-1 w-full">
-        <Header toggleSideMenu={toggleSideMenu} />
-
         <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
           <h4 className="mb-4 text-center p-2 text-lg font-semibold text-gray-600 dark:text-gray-300">
             Manage Orders

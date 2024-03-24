@@ -5,7 +5,6 @@ import { useGetAllWarehousesQuery } from "../api/warehouseApi";
 const ManageWareHouses = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data: warehouses, isLoading, isSuccess } = useGetAllWarehousesQuery();
-  console.log("warehousesss", warehouses);
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
@@ -14,7 +13,6 @@ const ManageWareHouses = () => {
   };
 
   const goToNextPage = () => {
-    // Assuming there are more pages, you can add your condition here
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
@@ -22,10 +20,8 @@ const ManageWareHouses = () => {
     setCurrentPage(page);
   };
 
-  // Total number of pages (for example, you may get this from an API)
   const totalPages = 9;
 
-  // Array of page numbers
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (

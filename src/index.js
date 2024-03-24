@@ -31,7 +31,7 @@ root.render(
           <Route path="/manage-blogs" element={<ManageBlogs />} />
           <Route path="/edit-product" element={<EditProduct />} />
           <Route path="/add-blog" element={<AddBlog />} />
-          <Route path="/edit-blog" element={<EditBlog />} />
+          <Route path="/edit-blog/:id" element={<EditBlog />} />
           <Route
             path="/manage-product-category"
             element={<ManageProductCategories />}

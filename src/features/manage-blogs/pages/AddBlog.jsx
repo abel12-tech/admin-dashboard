@@ -5,6 +5,9 @@ import QuillEditor from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useAddBlogMutation } from "../api/blogApi";
 import { useNavigate } from "react-router-dom";
+import { storage } from "../../../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 
 const AddBlog = () => {
   const [title, setTitle] = useState("");
@@ -55,9 +58,14 @@ const AddBlog = () => {
     event.preventDefault();
 
     try {
+      if (image === null) return;
+
+      const imageRef = ref(storage, `Blog-images/${image.name + v4()}`);
+      await uploadBytes(imageRef, image);
+      const imageUrl = await getDownloadURL(imageRef);
       const response = await addPost({
         title,
-        image: image.name,
+        image: imageUrl,
         content,
       }).unwrap();
 

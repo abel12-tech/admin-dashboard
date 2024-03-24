@@ -1,13 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
 import QuillEditor from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useGetBlogByIdQuery, useUpdateBlogMutation } from "../api/blogApi";
+import { useNavigate, useParams } from "react-router-dom";
+import { storage } from "../../../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 
 const EditBlog = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   const [content, setContent] = useState("");
+  const [updatePost] = useUpdateBlogMutation();
+  const { data: blog, isLoading, isError } = useGetBlogByIdQuery(id);
+
+  useEffect(() => {
+    if (!isLoading && !isError && blog) {
+      setTitle(blog.blog.title);
+      setContent(blog.blog.content);
+    }
+  }, [isLoading, isError, blog]);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -23,6 +39,31 @@ const EditBlog = () => {
 
   const submitFormHandler = async (event) => {
     event.preventDefault();
+    try {
+      let imageUrl = blog.blog.image; 
+
+      if (image !== null) {
+        const imageRef = ref(storage, `Blog-images/${image.name + v4()}`);
+        await uploadBytes(imageRef, image);
+        imageUrl = await getDownloadURL(imageRef);
+      }
+
+      await updatePost({
+        _id: id,
+        title,
+        image: imageUrl,
+        content,
+      }).unwrap();
+
+      setTitle("");
+      setImage(null);
+      setContent("");
+
+      navigate("/manage-blogs");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating post:", error);
+    }
   };
 
   let toolbarOptions = [

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../../constants";
-import { selectToken } from "../../authentication/slice/authSlice"; // Import selectToken from your authSlice
+import { selectToken } from "../../authentication/slice/authSlice";
 
 export const blogApi = createApi({
   reducerPath: "blogApi",
@@ -16,18 +16,36 @@ export const blogApi = createApi({
     getAllBlogs: builder.query({
       query: () => `/blog`,
     }),
+    getBlogById: builder.query({
+      query: (id) => ({
+        url: `/blog/${id}`,
+      }),
+    }),
     getAllBlogCategories: builder.query({
       query: () => `/blog-category`,
     }),
     getBlogCategoryById: builder.query({
       query: (id) => ({
-        url: `blog-category/${id}`,
+        url: `/blog-category/${id}`,
       }),
     }),
     addBlog: builder.mutation({
       query: (data) => ({
         url: `/blog`,
         method: "POST",
+        body: data,
+      }),
+    }),
+    deleteBlog: builder.mutation({
+      query: (blogId) => ({
+        url: `blog/${blogId}`,
+        method: "DELETE",
+      }),
+    }),
+    updateBlog: builder.mutation({
+      query: (data) => ({
+        url: `blog/${data._id}/`,
+        method: "PATCH",
         body: data,
       }),
     }),
@@ -58,8 +76,11 @@ export const {
   useGetAllBlogsQuery,
   useGetAllBlogCategoriesQuery,
   useAddBlogMutation,
+  useDeleteBlogMutation,
+  useUpdateBlogMutation,
   useAddBlogCategoryMutation,
   useUpdateBlogCategoryMutation,
   useGetBlogCategoryByIdQuery,
+  useGetBlogByIdQuery,
   useDeleteBlogCategoryMutation,
 } = blogApi;

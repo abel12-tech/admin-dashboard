@@ -19,3 +19,12 @@ content-type: application/json
     "password":"123456",
     "phoneNumber": "936722189"
 }
+###
+POST https://farmerecommerce.onrender.com/api/v1/blog/
+content-type: application/json
+
+{
+     "title": "Top 5 ",
+    "image": "https://www.iwmi.cgiar.org/wp-content/uploads/2015/09/sudan_farmer.jpg",
+    "content":"Hello"
+}

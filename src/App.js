@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import MainContent from "./components/MainContent";
 import ManageProducts from "./features/manage-products/pages/ManageProducts";
 import ManageOrders from "./features/manage-orders/pages/ManageOrders";
@@ -13,104 +13,156 @@ import AddBlogCategory from "./features/manage-blogs/pages/AddBlogCategory";
 import EditBlogCategory from "./features/manage-blogs/pages/EditBlogCategory";
 import Login from "./features/authentication/pages/Login";
 import Layout from "./shared/Layout";
+import { selectIsAuthenticated } from "./features/authentication/slice/authSlice";
+import { useSelector } from "react-redux";
 
 function App() {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+
   return (
     <Routes>
       <Route
         path="/"
         element={
-          <Layout>
-            <MainContent />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <MainContent />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route
         path="/manage-products"
         element={
-          <Layout>
-            <ManageProducts />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <ManageProducts />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route
         path="/manage-orders"
         element={
-          <Layout>
-            <ManageOrders />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <ManageOrders />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route
         path="/manage-blogs"
         element={
-          <Layout>
-            <ManageBlogs />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <ManageBlogs />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route
         path="/edit-product"
         element={
-          <Layout>
-            <EditProduct />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <EditProduct />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route
         path="/add-blog"
         element={
-          <Layout>
-            <AddBlog />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <AddBlog />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route
         path="/edit-blog/:id"
         element={
-          <Layout>
-            <EditBlog />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <EditBlog />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route
         path="/manage-product-category"
         element={
-          <Layout>
-            <ManageProductCategories />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <ManageProductCategories />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route
         path="/add-product-category"
         element={
-          <Layout>
-            <AddProductCategory />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <AddProductCategory />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route
         path="/manage-blog-category"
         element={
-          <Layout>
-            <ManageBlogCategory />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <ManageBlogCategory />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route
         path="/add-blog-category"
         element={
-          <Layout>
-            <AddBlogCategory />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <AddBlogCategory />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route
         path="/edit-blog-category/:id"
         element={
-          <Layout>
-            <EditBlogCategory />
-          </Layout>
+          isAuthenticated ? (
+            <Layout>
+              <EditBlogCategory />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
       <Route path="/login" element={<Login />} />

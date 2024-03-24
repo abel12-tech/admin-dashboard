@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Sidebar from "../../../components/Sidebar";
-import Header from "../../../components/Header";
 
 const ManageOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,11 +23,6 @@ const ManageOrders = () => {
 
   // Array of page numbers
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
-
-  const toggleSideMenu = () => {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  };
 
   return (
     <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">

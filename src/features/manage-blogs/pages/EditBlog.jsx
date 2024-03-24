@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../../components/Sidebar";
-import Header from "../../../components/Header";
 import QuillEditor from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useGetBlogByIdQuery, useUpdateBlogMutation } from "../api/blogApi";
@@ -86,11 +84,7 @@ const EditBlog = () => {
     toolbar: toolbarOptions,
   };
 
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
 
-  const toggleSideMenu = () => {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  };
 
   return (
     <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">

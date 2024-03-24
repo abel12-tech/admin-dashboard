@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../../../components/Sidebar";
-import Header from "../../../components/Header";
 import {
   useGetBlogCategoryByIdQuery,
   useUpdateBlogCategoryMutation,
@@ -8,7 +6,6 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditBlogCategory = () => {
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
@@ -24,9 +21,7 @@ const EditBlogCategory = () => {
     }
   }, [isSuccess, categoryData]);
 
-  const toggleSideMenu = () => {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();

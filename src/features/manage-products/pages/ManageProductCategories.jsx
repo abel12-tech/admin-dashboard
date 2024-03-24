@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Sidebar from "../../../components/Sidebar";
-import Header from "../../../components/Header";
 import { Link } from "react-router-dom";
 
 const ManageProductCategories = () => {
@@ -26,11 +24,7 @@ const ManageProductCategories = () => {
 
   // Array of page numbers
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
 
-  const toggleSideMenu = () => {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  };
 
   return (
     <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">

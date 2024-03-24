@@ -1,24 +1,17 @@
 import React, { useState } from "react";
-import Sidebar from "../../../components/Sidebar";
-import Header from "../../../components/Header";
 import { useAddBlogCategoryMutation } from "../api/blogApi";
 import { useNavigate } from "react-router-dom";
 
 const AddBlogCategory = () => {
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
   const [addBlogCategory] = useAddBlogCategoryMutation();
   const navigate = useNavigate();
 
-  const toggleSideMenu = () => {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await addBlogCategory({
+      await addBlogCategory({
         name: categoryName,
         description,
       }).unwrap();

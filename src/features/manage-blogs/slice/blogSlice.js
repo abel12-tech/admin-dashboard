@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { blogApi, useGetAllBlogCategoriesQuery } from "../api/blogApi";
+import { blogApi } from "../api/blogApi";
 
 
 export const fetchAllBlogs = createAsyncThunk(

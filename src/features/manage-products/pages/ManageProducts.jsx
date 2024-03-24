@@ -23,11 +23,7 @@ const ManageProducts = () => {
   const totalPages = 9;
 
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
-
-  const toggleSideMenu = () => {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  };
+ 
 
   return (
     <div className="h-full overflow-y-auto dark:bg-gray-900">

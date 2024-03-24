@@ -2,17 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Header = ({ toggleSideMenu }) => {
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
 
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-
-  const toggleMobileSidebar = () => {
-    setIsMobileSidebarOpen(!isMobileSidebarOpen);
-  };
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);

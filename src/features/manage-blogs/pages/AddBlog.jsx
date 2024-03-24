@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Sidebar from "../../../components/Sidebar";
-import Header from "../../../components/Header";
 import QuillEditor from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useAddBlogMutation } from "../api/blogApi";
@@ -48,12 +46,6 @@ const AddBlog = () => {
     toolbar: toolbarOptions,
   };
 
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
-
-  const toggleSideMenu = () => {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  };
-
   const submitFormHandler = async (event) => {
     event.preventDefault();
 
@@ -63,7 +55,7 @@ const AddBlog = () => {
       const imageRef = ref(storage, `Blog-images/${image.name + v4()}`);
       await uploadBytes(imageRef, image);
       const imageUrl = await getDownloadURL(imageRef);
-      const response = await addPost({
+      await addPost({
         title,
         image: imageUrl,
         content,

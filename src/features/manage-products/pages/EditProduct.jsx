@@ -1,18 +1,11 @@
 import React, { useState } from "react";
-import Sidebar from "../../../components/Sidebar";
-import Header from "../../../components/Header";
-
 const EditProduct = () => {
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [productName, setProductName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [farmer, setFarmer] = useState("");
   const [description, setDescription] = useState("");
 
-  const toggleSideMenu = () => {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();

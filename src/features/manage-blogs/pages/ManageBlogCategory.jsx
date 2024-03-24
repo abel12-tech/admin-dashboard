@@ -15,10 +15,8 @@ const ManageBlogCategory = () => {
   const [deleteCategory] = useDeleteBlogCategoryMutation();
 
   const onDelete = async (id) => {
-    console.log("iddddd", id);
     try {
-      const response = await deleteCategory(id).unwrap();
-      console.log("deleted:", response);
+      await deleteCategory(id).unwrap();
       window.location.reload();
     } catch (error) {
       console.error("Error deleting:", error);
@@ -32,7 +30,6 @@ const ManageBlogCategory = () => {
   };
 
   const goToNextPage = () => {
-    // Assuming there are more pages, you can add your condition here
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
@@ -40,12 +37,9 @@ const ManageBlogCategory = () => {
     setCurrentPage(page);
   };
 
-  // Total number of pages (for example, you may get this from an API)
   const totalPages = 9;
 
-  // Array of page numbers
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
- 
 
   return (
     <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">

@@ -27,6 +27,12 @@ export const warehouseApi = createApi({
         body: data,
       }),
     }),
+    deleteWarehouse: builder.mutation({
+      query: (id) => ({
+        url: `warehouse/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -35,4 +41,5 @@ export const {
   useAddWarehouseMutation,
   useGetWarehouseByIdQuery,
   useUpdateWarehouseMutation,
+  useDeleteWarehouseMutation,
 } = warehouseApi;

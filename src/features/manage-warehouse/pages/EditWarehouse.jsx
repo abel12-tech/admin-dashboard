@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetWarehouseByIdQuery,
   useUpdateWarehouseMutation,
@@ -15,6 +15,7 @@ const EditWarehouse = () => {
   const [extraDetail, setExtraDetail] = useState("");
   const [updateWarehouse] = useUpdateWarehouseMutation();
   const { data: warehouseData, isSuccess } = useGetWarehouseByIdQuery(id);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isSuccess && warehouseData) {
@@ -34,14 +35,14 @@ const EditWarehouse = () => {
     const relativeLocation = { country, city, extraDetail };
 
     try {
-      const response = await updateWarehouse({
+      await updateWarehouse({
         _id: id,
         name,
         absoluteLocation,
         relativeLocation,
       }).unwrap();
-
-      console.log("response", response);
+      navigate("/manage-warehouse");
+      window.location.reload();
     } catch (error) {
       console.log("Error updating warehouse", error);
     }

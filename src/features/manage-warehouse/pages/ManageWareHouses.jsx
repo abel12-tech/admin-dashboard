@@ -1,10 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useGetAllWarehousesQuery } from "../api/warehouseApi";
+import {
+  useDeleteWarehouseMutation,
+  useGetAllWarehousesQuery,
+} from "../api/warehouseApi";
 
 const ManageWareHouses = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data: warehouses, isLoading, isSuccess } = useGetAllWarehousesQuery();
+  const [deleteWarehouse] = useDeleteWarehouseMutation();
+
+  const onDelete = async (id) => {
+    try {
+      await deleteWarehouse(id).unwrap();
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting:", error);
+    }
+  };
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
@@ -92,6 +105,7 @@ const ManageWareHouses = () => {
                           <button
                             className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
+                            onClick={() => onDelete(warehouse._id)}
                           >
                             <svg
                               className="w-5 h-5"

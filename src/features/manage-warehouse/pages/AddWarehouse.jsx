@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAddWarehouseMutation } from "../api/warehouseApi";
+import { useNavigate } from "react-router-dom";
 
 const AddWarehouse = () => {
   const [name, setName] = useState("");
@@ -9,6 +10,7 @@ const AddWarehouse = () => {
   const [city, setCity] = useState("");
   const [extraDetail, setExtraDetail] = useState("");
   const [addWarehouse] = useAddWarehouseMutation();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -17,13 +19,13 @@ const AddWarehouse = () => {
     const relativeLocation = { country, city, extraDetail };
 
     try {
-      const response = await addWarehouse({
+      await addWarehouse({
         name,
         absoluteLocation,
-        relativeLocation
+        relativeLocation,
       }).unwrap();
-
-      console.log('response', response);
+      navigate("/manage-warehouse");
+      window.location.reload();
     } catch (error) {
       console.log("Error adding warehouse", error);
     }
@@ -49,7 +51,9 @@ const AddWarehouse = () => {
                   />
                 </label>
                 <label className="block mt-4 text-sm">
-                  <span className="text-gray-700 dark:text-gray-400">Address</span>
+                  <span className="text-gray-700 dark:text-gray-400">
+                    Address
+                  </span>
                   <input
                     className="dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5"
                     placeholder="Enter address"
@@ -58,7 +62,9 @@ const AddWarehouse = () => {
                   />
                 </label>
                 <label className="block mt-4 text-sm">
-                  <span className="text-gray-700 dark:text-gray-400">Description</span>
+                  <span className="text-gray-700 dark:text-gray-400">
+                    Description
+                  </span>
                   <textarea
                     className="dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5"
                     rows={3}
@@ -68,7 +74,9 @@ const AddWarehouse = () => {
                   />
                 </label>
                 <label className="block mt-4 text-sm">
-                  <span className="text-gray-700 dark:text-gray-400">Country</span>
+                  <span className="text-gray-700 dark:text-gray-400">
+                    Country
+                  </span>
                   <input
                     className="dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5"
                     placeholder="Enter country"
@@ -86,7 +94,9 @@ const AddWarehouse = () => {
                   />
                 </label>
                 <label className="block mt-4 text-sm">
-                  <span className="text-gray-700 dark:text-gray-400">Extra Detail</span>
+                  <span className="text-gray-700 dark:text-gray-400">
+                    Extra Detail
+                  </span>
                   <input
                     className="dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5"
                     placeholder="Enter extra detail"

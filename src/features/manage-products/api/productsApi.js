@@ -8,6 +8,9 @@ export const productsApi = createApi({
     getAllProducts: builder.query({
       query: () => `/product`,
     }),
+    getAllProductCategories: builder.query({
+      query: () => `/product-category`,
+    }),
     addProduct: builder.mutation({
       query: (data) => ({
         url: `/product`,
@@ -15,7 +18,13 @@ export const productsApi = createApi({
         body: data,
       }),
     }),
+    deleteProductCategory: builder.mutation({
+      query: (categoryId) => ({
+        url: `product-category/${categoryId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery, useAddProductMutation } = productsApi;
+export const { useGetAllProductsQuery, useAddProductMutation ,useGetAllProductCategoriesQuery ,useDeleteProductCategoryMutation } = productsApi;

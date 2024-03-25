@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddCategory = () => {
+const AddProductCategory = () => {
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
 
@@ -54,4 +54,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default AddProductCategory;

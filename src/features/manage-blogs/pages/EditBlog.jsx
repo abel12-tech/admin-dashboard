@@ -6,8 +6,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { storage } from "../../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+import { useDarkMode } from "../../../shared/darkModeContext";
 
 const EditBlog = () => {
+  const { isDarkMode } = useDarkMode();
   const { id } = useParams();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -84,23 +86,35 @@ const EditBlog = () => {
     toolbar: toolbarOptions,
   };
 
-
-
   return (
-    <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
+    <div
+      className={`h-full overflow-y-auto ${
+        isDarkMode ? "bg-gray-900" : "bg-gray-50"
+      }`}
+    >
       <div className="flex flex-col flex-1 w-full">
         <main className="h-full pb-16 overflow-y-scroll">
           <div className="container px-6 mx-auto grid">
             {/* General elements */}
-            <h4 className="mb-4 text-center p-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+            <h4
+              className={`mb-4 text-center p-4 text-lg font-semibold ${
+                isDarkMode ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
               Edit Post
             </h4>
             <form onSubmit={submitFormHandler} className=" p-6  w-full">
-              <div className="grid gap-4 sm:grid-cols-1 sm:gap-6 bg-white rounded-lg shadow-md dark:bg-gray-800 p-8">
+              <div
+                className={`px-4 py-3 mb-8 ${
+                  isDarkMode ? "bg-gray-800" : "bg-white"
+                } rounded-lg shadow-md`}
+              >
                 <div>
                   <label
                     htmlFor="post-title"
-                    className="block mb-2 text-sm font-medium text-white"
+                    className={`${
+                      isDarkMode ? "text-gray-400" : "text-gray-700"
+                    }`}
                   >
                     Title
                   </label>
@@ -108,7 +122,11 @@ const EditBlog = () => {
                     type="text"
                     name="post-title"
                     id="post-title"
-                    className="bg-gray-700 border-gray-700 text-white text-sm rounded-lg outline-none block w-full p-2.5"
+                    className={`${
+                      isDarkMode
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                        : "border-2 outline-none focus:border-gray-200"
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     placeholder="Enter a post title"
                     value={title}
                     onChange={handleTitleChange}
@@ -118,7 +136,9 @@ const EditBlog = () => {
                 <div>
                   <label
                     htmlFor="image"
-                    className="block mb-2 text-sm font-medium text-white"
+                    className={`${
+                      isDarkMode ? "text-gray-400" : "text-gray-700"
+                    }`}
                   >
                     Image
                   </label>
@@ -127,7 +147,11 @@ const EditBlog = () => {
                     name="image"
                     id="image"
                     value={image}
-                    className="bg-gray-700 border-gray-700 text-white text-sm rounded-lg outline-none block w-full p-2.5"
+                    className={`${
+                      isDarkMode
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                        : "border-2 outline-none focus:border-gray-200"
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     onChange={handleImageChange}
                   />
                 </div>

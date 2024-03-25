@@ -4,8 +4,10 @@ import {
   useGetWarehouseByIdQuery,
   useUpdateWarehouseMutation,
 } from "../api/warehouseApi";
+import { useDarkMode } from "../../../shared/darkModeContext";
 
 const EditWarehouse = () => {
+  const { isDarkMode } = useDarkMode();
   const { id } = useParams();
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -49,41 +51,79 @@ const EditWarehouse = () => {
   };
 
   return (
-    <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
+    <div
+      className={`h-full overflow-y-auto ${
+        isDarkMode ? "bg-gray-900" : "bg-gray-50"
+      }`}
+    >
       <div className="flex flex-col flex-1 w-full">
         <main className="h-full pb-16 overflow-y-scroll">
           <div className="container px-6 mx-auto grid">
-            <h4 className="mb-4 text-center p-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+            <h4
+              className={`mb-4 text-center p-4 text-lg font-semibold ${
+                isDarkMode ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
               Edit Warehouse
             </h4>
             <form onSubmit={handleSubmit}>
-              <div className="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+              <div
+                className={`px-4 py-3 mb-8 ${
+                  isDarkMode ? "bg-gray-800" : "bg-white"
+                } rounded-lg shadow-md`}
+              >
                 <label className="block text-sm">
-                  <span className="text-gray-700 dark:text-gray-400">Name</span>
+                  <span
+                    className={`${
+                      isDarkMode ? "text-gray-400" : "text-gray-700"
+                    }`}
+                  >
+                    Name
+                  </span>
                   <input
-                    className="dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5"
+                    className={`${
+                      isDarkMode
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                        : "border-2 outline-none focus:border-gray-200"
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     placeholder="Warehouse Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                 </label>
                 <label className="block mt-4 text-sm">
-                  <span className="text-gray-700 dark:text-gray-400">
+                  <span
+                    className={`${
+                      isDarkMode ? "text-gray-400" : "text-gray-700"
+                    }`}
+                  >
                     Address
                   </span>
                   <input
-                    className="dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5"
+                    className={`${
+                      isDarkMode
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                        : "border-2 outline-none focus:border-gray-200"
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     placeholder="Enter address"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                   />
                 </label>
                 <label className="block mt-4 text-sm">
-                  <span className="text-gray-700 dark:text-gray-400">
+                  <span
+                    className={`${
+                      isDarkMode ? "text-gray-400" : "text-gray-700"
+                    }`}
+                  >
                     Description
                   </span>
                   <textarea
-                    className="dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5"
+                    className={`${
+                      isDarkMode
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                        : "border-2 outline-none focus:border-gray-200"
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     rows={3}
                     placeholder="Enter description"
                     value={description}
@@ -91,31 +131,57 @@ const EditWarehouse = () => {
                   />
                 </label>
                 <label className="block mt-4 text-sm">
-                  <span className="text-gray-700 dark:text-gray-400">
+                  <span
+                    className={`${
+                      isDarkMode ? "text-gray-400" : "text-gray-700"
+                    }`}
+                  >
                     Country
                   </span>
                   <input
-                    className="dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5"
+                    className={`${
+                      isDarkMode
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                        : "border-2 outline-none focus:border-gray-200"
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     placeholder="Enter country"
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
                   />
                 </label>
                 <label className="block mt-4 text-sm">
-                  <span className="text-gray-700 dark:text-gray-400">City</span>
+                  <span
+                    className={`${
+                      isDarkMode ? "text-gray-400" : "text-gray-700"
+                    }`}
+                  >
+                    City
+                  </span>
                   <input
-                    className="dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5"
+                    className={`${
+                      isDarkMode
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                        : "border-2 outline-none focus:border-gray-200"
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     placeholder="Enter city"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                   />
                 </label>
                 <label className="block mt-4 text-sm">
-                  <span className="text-gray-700 dark:text-gray-400">
+                  <span
+                    className={`${
+                      isDarkMode ? "text-gray-400" : "text-gray-700"
+                    }`}
+                  >
                     Extra Detail
                   </span>
                   <input
-                    className="dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5"
+                    className={`${
+                      isDarkMode
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                        : "border-2 outline-none focus:border-gray-200"
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     placeholder="Enter extra detail"
                     value={extraDetail}
                     onChange={(e) => setExtraDetail(e.target.value)}

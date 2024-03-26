@@ -93,7 +93,7 @@ const EditBlog = () => {
       }`}
     >
       <div className="flex flex-col flex-1 w-full">
-        <main className="h-full pb-16 overflow-y-scroll">
+        <main className="h-full pb-16">
           <div className="container px-6 mx-auto grid">
             {/* General elements */}
             <h4

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDarkMode } from "../shared/darkModeContext";
 
 const Sidebar = ({ isSideMenuOpen }) => {
+  const [activeLink, setActiveLink] = useState("/");
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+  };
   const { isDarkMode } = useDarkMode();
   return (
     <aside
@@ -26,12 +30,15 @@ const Sidebar = ({ isSideMenuOpen }) => {
         {/* Navigation links */}
         <ul className="mt-6">
           <li className="relative px-6 py-3">
-            <span
-              className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-              aria-hidden="true"
-            ></span>
+            {activeLink === "/" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
             <Link
               to="/"
+              onClick={() => handleLinkClick("/")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode
                   ? "text-gray-100 dark:hover:text-gray-200"
@@ -57,8 +64,15 @@ const Sidebar = ({ isSideMenuOpen }) => {
         {/* More navigation links */}
         <ul>
           <li className="relative px-6 py-3">
+            {activeLink === "/manage-products" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
             <Link
               to="/manage-products"
+              onClick={() => handleLinkClick("/manage-products")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode
                   ? "dark:hover:text-gray-200"
@@ -81,8 +95,15 @@ const Sidebar = ({ isSideMenuOpen }) => {
             </Link>
           </li>
           <li className="relative px-6 py-3">
+            {activeLink === "/manage-product-category" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
             <Link
               to="/manage-product-category"
+              onClick={() => handleLinkClick("/manage-product-category")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode
                   ? "dark:hover:text-gray-200"
@@ -105,8 +126,15 @@ const Sidebar = ({ isSideMenuOpen }) => {
             </Link>
           </li>
           <li className="relative px-6 py-3">
+            {activeLink === "/manage-orders" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
             <Link
-              to="/manage-orders"
+              to="/"
+              onClick={() => handleLinkClick("/manage-orders")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode
                   ? "dark:hover:text-gray-200"
@@ -129,8 +157,15 @@ const Sidebar = ({ isSideMenuOpen }) => {
             </Link>
           </li>
           <li className="relative px-6 py-3">
+            {activeLink === "/manage-blogs" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
             <Link
               to="/manage-blogs"
+              onClick={() => handleLinkClick("/manage-blogs")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode
                   ? "dark:hover:text-gray-200"
@@ -153,8 +188,15 @@ const Sidebar = ({ isSideMenuOpen }) => {
             </Link>
           </li>
           <li className="relative px-6 py-3">
+            {activeLink === "/manage-blog-category" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
             <Link
               to="/manage-blog-category"
+              onClick={() => handleLinkClick("/manage-blog-category")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode
                   ? "dark:hover:text-gray-200"
@@ -177,8 +219,15 @@ const Sidebar = ({ isSideMenuOpen }) => {
             </Link>
           </li>
           <li className="relative px-6 py-3">
+            {activeLink === "/manage-payments" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
             <Link
               to="/"
+              onClick={() => handleLinkClick("/manage-payments")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode
                   ? "dark:hover:text-gray-200"
@@ -201,8 +250,15 @@ const Sidebar = ({ isSideMenuOpen }) => {
             </Link>
           </li>
           <li className="relative px-6 py-3">
+            {activeLink === "/manage-warehouse" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
             <Link
               to="/manage-warehouse"
+              onClick={() => handleLinkClick("/manage-warehouse")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode
                   ? "dark:hover:text-gray-200"

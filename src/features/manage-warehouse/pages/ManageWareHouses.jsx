@@ -42,7 +42,7 @@ const ManageWareHouses = () => {
   return (
     <div
       className={`h-full overflow-y-auto ${
-        isDarkMode ? "bg-gray-900" : "bg-gray-50"
+        isDarkMode ? "bg-gray-900" : "bg-gray-100"
       }`}
     >
       <div className="flex flex-col flex-1 w-full">

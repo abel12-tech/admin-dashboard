@@ -98,7 +98,7 @@ const MainContent = () => {
   }, []);
 
   return (
-    <main className={`h-full overflow-y-auto ${isDarkMode ? "dark" : ""}`}>
+    <main className={`h-full overflow-y-auto ${isDarkMode ? "dark" : "bg-gray-100"}`}>
       <div className="container px-6 mx-auto grid">
         <h2
           className={`my-6 text-2xl font-semibold ${

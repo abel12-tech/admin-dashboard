@@ -28,7 +28,7 @@ const ManageProducts = () => {
 
   return (
     <div
-      className={`h-full overflow-y-auto ${isDarkMode ? "bg-gray-900" : ""}`}
+      className={`h-full overflow-y-auto ${isDarkMode ? "bg-gray-900" : "bg-gray-100"}`}
     >
       <div className="flex flex-col flex-1 w-full">
         <div className="w-full container h-screen mt-8 p-6 overflow-y-auto rounded-lg shadow-xs">

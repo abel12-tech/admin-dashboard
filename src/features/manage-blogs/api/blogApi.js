@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../../constants";
-import { selectToken } from "../../authentication/slice/authSlice";
+import { selectToken } from "../../authentication/slice/authSlice.js";
 
 export const blogApi = createApi({
   reducerPath: "blogApi",

@@ -5,7 +5,7 @@ import { ordersApi } from "./features/manage-orders/api/ordersApi";
 import { blogApi } from "./features/manage-blogs/api/blogApi";
 import blogSliceReducer from "./features/manage-blogs/slice/blogSlice";
 import { authApi } from "./features/authentication/api/authApi";
-import authSliceReducer from "./features/authentication/slice/authSlice";
+import authSliceReducer from "./features/authentication/slice/authSlice.js";
 import { warehouseApi } from "./features/manage-warehouse/api/warehouseApi";
 import { dataApi } from "./features/dashboard-summary/dataApi";
 

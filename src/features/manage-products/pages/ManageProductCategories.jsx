@@ -53,7 +53,7 @@ const ManageProductCategories = () => {
         <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
           <div className="flex justify-end mt-4 mb-4">
             <Link
-              to="/add-blog-category"
+              to="/add-product-category"
               className={`items ${
                 isDarkMode ? "text-gray-300" : "text-gray-100"
               } bg-[#9333EA] px-3 py-2 rounded`}

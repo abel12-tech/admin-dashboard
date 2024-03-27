@@ -2,11 +2,15 @@ import React, { useEffect, useRef } from "react";
 import "alpinejs";
 import { Chart } from "chart.js/auto";
 import { useDarkMode } from "../shared/darkModeContext";
+import { useGetAllDataQuery } from "../features/dashboard-summary/dataApi";
 
 const MainContent = () => {
   const pieChartRef = useRef(null);
   const lineChartRef = useRef(null);
   const { isDarkMode } = useDarkMode();
+
+  const { data: datas, isSuccess } = useGetAllDataQuery();
+  
 
   useEffect(() => {
     const pieConfig = {
@@ -98,7 +102,11 @@ const MainContent = () => {
   }, []);
 
   return (
-    <main className={`h-full overflow-y-auto ${isDarkMode ? "dark" : "bg-gray-100"}`}>
+    <main
+      className={`h-full overflow-y-auto ${
+        isDarkMode ? "dark" : "bg-gray-100"
+      }`}
+    >
       <div className="container px-6 mx-auto grid">
         <h2
           className={`my-6 text-2xl font-semibold ${
@@ -135,7 +143,7 @@ const MainContent = () => {
                   isDarkMode ? "text-gray-200" : "text-gray-700"
                 }`}
               >
-                60
+                {isSuccess ? datas.dashboardSummary.totalFarmers : "Loading..."}
               </p>
             </div>
           </div>
@@ -167,7 +175,9 @@ const MainContent = () => {
                   isDarkMode ? "text-gray-200" : "text-gray-700"
                 }`}
               >
-                40
+                {isSuccess
+                  ? datas.dashboardSummary.totalProducts
+                  : "Loading..."}
               </p>
             </div>
           </div>
@@ -195,7 +205,7 @@ const MainContent = () => {
                   isDarkMode ? "text-gray-200" : "text-gray-700"
                 }`}
               >
-                10
+                {isSuccess ? datas.dashboardSummary.totalOrders : "Loading..."}
               </p>
             </div>
           </div>
@@ -220,14 +230,14 @@ const MainContent = () => {
                   isDarkMode ? "text-gray-400" : "text-gray-600"
                 }`}
               >
-                New Orders
+                Total Users
               </p>
               <p
                 className={`text-lg font-semibold ${
                   isDarkMode ? "text-gray-200" : "text-gray-700"
                 }`}
               >
-                5
+                {isSuccess ? datas.dashboardSummary.totalUsers : "Loading..."}
               </p>
             </div>
           </div>

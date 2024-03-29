@@ -7,7 +7,7 @@ import {
 import { useDarkMode } from "../../../shared/darkModeContext";
 
 const EditWarehouse = () => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const { id } = useParams();
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -18,6 +18,10 @@ const EditWarehouse = () => {
   const [updateWarehouse] = useUpdateWarehouseMutation();
   const { data: warehouseData, isSuccess } = useGetWarehouseByIdQuery(id);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
 
   useEffect(() => {
     if (isSuccess && warehouseData) {

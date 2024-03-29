@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
 const EditBlogCategory = () => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
@@ -15,6 +15,11 @@ const EditBlogCategory = () => {
 
   const { data: categoryData, isSuccess } = useGetBlogCategoryByIdQuery(id);
   const [updateBlogCategory] = useUpdateBlogCategoryMutation();
+
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
 
   useEffect(() => {
     if (isSuccess && categoryData) {

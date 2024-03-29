@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAddBlogCategoryMutation } from "../api/blogApi";
 import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
+
 const AddBlogCategory = () => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
   const [addBlogCategory] = useAddBlogCategoryMutation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

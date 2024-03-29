@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAddWarehouseMutation } from "../api/warehouseApi";
 import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
+
 const AddWarehouse = () => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
@@ -13,6 +14,10 @@ const AddWarehouse = () => {
   const [extraDetail, setExtraDetail] = useState("");
   const [addWarehouse] = useAddWarehouseMutation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

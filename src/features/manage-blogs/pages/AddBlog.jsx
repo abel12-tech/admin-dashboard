@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QuillEditor from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useAddBlogMutation } from "../api/blogApi";
@@ -8,13 +8,18 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
+
 const AddBlog = () => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   const [content, setContent] = useState("");
   const navigate = useNavigate();
   const [addPost] = useAddBlogMutation();
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);

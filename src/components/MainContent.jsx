@@ -7,10 +7,13 @@ import { useGetAllDataQuery } from "../features/dashboard-summary/dataApi";
 const MainContent = () => {
   const pieChartRef = useRef(null);
   const lineChartRef = useRef(null);
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
 
   const { data: datas, isSuccess } = useGetAllDataQuery();
   
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
 
   useEffect(() => {
     const pieConfig = {
@@ -23,7 +26,7 @@ const MainContent = () => {
             label: "Dataset 1",
           },
         ],
-        labels: ["Shoes", "Shirts", "Bags"],
+        labels: ["Bananas", "Oranges", "Onions"],
       },
       options: {
         responsive: true,
@@ -268,15 +271,15 @@ const MainContent = () => {
               {/* Chart legend */}
               <div className="flex items-center">
                 <span className="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full" />
-                <span>Shirts</span>
+                <span>Bananas</span>
               </div>
               <div className="flex items-center">
                 <span className="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full" />
-                <span>Shoes</span>
+                <span>Oranges</span>
               </div>
               <div className="flex items-center">
                 <span className="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full" />
-                <span>Bags</span>
+                <span>Onions</span>
               </div>
             </div>
           </div>
@@ -301,7 +304,7 @@ const MainContent = () => {
               {/* Chart legend */}
               <div className="flex items-center">
                 <span className="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full" />
-                <span>Organic</span>
+                <span>Or</span>
               </div>
               <div className="flex items-center">
                 <span className="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full" />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   useDeleteWarehouseMutation,
@@ -6,11 +6,16 @@ import {
 } from "../api/warehouseApi";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
+
 const ManageWareHouses = () => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: warehouses, isLoading, isSuccess } = useGetAllWarehousesQuery();
   const [deleteWarehouse] = useDeleteWarehouseMutation();
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
 
   const onDelete = async (id) => {
     try {

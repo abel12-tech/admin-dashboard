@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDeleteBlogMutation, useGetAllBlogsQuery } from "../api/blogApi";
 import parse from "html-react-parser";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
+
 const ManageBlogs = () => {
-  const { isDarkMode } = useDarkMode();
+  
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: blogs, isLoading, isSuccess } = useGetAllBlogsQuery();
   const [deletePost] = useDeleteBlogMutation();
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
 
   const onDelete = async (id) => {
     try {

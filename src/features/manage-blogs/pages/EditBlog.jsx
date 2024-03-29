@@ -9,7 +9,7 @@ import { v4 } from "uuid";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
 const EditBlog = () => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const { id } = useParams();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -17,6 +17,10 @@ const EditBlog = () => {
   const [content, setContent] = useState("");
   const [updatePost] = useUpdateBlogMutation();
   const { data: blog, isLoading, isError } = useGetBlogByIdQuery(id);
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
 
   useEffect(() => {
     if (!isLoading && !isError && blog) {

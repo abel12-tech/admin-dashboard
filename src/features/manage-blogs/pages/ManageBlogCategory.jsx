@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   useDeleteBlogCategoryMutation,
@@ -6,8 +6,9 @@ import {
 } from "../api/blogApi";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
+
 const ManageBlogCategory = () => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const {
     data: categories,
@@ -15,6 +16,10 @@ const ManageBlogCategory = () => {
     isSuccess,
   } = useGetAllBlogCategoriesQuery();
   const [deleteCategory] = useDeleteBlogCategoryMutation();
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
 
   const onDelete = async (id) => {
     try {

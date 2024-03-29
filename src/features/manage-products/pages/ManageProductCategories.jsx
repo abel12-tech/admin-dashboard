@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
 import {
@@ -6,8 +6,9 @@ import {
   useGetAllProductCategoriesQuery,
 } from "../api/productsApi";
 
+
 const ManageProductCategories = () => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const {
     data: categories,
@@ -15,6 +16,10 @@ const ManageProductCategories = () => {
     isSuccess,
   } = useGetAllProductCategoriesQuery();
   const [deleteCategory] = useDeleteProductCategoryMutation();
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
 
   const onDelete = async (id) => {
     try {

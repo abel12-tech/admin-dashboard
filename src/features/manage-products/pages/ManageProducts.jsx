@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetAllProductsQuery } from "../api/productsApi";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
+
 const ManageProducts = () => {
-  const { isDarkMode } = useDarkMode();
+  const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: products, isLoading, isSuccess } = useGetAllProductsQuery();
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
+
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {

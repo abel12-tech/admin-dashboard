@@ -14,15 +14,6 @@ export const ordersApi = createApi({
         Authorization: `Bearer ${getTokenFromCookies()}`,
       },
     }),
-    deleteOrder: builder.mutation({
-      query: (orderId) => ({
-        url: `order/${orderId}`,
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${getTokenFromCookies()}`,
-        },
-      }),
-    }),
   }),
 });
 

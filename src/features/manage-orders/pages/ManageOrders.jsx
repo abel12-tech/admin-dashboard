@@ -1,27 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
-import { useDeleteOrderMutation, useGetAllOrdersQuery } from "../api/ordersApi";
+import {useGetAllOrdersQuery } from "../api/ordersApi";
+
 
 const ManageOrders = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: orders, isLoading, isSuccess } = useGetAllOrdersQuery();
-  console.log(useGetAllOrdersQuery())
-  const [deleteOrder] = useDeleteOrderMutation();
 
   useEffect(() => {
     initializeDarkMode();
   }, [initializeDarkMode]);
 
-  const onDelete = async (id) => {
-    try {
-      await deleteOrder(id).unwrap();
-      window.location.reload();
-    } catch (error) {
-      console.error("Error deleting:", error);
-    }
-  };
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
@@ -48,7 +38,7 @@ const ManageOrders = () => {
       }`}
     >
       <div className="flex flex-col flex-1 w-full">
-        <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
+        <div className="w-full container h-screen p-6 rounded-lg shadow-xs">
           <div className="w-full overflow-x-auto">
             <table className="w-full whitespace-no-wrap">
               <thead>
@@ -77,55 +67,31 @@ const ManageOrders = () => {
                     </td>
                   </tr>
                 ) : isSuccess && orders ? (
-                  orders.map((blog) => (
+                  orders.map((order) => (
                     <tr
-                      key={blog.id}
+                      key={order._id}
                       className={`${
                         isDarkMode ? "text-gray-400" : "text-gray-700"
                       }`}
                     >
-                      <td className="px-4 py-3 flex items-center justify-center">
-                        <div className="flex items-center text-sm">
-                          {/* Avatar with inset shadow */}
-                          <div className="relative hidden w-16 h-8 mr-3 md:block">
-                            <img
-                              className="object-cover w-full h-full"
-                              src={blog.image}
-                              alt={blog.title}
-                              loading="lazy"
-                            />
-                            <div
-                              className="absolute inset-0 rounded-full shadow-inner"
-                              aria-hidden="true"
-                            />
-                            name
-                          </div>
+                      <td className="px-4 py-3 text-sm">
+                        <div className="">
+                          <ul>
+                            {order.products.map((productId) => (
+                              <li key={productId}>{productId}</li>
+                            ))}
+                          </ul>
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-sm">{orders}</td>
+                      <td className="px-4 py-3 text-sm">{order.user}</td>
                       <td className="px-4 py-3 text-sm">
-                        {blog.content.slice(0, 100)}
+                        {order.totalPrice}
                       </td>
                       <td className="px-4 py-3 text-sm">
                         <div className="flex items-center space-x-4 text-sm">
-                          <Link
-                            to={`/edit-blog/${blog._id}`}
-                            className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                            aria-label="Edit"
-                          >
-                            <svg
-                              className="w-5 h-5"
-                              aria-hidden="true"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                            </svg>
-                          </Link>
                           <button
                             className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
-                            onClick={() => onDelete(blog._id)}
                           >
                             <svg
                               className="w-5 h-5"
@@ -147,7 +113,7 @@ const ManageOrders = () => {
                 ) : (
                   <tr>
                     <td colSpan="4" className="px-4 py-3 text-center">
-                      Error fetching blogs.
+                      Error fetching orders.
                     </td>
                   </tr>
                 )}

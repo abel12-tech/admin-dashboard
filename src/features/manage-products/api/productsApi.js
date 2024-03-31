@@ -20,9 +20,7 @@ export const productsApi = createApi({
     }),
     getAllProductCategories: builder.query({
       query: () => `/product-category`,
-      headers: {
-        Authorization: `Bearer ${getTokenFromCookies()}`,
-      },
+
     }),
     getProductCategoryById: builder.query({
       query: (id) => ({

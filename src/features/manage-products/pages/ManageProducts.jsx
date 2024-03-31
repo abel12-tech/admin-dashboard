@@ -8,6 +8,7 @@ const ManageProducts = () => {
   const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: products, isLoading, isSuccess } = useGetAllProductsQuery();
+  console.log(useGetAllProductsQuery())
   const [deleteProduct] = useDeleteProductMutation();
 
   const onDelete = async (id) => {

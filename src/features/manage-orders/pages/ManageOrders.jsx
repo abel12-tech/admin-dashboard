@@ -3,14 +3,11 @@ import { Link } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
 import { useDeleteOrderMutation, useGetAllOrdersQuery } from "../api/ordersApi";
 
-
-
-
 const ManageOrders = () => {
-  
-  const { isDarkMode ,initializeDarkMode } = useDarkMode();
+  const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: orders, isLoading, isSuccess } = useGetAllOrdersQuery();
+  console.log(useGetAllOrdersQuery())
   const [deleteOrder] = useDeleteOrderMutation();
 
   useEffect(() => {
@@ -52,8 +49,6 @@ const ManageOrders = () => {
     >
       <div className="flex flex-col flex-1 w-full">
         <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
-
-
           <div className="w-full overflow-x-auto">
             <table className="w-full whitespace-no-wrap">
               <thead>
@@ -109,7 +104,7 @@ const ManageOrders = () => {
                       </td>
                       <td className="px-4 py-3 text-sm">{orders}</td>
                       <td className="px-4 py-3 text-sm">
-                        {parse(blog.content.slice(0, 100))}
+                        {blog.content.slice(0, 100)}
                       </td>
                       <td className="px-4 py-3 text-sm">
                         <div className="flex items-center space-x-4 text-sm">

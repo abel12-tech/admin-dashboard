@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useGetAllProductsQuery } from "../api/productsApi";
+import { useDeleteProductMutation, useGetAllProductsQuery } from "../api/productsApi";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
 
@@ -8,7 +8,18 @@ const ManageProducts = () => {
   const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: products, isLoading, isSuccess } = useGetAllProductsQuery();
-  console.log(products)
+  const [deleteProduct] = useDeleteProductMutation();
+
+  const onDelete = async (id) => {
+    try {
+      await deleteProduct(id).unwrap();
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting:", error);
+    }
+  };
+
+
   useEffect(() => {
     initializeDarkMode();
   }, [initializeDarkMode]);
@@ -135,7 +146,7 @@ const ManageProducts = () => {
                           <button
                             className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
-                            // onClick={() => onDelete(product._id)}
+                            onClick={() => onDelete(product._id)}
                           >
                             <svg
                               className="w-5 h-5"

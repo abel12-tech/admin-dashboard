@@ -8,17 +8,16 @@ export const ordersApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
     getAllOrders: builder.query({
-      query: () => `/orders`,
+      query: () => `/order`,
+      method:"GET",
       headers: {
         Authorization: `Bearer ${getTokenFromCookies()}`,
       },
     }),
-
-    addOrders: builder.mutation({
-      query: (data) => ({
-        url: `/orders`,
-        method: "POST",
-        body: data,
+    deleteOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `order/${orderId}`,
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${getTokenFromCookies()}`,
         },
@@ -27,4 +26,4 @@ export const ordersApi = createApi({
   }),
 });
 
-export const { useGetAllOrdersQuery, useAddOrdersMutation } = ordersApi;
+export const { useGetAllOrdersQuery, useDeleteOrderMutation } = ordersApi;

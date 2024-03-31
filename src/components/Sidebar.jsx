@@ -133,7 +133,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
               ></span>
             )}
             <Link
-              to="/"
+              to="/manage-orders"
               onClick={() => handleLinkClick("/manage-orders")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode

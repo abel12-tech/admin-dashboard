@@ -1,36 +1,48 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
-import { useAddProductCategoryMutation } from "../api/productsApi";
+import {
+  useGetProductCategoryByIdQuery,
+  useUpdateProductCategoryMutation,
+} from "../api/productsApi";
 
-
-const AddProductCategory = () => {
-  const { isDarkMode ,initializeDarkMode } = useDarkMode();
+const EditProductCategory = () => {
+  const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
-  const [addProductCategory] = useAddProductCategoryMutation();
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { data: categoryData, isSuccess } = useGetProductCategoryByIdQuery(id);
+  const [updateProductCategory] = useUpdateProductCategoryMutation();
 
   useEffect(() => {
     initializeDarkMode();
   }, [initializeDarkMode]);
 
+  useEffect(() => {
+    if (isSuccess && categoryData) {
+      setCategoryName(categoryData?.productcategory.name);
+      setDescription(categoryData?.productcategory.description);
+    }
+  }, [isSuccess, categoryData]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(categoryName , description)
     try {
-      await addProductCategory({
+      await updateProductCategory({
+        _id: id,
         name: categoryName,
         description,
       }).unwrap();
 
       setCategoryName("");
       setDescription("");
+
       navigate("/manage-product-category");
       window.location.reload();
-      console.log("product category added successfully");
     } catch (error) {
-      console.error("Error adding product category:", error);
+      console.error("Error updating category:", error);
     }
   };
 
@@ -41,7 +53,7 @@ const AddProductCategory = () => {
       }`}
     >
       <div className="flex flex-col flex-1 w-full">
-        <main className="h-full pb-16">
+        <main className="h-full pb-16 overflow-y-scroll">
           <div className="container px-6 mx-auto grid">
             {/* General elements */}
             <h4
@@ -49,7 +61,7 @@ const AddProductCategory = () => {
                 isDarkMode ? "text-gray-300" : "text-gray-600"
               }`}
             >
-              Add product Category
+              Edit Product Category
             </h4>
             <form onSubmit={handleSubmit}>
               <div
@@ -100,7 +112,7 @@ const AddProductCategory = () => {
                   type="submit"
                   className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
                 >
-                  Add Category
+                  Update Category
                 </button>
               </div>
             </form>
@@ -111,4 +123,4 @@ const AddProductCategory = () => {
   );
 };
 
-export default AddProductCategory;
+export default EditProductCategory;

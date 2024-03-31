@@ -1,17 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { storage } from "../../../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 import { useDarkMode } from "../../../shared/darkModeContext";
+import {
+  useGetProductByIdQuery,
+  useUpdateProductMutation,
+} from "../api/productsApi";
 
 const EditProduct = () => {
   const { isDarkMode } = useDarkMode();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [image, setImage] = useState(null);
   const [productName, setProductName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [farmer, setFarmer] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
   };
+
+  const { data: productData, isLoading, isError } = useGetProductByIdQuery(id);
+  const [updateProduct] = useUpdateProductMutation();
+
+  useEffect(() => {
+    if (!isLoading && !isError && productData) {
+      setProductName(productData.product.name);
+      setQuantity(productData.product.quantity);
+      setPrice(productData.product.unitPrice);
+      setFarmer(productData.product.farmer);
+      setDescription(productData.product.description);
+    }
+  }, [isLoading, isError, productData]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      let imageUrl = productData.product.image;
+
+      if (image !== null) {
+        const imageRef = ref(storage, `Blog-images/${image.name + v4()}`);
+        await uploadBytes(imageRef, image);
+        imageUrl = await getDownloadURL(imageRef);
+      }
+      await updateProduct({
+        _id: id,
+        image: imageUrl,
+        name: productName,
+        quantity,
+        unitPrice: price,
+        description,
+      });
+      navigate("/manage-products");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating category:", error);
+    }
+  };
+
   return (
     <div
       className={`h-full overflow-y-auto ${
@@ -54,6 +105,25 @@ const EditProduct = () => {
                     onChange={(e) => setProductName(e.target.value)}
                   />
                 </label>
+                <label
+                  htmlFor="image"
+                  className={`${
+                    isDarkMode ? "text-gray-400" : "text-gray-700"
+                  }`}
+                >
+                  Image
+                </label>
+                <input
+                  type="file"
+                  name="image"
+                  id="image"
+                  className={`${
+                    isDarkMode
+                      ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                      : "border-2 outline-none focus:border-gray-200"
+                  } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
+                  onChange={handleImageChange}
+                />
                 <label className="block mt-4 text-sm">
                   <span
                     className={`${
@@ -66,9 +136,9 @@ const EditProduct = () => {
                     type="number"
                     className={`${
                       isDarkMode
-                        ? "border-gray-600 bg-gray-700"
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
                         : "border-2 outline-none focus:border-gray-200"
-                    } focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     placeholder="Quantity"
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
@@ -86,9 +156,9 @@ const EditProduct = () => {
                     type="number"
                     className={`${
                       isDarkMode
-                        ? "border-gray-600 bg-gray-700"
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
                         : "border-2 outline-none focus:border-gray-200"
-                    } focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     placeholder="Price"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
@@ -105,9 +175,9 @@ const EditProduct = () => {
                   <input
                     className={`${
                       isDarkMode
-                        ? "border-gray-600 bg-gray-700"
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
                         : "border-2 outline-none focus:border-gray-200"
-                    } focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     placeholder="Farmer"
                     value={farmer}
                     onChange={(e) => setFarmer(e.target.value)}
@@ -124,9 +194,9 @@ const EditProduct = () => {
                   <textarea
                     className={`${
                       isDarkMode
-                        ? "border-gray-600 bg-gray-700"
+                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
                         : "border-2 outline-none focus:border-gray-200"
-                    } focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
+                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     rows={3}
                     placeholder="Enter product description"
                     value={description}

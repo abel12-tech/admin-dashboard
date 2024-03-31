@@ -8,6 +8,7 @@ const ManageProducts = () => {
   const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: products, isLoading, isSuccess } = useGetAllProductsQuery();
+  console.log(products)
   useEffect(() => {
     initializeDarkMode();
   }, [initializeDarkMode]);
@@ -84,7 +85,7 @@ const ManageProducts = () => {
                   // Render table rows with fetched data
                   products.map((product) => (
                     <tr
-                      key={product.id}
+                      key={product._id}
                       className={`${isDarkMode ? "text-gray-400" :"text-gray-700"}`}
                     >
                       <td className="px-4 py-3">
@@ -93,8 +94,8 @@ const ManageProducts = () => {
                           <div className="relative hidden w-16 h-8 mr-3  md:block">
                             <img
                               className="object-cover w-full h-full "
-                              src={product.image} // Assuming product object has an image property
-                              alt={product.name} // Assuming product object has a name property
+                              src={product.image}
+                              alt={product.name}
                               loading="lazy"
                             />
                             <div
@@ -118,7 +119,7 @@ const ManageProducts = () => {
                       <td className="px-4 py-3 text-sm">
                         <div className="flex items-center space-x-4 text-sm">
                           <Link
-                            to="/edit-product"
+                            to={`/edit-product/${product._id}`}
                             className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
@@ -134,6 +135,7 @@ const ManageProducts = () => {
                           <button
                             className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
+                            // onClick={() => onDelete(product._id)}
                           >
                             <svg
                               className="w-5 h-5"

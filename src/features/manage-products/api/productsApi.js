@@ -2,7 +2,6 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../../constants";
 import { getTokenFromCookies } from "../../../shared/getToken.mjs";
 
-
 export const productsApi = createApi({
   reducerPath: "productsApi",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
@@ -14,20 +13,20 @@ export const productsApi = createApi({
         Authorization: `Bearer ${getTokenFromCookies()}`,
       },
     }),
+    getProductById: builder.query({
+      query: (id) => ({
+        url: `/product/${id}`,
+      }),
+    }),
     getAllProductCategories: builder.query({
       query: () => `/product-category`,
       headers: {
         Authorization: `Bearer ${getTokenFromCookies()}`,
       },
     }),
-    addProduct: builder.mutation({
-      query: (data) => ({
-        url: `/product`,
-        method: "POST",
-        body: data,
-        headers: {
-          Authorization: `Bearer ${getTokenFromCookies()}`,
-        },
+    getProductCategoryById: builder.query({
+      query: (id) => ({
+        url: `/product-category/${id}`,
       }),
     }),
     addProductCategory: builder.mutation({
@@ -42,7 +41,36 @@ export const productsApi = createApi({
     }),
     deleteProductCategory: builder.mutation({
       query: (categoryId) => ({
-        url: `product-category/${categoryId}`,
+        url: `/product-category/${categoryId}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
+      }),
+    }),
+    updateProductCategory: builder.mutation({
+      query: (data) => ({
+        url: `/product-category/${data._id}/`,
+        method: "PATCH",
+        body: data,
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
+      }),
+    }),
+    updateProduct: builder.mutation({
+      query: (data) => ({
+        url: `/product/${data._id}/`,
+        method: "PATCH",
+        body: data,
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
+      }),
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `product/${id}`,
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${getTokenFromCookies()}`,
@@ -54,8 +82,12 @@ export const productsApi = createApi({
 
 export const {
   useGetAllProductsQuery,
-  useAddProductMutation,
   useGetAllProductCategoriesQuery,
   useDeleteProductCategoryMutation,
   useAddProductCategoryMutation,
+  useUpdateProductCategoryMutation,
+  useGetProductCategoryByIdQuery,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
+  useGetProductByIdQuery,
 } = productsApi;

@@ -35,10 +35,13 @@ GET https://farmerecommerce.onrender.com/api/v1/warehouse
 ###
 POST https://farmerecommerce.onrender.com/api/v1/product-category 
 content-type: application/json
-Authorization: Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmYyZWI0NDBmYjdkYzlmYzQ2M2E2YSIsImlhdCI6MTcxMTYyMzY3MCwiZXhwIjoxNzEyNDg3NjcwfQ.d0Cx95sctCkiYSYtr_az2CDvczHtqtDOVea8CU_vTvQ"
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmYyZWI0NDBmYjdkYzlmYzQ2M2E2YSIsImlhdCI6MTcxMTg3MDM2NywiZXhwIjoxNzEyNzM0MzY3fQ.XQvxIO_PR12oMlXE-EX3PzMsOpNwPUO_9xYpr1_NjuM
 
 {
     "name": "sample",
     "description":"kkkkk"
 }
 
+### 
+Get https://farmerecommerce.onrender.com/api/v1/order
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmYyZWI0NDBmYjdkYzlmYzQ2M2E2YSIsImlhdCI6MTcxMTg3MDM2NywiZXhwIjoxNzEyNzM0MzY3fQ.XQvxIO_PR12oMlXE-EX3PzMsOpNwPUO_9xYpr1_NjuM

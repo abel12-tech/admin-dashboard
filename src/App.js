@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import AddWarehouse from "./features/manage-warehouse/pages/AddWarehouse";
 import ManageWareHouses from "./features/manage-warehouse/pages/ManageWareHouses";
 import EditWarehouse from "./features/manage-warehouse/pages/EditWarehouse";
+import EditProductCategory from "./features/manage-products/pages/EditProductCategory";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -73,18 +74,6 @@ function App() {
         }
       />
       <Route
-        path="/edit-product"
-        element={
-          isAuthenticated ? (
-            <Layout>
-              <EditProduct />
-            </Layout>
-          ) : (
-            <Navigate to="/login" replace />
-          )
-        }
-      />
-      <Route
         path="/add-blog"
         element={
           isAuthenticated ? (
@@ -114,6 +103,18 @@ function App() {
           isAuthenticated ? (
             <Layout>
               <AddWarehouse />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+            <Route
+        path="/edit-product/:id"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <EditProduct />
             </Layout>
           ) : (
             <Navigate to="/login" replace />
@@ -198,6 +199,18 @@ function App() {
           isAuthenticated ? (
             <Layout>
               <EditBlogCategory />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+            <Route
+        path="/edit-product-category/:id"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <EditProductCategory />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

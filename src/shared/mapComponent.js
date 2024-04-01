@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, ZoomControl } from 'react-leaflet';
+import React, { useState } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 const MapComponent = ({ setCoordinates }) => {
   const [position, setPosition] = useState(null);
@@ -22,10 +29,18 @@ const MapComponent = ({ setCoordinates }) => {
   };
 
   return (
-    <div style={{ height: '100%', width: '100%' }}>
-      <MapContainer center={[0, 0]} zoom={4} style={{ height: '100%', width: '100%' }} >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        <LocationMarker position="center" />
+    <div style={{ height: "288px", width: "100%" }}>
+      <MapContainer
+        center={[9.033, 38.75]}
+        zoom={2}
+        style={{ height: "288px", width: "100%" }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        <LocationMarker setCoordinates={setCoordinates} />
       </MapContainer>
     </div>
   );

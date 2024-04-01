@@ -180,10 +180,10 @@ const AddWarehouse = () => {
                 </label>
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Select Location on Map
+                <label className="block text-sm mb-4 font-medium text-gray-700">
+                  Select warehouse location on map
                 </label>
-                <div className=" rounded-lg  h-full w-full overflow-x-hidden border">
+                <div className=" rounded-lg overflow-hidden border h-72 w-full">
                   <MapComponent
                     setCoordinates={(lat, lng) => {
                       setLatitude(lat);

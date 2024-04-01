@@ -29,11 +29,11 @@ const MapComponent = ({ setCoordinates }) => {
   };
 
   return (
-    <div style={{ height: "288px", width: "100%" }}>
+    <div style={{ height: "384px", width: "100%" }}>
       <MapContainer
         center={[9.033, 38.75]}
         zoom={2}
-        style={{ height: "288px", width: "100%" }}
+        style={{ height: "384px", width: "100%" }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

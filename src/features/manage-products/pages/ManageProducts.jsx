@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDeleteProductMutation, useGetAllProductsQuery } from "../api/productsApi";
+import {
+  useDeleteProductMutation,
+  useGetAllProductsQuery,
+} from "../api/productsApi";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
-
 const ManageProducts = () => {
-  const { isDarkMode ,initializeDarkMode } = useDarkMode();
+  const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: products, isLoading, isSuccess } = useGetAllProductsQuery();
   const [deleteProduct] = useDeleteProductMutation();
+  const itemsPerPage = 5;
 
   const onDelete = async (id) => {
     try {
@@ -19,12 +22,11 @@ const ManageProducts = () => {
     }
   };
 
-
   useEffect(() => {
     initializeDarkMode();
   }, [initializeDarkMode]);
 
-
+  const totalPages = Math.ceil(products?.length / itemsPerPage) || 1;
   const goToPreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1);
@@ -32,32 +34,28 @@ const ManageProducts = () => {
   };
 
   const goToNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
   };
 
   const goToPage = (page) => {
     setCurrentPage(page);
   };
 
-  const totalPages = 9;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, products?.length);
 
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const showingText = `Showing ${startIndex + 1}-${endIndex} of ${products?.length}`;
 
   return (
     <div
-      className={`h-full overflow-y-auto ${isDarkMode ? "bg-gray-900" : "bg-gray-100"}`}
+      className={`h-full overflow-y-auto ${
+        isDarkMode ? "bg-gray-900" : "bg-gray-100"
+      }`}
     >
       <div className="flex flex-col flex-1 w-full">
-        <div className="w-full container h-screen mt-8 p-6 overflow-y-auto rounded-lg shadow-xs">
-          {/* <div className="flex justify-end mt-4 mb-4">
-            <Link
-              to="/add-product"
-              className="items text-gray-600 dark:text-gray-300 bg-green-500 px-3 py-2 rounded"
-            >
-              Add Product
-            </Link>
-          </div> */}
-
+        <div className="w-full container h-screen mt-8 p-6 rounded-lg shadow-xs">
           <div className="w-full overflow-x-auto">
             <table className="w-full whitespace-no-wrap">
               <thead>
@@ -83,7 +81,6 @@ const ManageProducts = () => {
                 }`}
               >
                 {isLoading ? (
-                  // Render loading indicator or message
                   <tr>
                     <td
                       colSpan="6"
@@ -93,78 +90,83 @@ const ManageProducts = () => {
                     </td>
                   </tr>
                 ) : isSuccess ? (
-                  // Render table rows with fetched data
-                  products.map((product) => (
-                    <tr
-                      key={product._id}
-                      className={`${isDarkMode ? "text-gray-400" :"text-gray-700"}`}
-                    >
-                      <td className="px-4 py-3">
-                        <div className="flex items-center text-sm">
-                          {/* Avatar with inset shadow */}
-                          <div className="relative hidden w-16 h-8 mr-3  md:block">
-                            <img
-                              className="object-cover w-full h-full "
-                              src={product.image}
-                              alt={product.name}
-                              loading="lazy"
-                            />
-                            <div
-                              className="absolute inset-0 rounded-full shadow-inner"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <div>
-                            <p className="font-semibold">{product.name}</p>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">
-                              {product.description}
-                              {/* Assuming product object has a description property */}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-sm">{product.name}</td>
-                      <td className="px-4 py-3 text-sm">{product.quantity}</td>
-                      <td className="px-4 py-3 text-sm">{product.unitPrice}</td>
-                      <td className="px-4 py-3 text-sm">{product.farmer}</td>
-                      <td className="px-4 py-3 text-sm">
-                        <div className="flex items-center space-x-4 text-sm">
-                          <Link
-                            to={`/edit-product/${product._id}`}
-                            className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                            aria-label="Edit"
-                          >
-                            <svg
-                              className="w-5 h-5"
-                              aria-hidden="true"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                            </svg>
-                          </Link>
-                          <button
-                            className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                            aria-label="Delete"
-                            onClick={() => onDelete(product._id)}
-                          >
-                            <svg
-                              className="w-5 h-5"
-                              aria-hidden="true"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                clipRule="evenodd"
+                  products
+                    .slice(startIndex, endIndex)
+                    .map((product) => (
+                      <tr
+                        key={product._id}
+                        className={`${
+                          isDarkMode ? "text-gray-400" : "text-gray-700"
+                        }`}
+                      >
+                        <td className="px-4 py-3">
+                          <div className="flex items-center text-sm">
+                            <div className="relative hidden w-16 h-8 mr-3  md:block">
+                              <img
+                                className="object-cover w-full h-full "
+                                src={product.image}
+                                alt={product.name}
+                                loading="lazy"
                               />
-                            </svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
+                              <div
+                                className="absolute inset-0 rounded-full shadow-inner"
+                                aria-hidden="true"
+                              />
+                            </div>
+                            <div>
+                              <p className="font-semibold">{product.name}</p>
+                              <p className="text-xs text-gray-600 dark:text-gray-400">
+                                {product.description}
+                              </p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 text-sm">{product.name}</td>
+                        <td className="px-4 py-3 text-sm">
+                          {product.quantity}
+                        </td>
+                        <td className="px-4 py-3 text-sm">
+                          {product.unitPrice}
+                        </td>
+                        <td className="px-4 py-3 text-sm">{product.farmer}</td>
+                        <td className="px-4 py-3 text-sm">
+                          <div className="flex items-center space-x-4 text-sm">
+                            <Link
+                              to={`/edit-product/${product._id}`}
+                              className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                              aria-label="Edit"
+                            >
+                              <svg
+                                className="w-5 h-5"
+                                aria-hidden="true"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                              </svg>
+                            </Link>
+                            <button
+                              className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                              aria-label="Delete"
+                              onClick={() => onDelete(product._id)}
+                            >
+                              <svg
+                                className="w-5 h-5"
+                                aria-hidden="true"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
                 ) : (
                   <tr>
                     <td
@@ -185,9 +187,7 @@ const ManageProducts = () => {
                 : "text-gray-500 bg-gray-50"
             }  uppercase border-t  sm:grid-cols-9`}
           >
-            <span className="flex items-center col-span-3">
-              Showing 21-30 of 100
-            </span>
+            <span className="flex items-center col-span-3">{showingText}</span>
             <span className="col-span-2" />
             {/* Pagination */}
             <span className="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
@@ -198,6 +198,7 @@ const ManageProducts = () => {
                       className="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
                       aria-label="Previous"
                       onClick={goToPreviousPage}
+                      disabled={currentPage === 1}
                     >
                       <svg
                         aria-hidden="true"
@@ -212,25 +213,28 @@ const ManageProducts = () => {
                       </svg>
                     </button>
                   </li>
-                  {pageNumbers.map((page) => (
-                    <li key={page}>
-                      <button
-                        className={`px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple ${
-                          currentPage === page
-                            ? "text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
-                            : ""
-                        }`}
-                        onClick={() => goToPage(page)}
-                      >
-                        {page}
-                      </button>
-                    </li>
-                  ))}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <li key={page}>
+                        <button
+                          className={`px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple ${
+                            currentPage === page
+                              ? "text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
+                              : ""
+                          }`}
+                          onClick={() => goToPage(page)}
+                        >
+                          {page}
+                        </button>
+                      </li>
+                    )
+                  )}
                   <li>
                     <button
                       className="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
                       aria-label="Next"
                       onClick={goToNextPage}
+                      disabled={currentPage === totalPages}
                     >
                       <svg
                         className="w-4 h-4 fill-current"

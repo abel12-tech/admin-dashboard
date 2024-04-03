@@ -9,6 +9,7 @@ import { GrBlog } from "react-icons/gr";
 import { BiCategoryAlt } from "react-icons/bi";
 import { MdPayment } from "react-icons/md";
 import { MdOutlineWarehouse } from "react-icons/md";
+import { FiUsers } from "react-icons/fi";
 
 const Sidebar = ({ isSideMenuOpen }) => {
   const [activeLink, setActiveLink] = useState("/");
@@ -166,6 +167,49 @@ const Sidebar = ({ isSideMenuOpen }) => {
               <span className="ml-4">Manage Blog Category</span>
             </Link>
           </li>
+
+          <li className="relative px-6 py-3">
+            {activeLink === "/manage-warehouse" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
+            <Link
+              to="/manage-warehouse"
+              onClick={() => handleLinkClick("/manage-warehouse")}
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "text-gray-800 dark:hover:text-gray-600"
+              }`}
+            >
+              <MdOutlineWarehouse className="w-5 h-5" />
+
+              <span className="ml-4">Manage Warehouses</span>
+            </Link>
+          </li>
+          <li className="relative px-6 py-3">
+            {activeLink === "/manage-users" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
+            <Link
+              to="/manage-users"
+              onClick={() => handleLinkClick("/manage-users")}
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "text-gray-800 dark:hover:text-gray-600"
+              }`}
+            >
+              <FiUsers className="w-5 h-5" />
+
+              <span className="ml-4">Manage Users</span>
+            </Link>
+          </li>
           <li className="relative px-6 py-3">
             {activeLink === "/manage-payments" && (
               <span
@@ -188,24 +232,24 @@ const Sidebar = ({ isSideMenuOpen }) => {
             </Link>
           </li>
           <li className="relative px-6 py-3">
-            {activeLink === "/manage-warehouse" && (
+            {activeLink === "/manage-payment-organizations" && (
               <span
                 className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                 aria-hidden="true"
               ></span>
             )}
             <Link
-              to="/manage-warehouse"
-              onClick={() => handleLinkClick("/manage-warehouse")}
+              to="/"
+              onClick={() => handleLinkClick("/manage-payment-organizations")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode
                   ? "dark:hover:text-gray-200"
                   : "text-gray-800 dark:hover:text-gray-600"
               }`}
             >
-              <MdOutlineWarehouse className="w-5 h-5" />
+              <MdPayment className="w-5 h-5" />
 
-              <span className="ml-4">Manage Warehouses</span>
+              <span className="ml-4">Manage Payment Org.</span>
             </Link>
           </li>
         </ul>

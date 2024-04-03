@@ -19,6 +19,8 @@ import AddWarehouse from "./features/manage-warehouse/pages/AddWarehouse";
 import ManageWareHouses from "./features/manage-warehouse/pages/ManageWareHouses";
 import EditWarehouse from "./features/manage-warehouse/pages/EditWarehouse";
 import EditProductCategory from "./features/manage-products/pages/EditProductCategory";
+import ManageUsers from "./features/manage-users/pages/ManageUsers";
+import Profile from "./features/manage-users/pages/Profile";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -98,6 +100,30 @@ function App() {
         }
       />
       <Route
+        path="/manage-users"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <ManageUsers />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <Profile />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
         path="/add-warehouse"
         element={
           isAuthenticated ? (
@@ -109,7 +135,7 @@ function App() {
           )
         }
       />
-            <Route
+      <Route
         path="/edit-product/:id"
         element={
           isAuthenticated ? (
@@ -205,7 +231,7 @@ function App() {
           )
         }
       />
-            <Route
+      <Route
         path="/edit-product-category/:id"
         element={
           isAuthenticated ? (

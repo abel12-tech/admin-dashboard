@@ -8,6 +8,7 @@ import { authApi } from "./features/authentication/api/authApi";
 import authSliceReducer from "./features/authentication/slice/authSlice.js";
 import { warehouseApi } from "./features/manage-warehouse/api/warehouseApi";
 import { dataApi } from "./features/dashboard-summary/dataApi";
+import { usersApi } from "./features/manage-users/api/usersApi";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     [ordersApi.reducerPath]: ordersApi.reducer,
     [blogApi.reducerPath]: blogApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
+    [usersApi.reducerPath]: usersApi.reducer,
     [warehouseApi.reducerPath]: warehouseApi.reducer,
     [dataApi.reducerPath]: dataApi.reducer,
     blogs: blogSliceReducer,
@@ -28,7 +30,8 @@ export const store = configureStore({
       blogApi.middleware,
       authApi.middleware,
       warehouseApi.middleware,
-      dataApi.middleware
+      dataApi.middleware,
+      usersApi.middleware,
     ),
   devTools: true,
 });

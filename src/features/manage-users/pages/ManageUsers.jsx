@@ -1,27 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
-import { useDeleteWarehouseMutation, useGetAllWarehousesQuery } from "../../manage-warehouse/api/warehouseApi";
-
+import { useGetAllUsersQuery } from "../api/usersApi";
 
 const ManageUsers = () => {
   const { isDarkMode ,initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: warehouses, isLoading, isSuccess } = useGetAllWarehousesQuery();
-  const [deleteWarehouse] = useDeleteWarehouseMutation();
+  const { data: users, isLoading, isSuccess } = useGetAllUsersQuery();
+  console.log(users)
 
   useEffect(() => {
     initializeDarkMode();
   }, [initializeDarkMode]);
 
-  const onDelete = async (id) => {
-    try {
-      await deleteWarehouse(id).unwrap();
-      window.location.reload();
-    } catch (error) {
-      console.error("Error deleting:", error);
-    }
-  };
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
@@ -56,7 +47,7 @@ const ManageUsers = () => {
                 isDarkMode ? "text-gray-300" : "text-gray-100"
               } bg-[#9333EA] px-3 py-2 rounded`}
             >
-              Add warehouse
+              Add Admin
             </Link>
           </div>
 
@@ -70,9 +61,7 @@ const ManageUsers = () => {
                       : "text-gray-500 bg-gray-50"
                   } text-gray-500 uppercase border-b`}
                 >
-                  <th className="px-4 py-3">Name</th>
-                  <th className="px-4 py-3">Country</th>
-                  <th className="px-4 py-3">City</th>
+                  <th className="px-4 py-3">phoneNumber</th>
                   <th className="px-4 py-3">Actions</th>
                 </tr>
               </thead>
@@ -93,24 +82,19 @@ const ManageUsers = () => {
                   </tr>
                 ) : isSuccess ? (
                   // Render table rows with fetched data
-                  warehouses.map((warehouse) => (
+                  users.map((user) => (
                     <tr
-                      key={warehouse.id}
+                      key={user._id}
                       className={`${
                         isDarkMode ? "text-gray-400" : "text-gray-700"
                       }`}
                     >
-                      <td className="px-4 py-3 text-sm">{warehouse.name}</td>
-                      <td className="px-4 py-3 text-sm">
-                        {warehouse.relativeLocation.country}
-                      </td>
-                      <td className="px-4 py-3 text-sm">
-                        {warehouse.relativeLocation.city}
-                      </td>
+                      <td className="px-4 py-3 text-sm">{user.phoneNumber}</td>
+
                       <td className="px-4 py-3 text-sm">
                         <div className="flex items-center space-x-4 text-sm">
                           <Link
-                            to={`/edit-warehouse/${warehouse._id}`}
+                            to={`/edit-warehouse/${user._id}`}
                             className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                             aria-label="Edit"
                           >
@@ -127,7 +111,6 @@ const ManageUsers = () => {
                           <button
                             className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
-                            onClick={() => onDelete(warehouse._id)}
                           >
                             <svg
                               className="w-5 h-5"

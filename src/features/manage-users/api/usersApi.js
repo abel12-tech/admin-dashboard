@@ -7,10 +7,8 @@ export const usersApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: async (headers) => {
-      // Fetch token asynchronously
-      const token = await getTokenFromCookies();
+      const token = getTokenFromCookies();
       if (token) {
-        // If token exists, include it in the Authorization header
         headers.set("Authorization", `Bearer ${token}`);
       }
       return headers;

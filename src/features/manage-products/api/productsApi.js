@@ -4,14 +4,19 @@ import { getTokenFromCookies } from "../../../shared/getToken.mjs";
 
 export const productsApi = createApi({
   reducerPath: "productsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
-
+  baseQuery: fetchBaseQuery({
+    baseUrl: BASE_URL,
+    prepareHeaders: async (headers) => {
+      const token = getTokenFromCookies();
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     getAllProducts: builder.query({
-      query: () => `/product`,
-      headers: {
-        Authorization: `Bearer ${getTokenFromCookies()}`,
-      },
+      query: () => "/product",
     }),
     getProductById: builder.query({
       query: (id) => ({
@@ -19,8 +24,7 @@ export const productsApi = createApi({
       }),
     }),
     getAllProductCategories: builder.query({
-      query: () => `/product-category`,
-
+      query: () => "/product-category",
     }),
     getProductCategoryById: builder.query({
       query: (id) => ({
@@ -29,21 +33,15 @@ export const productsApi = createApi({
     }),
     addProductCategory: builder.mutation({
       query: (data) => ({
-        url: `/product-category`,
+        url: "/product-category",
         method: "POST",
         body: data,
-        headers: {
-          Authorization: `Bearer ${getTokenFromCookies()}`,
-        },
       }),
     }),
     deleteProductCategory: builder.mutation({
       query: (categoryId) => ({
         url: `/product-category/${categoryId}`,
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${getTokenFromCookies()}`,
-        },
       }),
     }),
     updateProductCategory: builder.mutation({
@@ -51,9 +49,6 @@ export const productsApi = createApi({
         url: `/product-category/${data._id}/`,
         method: "PATCH",
         body: data,
-        headers: {
-          Authorization: `Bearer ${getTokenFromCookies()}`,
-        },
       }),
     }),
     updateProduct: builder.mutation({
@@ -61,18 +56,12 @@ export const productsApi = createApi({
         url: `/product/${data._id}/`,
         method: "PATCH",
         body: data,
-        headers: {
-          Authorization: `Bearer ${getTokenFromCookies()}`,
-        },
       }),
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({
-        url: `product/${id}`,
+        url: `/product/${id}`,
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${getTokenFromCookies()}`,
-        },
       }),
     }),
   }),

@@ -47,4 +47,3 @@ Get https://farmerecommerce.onrender.com/api/v1/order
 
 ### 
 GET https://farmerecommerce.onrender.com/api/v1/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmYyZWI0NDBmYjdkYzlmYzQ2M2E2YSIsImlhdCI6MTcxMjMwNjQ2NCwiZXhwIjoxNzEzMTcwNDY0fQ.-VNbAsUh6yRPBBg2uCduAk05JtsFAbVrvvklBO17xfY

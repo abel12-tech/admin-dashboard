@@ -2,17 +2,28 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../../constants";
 import { getTokenFromCookies } from "../../../shared/getToken.mjs";
 
-
 export const ordersApi = createApi({
   reducerPath: "ordersApi",
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: BASE_URL,
+    prepareHeaders: async (headers) => {
+      const token = getTokenFromCookies();
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     getAllOrders: builder.query({
-      query: () => `/order`,
-      method:"GET",
-      headers: {
-        Authorization: `Bearer ${getTokenFromCookies()}`,
-      },
+      query: () => "/order",
+      method: "GET",
+    }),
+    deleteOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `/order/${orderId}`,
+        method: "DELETE",
+      }),
     }),
   }),
 });

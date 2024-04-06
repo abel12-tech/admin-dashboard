@@ -11,6 +11,10 @@ import { MdPayment } from "react-icons/md";
 import { MdOutlineWarehouse } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { GoOrganization } from "react-icons/go";
+import { GiFarmer } from "react-icons/gi";
+import { GrUserAdmin } from "react-icons/gr";
+
+
 
 const Sidebar = ({ isSideMenuOpen }) => {
   const [activeLink, setActiveLink] = useState("/");
@@ -22,7 +26,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
     <aside
       className={`${
         isSideMenuOpen ? "block" : "hidden"
-      } z-20 w-64 overflow-y-auto ${
+      } z-20 w-64 h-screen overflow-y-auto ${
         isDarkMode ? "bg-gray-800" : "bg-white"
       } md:block flex-shrink-0`}
     >
@@ -251,6 +255,48 @@ const Sidebar = ({ isSideMenuOpen }) => {
               <GoOrganization className="w-5 h-5"  />
 
               <span className="ml-4">Manage Payment Org.</span>
+            </Link>
+          </li>
+          <li className="relative px-6 py-3">
+            {activeLink === "/manage-farmers" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
+            <Link
+              to="/"
+              onClick={() => handleLinkClick("/manage-farmers")}
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "text-gray-800 dark:hover:text-gray-600"
+              }`}
+            >
+              <GiFarmer className="w-5 h-5"  />
+
+              <span className="ml-4">Manage Farmers</span>
+            </Link>
+          </li>
+          <li className="relative px-6 py-3">
+            {activeLink === "/manage-admin" && (
+              <span
+                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                aria-hidden="true"
+              ></span>
+            )}
+            <Link
+              to="/"
+              onClick={() => handleLinkClick("/manage-admin")}
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "text-gray-800 dark:hover:text-gray-600"
+              }`}
+            >
+              <GrUserAdmin className="w-5 h-5"  />
+
+              <span className="ml-4">Manage Admins</span>
             </Link>
           </li>
         </ul>

@@ -30,10 +30,10 @@ content-type: application/json
 }
 
 ###
-GET https://farmerecommerce.onrender.com/api/v1/warehouse
+GET https://farmerecommerce.onrender.com/api/v1/product
 
 ###
-POST https://farmerecommerce.onrender.com/api/v1/product-category 
+POST https://farmerecommerce.onrender.com/api/v1/product 
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmYyZWI0NDBmYjdkYzlmYzQ2M2E2YSIsImlhdCI6MTcxMTg3MDM2NywiZXhwIjoxNzEyNzM0MzY3fQ.XQvxIO_PR12oMlXE-EX3PzMsOpNwPUO_9xYpr1_NjuM
 
@@ -47,3 +47,4 @@ Get https://farmerecommerce.onrender.com/api/v1/order
 
 ### 
 GET https://farmerecommerce.onrender.com/api/v1/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmYyZWI0NDBmYjdkYzlmYzQ2M2E2YSIsImlhdCI6MTcxMTg3MDM2NywiZXhwIjoxNzEyNzM0MzY3fQ.XQvxIO_PR12oMlXE-EX3PzMsOpNwPUO_9xYpr1_NjuM

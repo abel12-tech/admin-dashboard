@@ -10,6 +10,7 @@ import { BiCategoryAlt } from "react-icons/bi";
 import { MdPayment } from "react-icons/md";
 import { MdOutlineWarehouse } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
+import { GoOrganization } from "react-icons/go";
 
 const Sidebar = ({ isSideMenuOpen }) => {
   const [activeLink, setActiveLink] = useState("/");
@@ -247,7 +248,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
                   : "text-gray-800 dark:hover:text-gray-600"
               }`}
             >
-              <MdPayment className="w-5 h-5" />
+              <GoOrganization className="w-5 h-5"  />
 
               <span className="ml-4">Manage Payment Org.</span>
             </Link>

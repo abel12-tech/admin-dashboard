@@ -21,6 +21,7 @@ import EditWarehouse from "./features/manage-warehouse/pages/EditWarehouse";
 import EditProductCategory from "./features/manage-products/pages/EditProductCategory";
 import ManageUsers from "./features/manage-users/pages/ManageUsers";
 import Profile from "./features/manage-users/pages/Profile";
+import ManagePayments from "./features/manage-payments/pages/ManagePayments";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -201,6 +202,18 @@ function App() {
           isAuthenticated ? (
             <Layout>
               <ManageBlogCategory />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/manage-payments"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <ManagePayments />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

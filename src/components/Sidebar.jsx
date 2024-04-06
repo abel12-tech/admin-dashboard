@@ -141,7 +141,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
                   : "text-gray-800 dark:hover:text-gray-600"
               }`}
             >
-              <FiUsers className="w-5 h-5" />
+              <FiUsers className="w-5 h-5 font-bold " />
               <span className="ml-4">Manage Users</span>
               {isUsersDropdownOpen ? (
                 <RiArrowDropDownLine className=" ml-10 w-5 h-5" />

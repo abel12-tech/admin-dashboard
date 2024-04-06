@@ -13,20 +13,26 @@ import { FiUsers } from "react-icons/fi";
 import { GoOrganization } from "react-icons/go";
 import { GiFarmer } from "react-icons/gi";
 import { GrUserAdmin } from "react-icons/gr";
-
-
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Sidebar = ({ isSideMenuOpen }) => {
   const [activeLink, setActiveLink] = useState("/");
+  const [isUsersDropdownOpen, setIsUsersDropdownOpen] = useState(false);
+  const { isDarkMode } = useDarkMode();
+
+  const handleUserDropdownToggle = () => {
+    setIsUsersDropdownOpen(!isUsersDropdownOpen);
+  };
+
   const handleLinkClick = (link) => {
     setActiveLink(link);
   };
-  const { isDarkMode } = useDarkMode();
+
   return (
     <aside
       className={`${
         isSideMenuOpen ? "block" : "hidden"
-      } z-20 w-64 h-screen overflow-y-auto ${
+      } z-20 w-64 overflow-y-auto ${
         isDarkMode ? "bg-gray-800" : "bg-white"
       } md:block flex-shrink-0`}
     >
@@ -60,7 +66,6 @@ const Sidebar = ({ isSideMenuOpen }) => {
               }`}
             >
               <MdOutlineDashboard className="w-5 h-5" />
-
               <span className="ml-4">Dashboard</span>
             </Link>
           </li>
@@ -84,7 +89,6 @@ const Sidebar = ({ isSideMenuOpen }) => {
               }`}
             >
               <RiProductHuntLine className="w-5 h-5" />
-
               <span className="ml-4">Manage Products</span>
             </Link>
           </li>
@@ -105,7 +109,6 @@ const Sidebar = ({ isSideMenuOpen }) => {
               }`}
             >
               <MdOutlineCategory className="w-5 h-5" />
-
               <span className="ml-4">Manage Product Categories</span>
             </Link>
           </li>
@@ -126,9 +129,58 @@ const Sidebar = ({ isSideMenuOpen }) => {
               }`}
             >
               <BsBorderStyle className="w-5 h-5" />
-
               <span className="ml-4">Manage Orders</span>
             </Link>
+          </li>
+          <li className="relative px-6 py-3">
+            <button
+              onClick={handleUserDropdownToggle}
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 focus:outline-none ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "text-gray-800 dark:hover:text-gray-600"
+              }`}
+            >
+              <FiUsers className="w-5 h-5" />
+              <span className="ml-4">Manage Users</span>
+              {isUsersDropdownOpen ? (
+                <RiArrowDropDownLine className=" ml-10 w-5 h-5" />
+              ) : (
+                <RiArrowDropDownLine className=" ml-10 w-5 h-5" />
+              )}
+            </button>
+            {isUsersDropdownOpen && (
+              <ul>
+                <li className="relative px-6 py-3">
+                  <Link
+                    to="/manage-farmers"
+                    onClick={() => handleLinkClick("/manage-farmers")}
+                    className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                      isDarkMode
+                        ? "dark:hover:text-gray-200"
+                        : "text-gray-800 dark:hover:text-gray-600"
+                    }`}
+                  >
+                    <GiFarmer className="w-5 h-5" />
+                    <span className="ml-4">Manage Farmers</span>
+                  </Link>
+                </li>
+                <li className="relative px-6 py-3">
+                  <Link
+                    to="/manage-admin"
+                    onClick={() => handleLinkClick("/manage-admin")}
+                    className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                      isDarkMode
+                        ? "dark:hover:text-gray-200"
+                        : "text-gray-800 dark:hover:text-gray-600"
+                    }`}
+                  >
+                    <GrUserAdmin className="w-5 h-5" />
+                    <span className="ml-4">Manage Admins</span>
+                  </Link>
+                </li>
+              </ul>
+            )}
           </li>
           <li className="relative px-6 py-3">
             {activeLink === "/manage-blogs" && (
@@ -147,7 +199,6 @@ const Sidebar = ({ isSideMenuOpen }) => {
               }`}
             >
               <GrBlog className="w-5 h-5" />
-
               <span className="ml-4">Manage Blogs</span>
             </Link>
           </li>
@@ -168,11 +219,9 @@ const Sidebar = ({ isSideMenuOpen }) => {
               }`}
             >
               <BiCategoryAlt className="w-5 h-5" />
-
               <span className="ml-4">Manage Blog Category</span>
             </Link>
           </li>
-
           <li className="relative px-6 py-3">
             {activeLink === "/manage-warehouse" && (
               <span
@@ -190,29 +239,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
               }`}
             >
               <MdOutlineWarehouse className="w-5 h-5" />
-
               <span className="ml-4">Manage Warehouses</span>
-            </Link>
-          </li>
-          <li className="relative px-6 py-3">
-            {activeLink === "/manage-users" && (
-              <span
-                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              ></span>
-            )}
-            <Link
-              to="/manage-users"
-              onClick={() => handleLinkClick("/manage-users")}
-              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
-                isDarkMode
-                  ? "dark:hover:text-gray-200"
-                  : "text-gray-800 dark:hover:text-gray-600"
-              }`}
-            >
-              <FiUsers className="w-5 h-5" />
-
-              <span className="ml-4">Manage Users</span>
             </Link>
           </li>
           <li className="relative px-6 py-3">
@@ -223,7 +250,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
               ></span>
             )}
             <Link
-              to="/"
+              to="/manage-payments"
               onClick={() => handleLinkClick("/manage-payments")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode
@@ -232,7 +259,6 @@ const Sidebar = ({ isSideMenuOpen }) => {
               }`}
             >
               <MdPayment className="w-5 h-5" />
-
               <span className="ml-4">Manage Payment</span>
             </Link>
           </li>
@@ -244,7 +270,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
               ></span>
             )}
             <Link
-              to="/"
+              to="/manage-payment-organizations"
               onClick={() => handleLinkClick("/manage-payment-organizations")}
               className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                 isDarkMode
@@ -252,51 +278,8 @@ const Sidebar = ({ isSideMenuOpen }) => {
                   : "text-gray-800 dark:hover:text-gray-600"
               }`}
             >
-              <GoOrganization className="w-5 h-5"  />
-
+              <GoOrganization className="w-5 h-5" />
               <span className="ml-4">Manage Payment Org.</span>
-            </Link>
-          </li>
-          <li className="relative px-6 py-3">
-            {activeLink === "/manage-farmers" && (
-              <span
-                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              ></span>
-            )}
-            <Link
-              to="/"
-              onClick={() => handleLinkClick("/manage-farmers")}
-              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
-                isDarkMode
-                  ? "dark:hover:text-gray-200"
-                  : "text-gray-800 dark:hover:text-gray-600"
-              }`}
-            >
-              <GiFarmer className="w-5 h-5"  />
-
-              <span className="ml-4">Manage Farmers</span>
-            </Link>
-          </li>
-          <li className="relative px-6 py-3">
-            {activeLink === "/manage-admin" && (
-              <span
-                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              ></span>
-            )}
-            <Link
-              to="/"
-              onClick={() => handleLinkClick("/manage-admin")}
-              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
-                isDarkMode
-                  ? "dark:hover:text-gray-200"
-                  : "text-gray-800 dark:hover:text-gray-600"
-              }`}
-            >
-              <GrUserAdmin className="w-5 h-5"  />
-
-              <span className="ml-4">Manage Admins</span>
             </Link>
           </li>
         </ul>

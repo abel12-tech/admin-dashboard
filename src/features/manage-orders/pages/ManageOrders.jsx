@@ -6,7 +6,7 @@ const ManageOrders = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: orders, isLoading, isSuccess } = useGetAllOrdersQuery();
-  console.log(orders);
+  console.log( orders);
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -89,10 +89,14 @@ const ManageOrders = () => {
                         </div>
                       </td>
                       <td className="px-4 py-3 text-sm">
-                        {order.user.phoneNumber}
+                      {order.farmer?.fullName}
                       </td>
+                      <td className="px-4 py-3 text-sm">
+                      {order.user?.phoneNumber}
+                      </td>
+
                       <td className="px-4 py-3 text-sm">{order.totalPrice}</td>
-                      {/* <td className="px-4 py-3 text-sm">
+                      <td className="px-4 py-3 text-sm">
                         <div className="flex items-center space-x-4 text-sm">
                           {order.paidForFarmer ? (
                             <button
@@ -110,7 +114,7 @@ const ManageOrders = () => {
                             </button>
                           )}
                         </div>
-                      </td> */}
+                      </td>
                     </tr>
                   ))
                 ) : (

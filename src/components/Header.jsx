@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../features/authentication/slice/authSlice";
 import { useDarkMode } from "../shared/darkModeContext";
 
 const Header = ({ toggleSideMenu }) => {
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { isDarkMode, toggleDarkMode ,initializeDarkMode } = useDarkMode();
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    initializeDarkMode();
+  }, [initializeDarkMode]);
+
 
   const onLogout = () => {
     dispatch(logout());

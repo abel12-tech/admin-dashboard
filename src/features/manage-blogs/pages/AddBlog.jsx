@@ -8,9 +8,8 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
-
 const AddBlog = () => {
-  const { isDarkMode ,initializeDarkMode } = useDarkMode();
+  const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   const [content, setContent] = useState("");
@@ -55,8 +54,6 @@ const AddBlog = () => {
 
   const submitFormHandler = async (event) => {
     event.preventDefault();
-
-  console.log("hello")
 
     try {
       if (image === null) return;

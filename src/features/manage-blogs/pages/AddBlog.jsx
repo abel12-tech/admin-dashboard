@@ -56,6 +56,8 @@ const AddBlog = () => {
   const submitFormHandler = async (event) => {
     event.preventDefault();
 
+  console.log("hello")
+
     try {
       if (image === null) return;
 

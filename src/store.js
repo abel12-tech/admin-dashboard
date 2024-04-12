@@ -10,6 +10,7 @@ import { warehouseApi } from "./features/manage-warehouse/api/warehouseApi";
 import { dataApi } from "./features/dashboard-summary/dataApi";
 import { usersApi } from "./features/manage-users/api/usersApi";
 import { paymentApi } from "./features/manage-payments/api/paymentApi";
+import { farmerApi } from "./features/manage-farmers/api/farmerApi";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     [warehouseApi.reducerPath]: warehouseApi.reducer,
     [dataApi.reducerPath]: dataApi.reducer,
     [paymentApi.reducerPath]: paymentApi.reducer,
+    [farmerApi.reducerPath]: farmerApi.reducer,
     blogs: blogSliceReducer,
     auth: authSliceReducer,
   },
@@ -34,7 +36,8 @@ export const store = configureStore({
       warehouseApi.middleware,
       paymentApi.middleware,
       dataApi.middleware,
-      usersApi.middleware
+      usersApi.middleware,
+      farmerApi.middleware
     ),
   devTools: true,
 });

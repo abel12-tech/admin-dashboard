@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDarkMode } from "../../../shared/darkModeContext";
-import { useGetAllOrdersQuery } from "../api/ordersApi";
+import { useGetAllFarmersQuery } from "../api/farmerApi";
 
-const ManageOrders = () => {
+const ManageFarmers = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: orders, isLoading, isSuccess } = useGetAllOrdersQuery();
-  console.log(orders);
+  const { data: farmers, isLoading, isSuccess } = useGetAllFarmersQuery();
+  console.log(farmers)
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -27,10 +27,10 @@ const ManageOrders = () => {
     setCurrentPage(page);
   };
 
-  const totalPages = Math.ceil(orders?.length / itemsPerPage) || 1;
+  const totalPages = Math.ceil(farmers?.length / itemsPerPage) || 1;
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, orders?.length);
+  const endIndex = Math.min(startIndex + itemsPerPage, farmers?.length);
 
   return (
     <div
@@ -50,11 +50,8 @@ const ManageOrders = () => {
                       : "text-gray-500 bg-gray-50"
                   } text-gray-500 uppercase border-b`}
                 >
-                  <th className="px-4 py-3">Products</th>
-                  <th className="px-4 py-3">Farmer</th>
-                  <th className="px-4 py-3">User</th>
-                  <th className="px-4 py-3">Total Price</th>
-                  <th className="px-4 py-3">Actions</th>
+                  <th className="px-4 py-3">Full Name</th>
+                  <th className="px-4 py-3">Phone Number</th>
                 </tr>
               </thead>
               <tbody
@@ -71,58 +68,55 @@ const ManageOrders = () => {
                       Loading...
                     </td>
                   </tr>
-                ) : isSuccess && orders ? (
-                  orders.slice(startIndex, endIndex).map((order) => (
+                ) : isSuccess ? (
+                  farmers.slice(startIndex, endIndex).map((farmer) => (
                     <tr
-                      key={order._id}
+                      key={farmer._id}
                       className={`${
                         isDarkMode ? "text-gray-400" : "text-gray-700"
                       }`}
                     >
+                      <td className="px-4 py-3 text-sm">{farmer.fullName}</td>
                       <td className="px-4 py-3 text-sm">
-                        <div className="">
-                          <ul>
-                            {order.products.map((product) => (
-                              <li key={product._id}>{product.name}</li>
-                            ))}
-                          </ul>
-                        </div>
+                        {farmer.phoneNumber}
                       </td>
                       <td className="px-4 py-3 text-sm">
-                        {order.user.phoneNumber}
-                      </td>
-                      <td className="px-4 py-3 text-sm">{order.totalPrice}</td>
-                      {/* <td className="px-4 py-3 text-sm">
                         <div className="flex items-center space-x-4 text-sm">
-                          {order.paidForFarmer ? (
-                            <button
-                              className="flex items-center border bg-green-400 justify-between px-6 py-2 text-sm font-medium leading-5 text-white rounded-lg  focus:outline-none focus:shadow-outline-gray"
-                              aria-label="Navigate to Payment Page"
+                          <button
+                            className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                            aria-label="Delete"
+                          >
+                            <svg
+                              className="w-5 h-5"
+                              aria-hidden="true"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
                             >
-                              Paid
-                            </button>
-                          ) : (
-                            <button
-                              className="flex items-center border bg-[#9333EA] text-white justify-between px-6 py-2 text-sm font-medium leading-5 rounded-lg focus:outline-none focus:shadow-outline-gray"
-                              aria-label="Mark as Paid"
-                            >
-                              Pay
-                            </button>
-                          )}
+                              <path
+                                fillRule="evenodd"
+                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </button>
                         </div>
-                      </td> */}
+                      </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4" className="px-4 py-3 text-center">
-                      Error fetching orders.
+                    <td
+                      colSpan="6"
+                      className="px-4 py-3 text-center text-red-500"
+                    >
+                      Error fetching data. Please try again later.
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
           </div>
+
           <div
             className={`grid px-4 py-3 text-xs font-semibold tracking-wide ${
               isDarkMode
@@ -131,7 +125,7 @@ const ManageOrders = () => {
             }  uppercase border-t  sm:grid-cols-9`}
           >
             <span className="flex items-center col-span-3">
-              Showing {startIndex + 1}-{endIndex} of {orders?.length}
+              Showing {startIndex + 1}-{endIndex} of {farmers?.length}
             </span>
             <span className="col-span-2" />
             {/* Pagination */}
@@ -204,4 +198,4 @@ const ManageOrders = () => {
   );
 };
 
-export default ManageOrders;
+export default ManageFarmers;

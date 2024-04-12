@@ -31,8 +31,8 @@ const MapComponent = ({ setCoordinates }) => {
   return (
     <div style={{ height: "384px", width: "100%" }}>
       <MapContainer
-        center={[9.033, 38.75]}
-        zoom={2}
+        center={[9.145, 40.489673]}
+        zoom={5}
         style={{ height: "384px", width: "100%" }}
       >
         <TileLayer

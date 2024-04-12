@@ -2,7 +2,7 @@ POST https://farmerecommerce.onrender.com/api/v1/admin
 content-type: application/json
 
 {
-    "fullName": "Abel KInfu3",
+    "fullName": "Abel Kinfu",
     "image": "https://example.com/avatar.jpg",
     "userName": "abelk3",
     "password":"123456",
@@ -46,5 +46,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmYyZWI0N
 Get https://farmerecommerce.onrender.com/api/v1/order
 
 ### 
-GET https://farmerecommerce.onrender.com/api/v1/user
+GET https://farmerecommerce.onrender.com/api/v1/farmer
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmYyZWI0NDBmYjdkYzlmYzQ2M2E2YSIsImlhdCI6MTcxMTg3MDM2NywiZXhwIjoxNzEyNzM0MzY3fQ.XQvxIO_PR12oMlXE-EX3PzMsOpNwPUO_9xYpr1_NjuM

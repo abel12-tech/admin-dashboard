@@ -6,7 +6,6 @@ const ManageFarmers = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: farmers, isLoading, isSuccess } = useGetAllFarmersQuery();
-  console.log(farmers)
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -52,6 +51,7 @@ const ManageFarmers = () => {
                 >
                   <th className="px-4 py-3">Full Name</th>
                   <th className="px-4 py-3">Phone Number</th>
+                  <th className="px-4 py-3">Actions</th>
                 </tr>
               </thead>
               <tbody

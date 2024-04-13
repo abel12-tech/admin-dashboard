@@ -116,7 +116,7 @@ const ManageProducts = () => {
                           <div>
                             <p className="font-semibold">{product.name}</p>
                             <p className="text-xs text-gray-600 dark:text-gray-400">
-                              {product.description}
+                              {product.description.slice(0, 50)}
                             </p>
                           </div>
                         </div>

@@ -91,7 +91,7 @@ const AddProductCategory = () => {
                         : "border-2 outline-none focus:border-gray-200"
                     } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     rows={3}
-                    placeholder="Enter product description"
+                    placeholder="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />

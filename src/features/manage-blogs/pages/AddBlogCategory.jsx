@@ -70,7 +70,7 @@ const AddBlogCategory = () => {
                         ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
                         : "border-2 outline-none focus:border-gray-200"
                     } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
-                    placeholder="Product Name"
+                    placeholder="Name"
                     value={categoryName}
                     onChange={(e) => setCategoryName(e.target.value)}
                   />
@@ -90,7 +90,7 @@ const AddBlogCategory = () => {
                         : "border-2 outline-none focus:border-gray-200"
                     } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                     rows={3}
-                    placeholder="Enter product description"
+                    placeholder="Description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />

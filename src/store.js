@@ -5,7 +5,9 @@ import { ordersApi } from "./features/manage-orders/api/ordersApi";
 import { blogApi } from "./features/manage-blogs/api/blogApi";
 import blogSliceReducer from "./features/manage-blogs/slice/blogSlice";
 import { authApi } from "./features/authentication/api/authApi";
-import authSliceReducer from "./features/authentication/slice/authSlice.js";
+import authSliceReducer, {
+  logout,
+} from "./features/authentication/slice/authSlice.js";
 import { warehouseApi } from "./features/manage-warehouse/api/warehouseApi";
 import { dataApi } from "./features/dashboard-summary/dataApi";
 import { usersApi } from "./features/manage-users/api/usersApi";
@@ -43,3 +45,13 @@ export const store = configureStore({
 });
 
 setupListeners(store.dispatch);
+const handleLogout = () => {
+  const state = store.getState().auth.token;
+  if (state === null && store.getState().auth.isAuthenticated) {
+    store.dispatch(logout());
+  }
+};
+handleLogout();
+const unsubscribe = store.subscribe(handleLogout);
+
+unsubscribe();

@@ -6,7 +6,6 @@ const ManageOrders = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: orders, isLoading, isSuccess } = useGetAllOrdersQuery();
-  console.log( orders);
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -110,7 +109,7 @@ const ManageOrders = () => {
                               className="flex items-center border bg-[#9333EA] text-white justify-between px-6 py-2 text-sm font-medium leading-5 rounded-lg focus:outline-none focus:shadow-outline-gray"
                               aria-label="Mark as Paid"
                             >
-                              Pay
+                              PayforFarmer
                             </button>
                           )}
                         </div>

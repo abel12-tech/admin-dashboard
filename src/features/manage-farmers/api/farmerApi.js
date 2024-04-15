@@ -19,7 +19,13 @@ export const farmerApi = createApi({
       query: () => "/farmer",
       method: "GET",
     }),
+    deleteFarmer: builder.mutation({
+      query: (id) => ({
+        url: `/farmer/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllFarmersQuery } = farmerApi;
+export const { useGetAllFarmersQuery ,useDeleteFarmerMutation } = farmerApi;

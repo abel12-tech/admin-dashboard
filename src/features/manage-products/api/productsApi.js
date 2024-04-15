@@ -36,12 +36,18 @@ export const productsApi = createApi({
         url: "/product-category",
         method: "POST",
         body: data,
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
       }),
     }),
     deleteProductCategory: builder.mutation({
       query: (categoryId) => ({
         url: `/product-category/${categoryId}`,
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
       }),
     }),
     updateProductCategory: builder.mutation({
@@ -49,6 +55,9 @@ export const productsApi = createApi({
         url: `/product-category/${data._id}/`,
         method: "PATCH",
         body: data,
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
       }),
     }),
     updateProduct: builder.mutation({
@@ -56,12 +65,18 @@ export const productsApi = createApi({
         url: `/product/${data._id}/`,
         method: "PATCH",
         body: data,
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
       }),
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({
         url: `/product/${id}`,
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
       }),
     }),
   }),

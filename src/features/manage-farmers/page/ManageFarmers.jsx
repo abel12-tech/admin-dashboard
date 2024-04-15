@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDarkMode } from "../../../shared/darkModeContext";
-import { useGetAllFarmersQuery } from "../api/farmerApi";
+import {
+  useDeleteFarmerMutation,
+  useGetAllFarmersQuery,
+} from "../api/farmerApi";
 
 const ManageFarmers = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: farmers, isLoading, isSuccess } = useGetAllFarmersQuery();
+  const [deleteFarmer] = useDeleteFarmerMutation();
+
   const itemsPerPage = 5;
+
+  const onDelete = async (id) => {
+    try {
+      await deleteFarmer(id).unwrap();
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting:", error);
+    }
+  };
 
   useEffect(() => {
     initializeDarkMode();
@@ -85,6 +99,7 @@ const ManageFarmers = () => {
                           <button
                             className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                             aria-label="Delete"
+                            onClick={() => onDelete(farmer._id)}
                           >
                             <svg
                               className="w-5 h-5"

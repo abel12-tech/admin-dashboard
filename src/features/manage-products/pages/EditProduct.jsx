@@ -20,7 +20,6 @@ const EditProduct = () => {
   const [farmer, setFarmer] = useState("");
   const [description, setDescription] = useState("");
 
-
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
   };
@@ -40,6 +39,7 @@ const EditProduct = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(productName);
     try {
       let imageUrl = productData.product.image;
 
@@ -56,6 +56,7 @@ const EditProduct = () => {
         unitPrice: price,
         description,
       });
+
       navigate("/manage-products");
       window.location.reload();
     } catch (error) {

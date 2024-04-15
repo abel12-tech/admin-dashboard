@@ -12,7 +12,7 @@ import { MdOutlineWarehouse } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { GoOrganization } from "react-icons/go";
 import { GiFarmer } from "react-icons/gi";
-import { GrUserAdmin } from "react-icons/gr";
+// import { GrUserAdmin } from "react-icons/gr";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Sidebar = ({ isSideMenuOpen }) => {
@@ -165,7 +165,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
                     <span className="ml-4">Manage Farmers</span>
                   </Link>
                 </li>
-                <li className="relative px-6 py-3">
+                {/* <li className="relative px-6 py-3">
                   <Link
                     to="/manage-admin"
                     onClick={() => handleLinkClick("/manage-admin")}
@@ -178,7 +178,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
                     <GrUserAdmin className="w-5 h-5" />
                     <span className="ml-4">Manage Admins</span>
                   </Link>
-                </li>
+                </li> */}
               </ul>
             )}
           </li>

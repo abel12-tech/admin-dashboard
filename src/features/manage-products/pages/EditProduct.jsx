@@ -19,6 +19,7 @@ const EditProduct = () => {
   const [price, setPrice] = useState("");
   const [farmer, setFarmer] = useState("");
   const [description, setDescription] = useState("");
+  const [updating, setUpdating] = useState(false);
 
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
@@ -39,8 +40,8 @@ const EditProduct = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(productName);
     try {
+      setUpdating(true);
       let imageUrl = productData.product.image;
 
       if (image !== null) {
@@ -56,7 +57,7 @@ const EditProduct = () => {
         unitPrice: price,
         description,
       });
-
+      setUpdating(false);
       navigate("/manage-products");
       window.location.reload();
     } catch (error) {
@@ -208,7 +209,7 @@ const EditProduct = () => {
                   type="submit"
                   className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
                 >
-                  Edit
+                  {updating ? "updating..." : "Update"}
                 </button>
               </div>
             </form>

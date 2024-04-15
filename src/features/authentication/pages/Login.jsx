@@ -8,28 +8,27 @@ const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [logging, setLogging] = useState(false);
   const [login] = useLoginMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
+      setLogging(true);
       const response = await login({
         phoneNumber,
         password,
       });
 
+      setLogging(false);
+
       const data = response.data.data;
 
-      
       dispatch(setToken(data));
       navigate("/");
       window.location.reload();
-
-      
-      
     } catch (error) {
-      
       setError("Invalid phone number or password");
     }
   };
@@ -71,7 +70,7 @@ const Login = () => {
                 onClick={handleLogin}
                 className="block w-full mt-8 px-4 py-2 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
               >
-                Log in
+                {logging ? "login..." : "Log in"}
               </button>
             </div>
           </div>

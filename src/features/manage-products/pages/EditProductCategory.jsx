@@ -10,6 +10,7 @@ const EditProductCategory = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
+  const [updating, setUpdating] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -30,6 +31,7 @@ const EditProductCategory = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      setUpdating(true);
       await updateProductCategory({
         _id: id,
         name: categoryName,
@@ -38,6 +40,8 @@ const EditProductCategory = () => {
 
       setCategoryName("");
       setDescription("");
+
+      setUpdating(false);
 
       navigate("/manage-product-category");
       window.location.reload();
@@ -112,7 +116,7 @@ const EditProductCategory = () => {
                   type="submit"
                   className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
                 >
-                  Update Category
+                  {updating ? "updating..." : "Update Category"}
                 </button>
               </div>
             </form>

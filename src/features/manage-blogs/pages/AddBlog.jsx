@@ -13,6 +13,7 @@ const AddBlog = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   const [content, setContent] = useState("");
+  const [posting, setPosting] = useState(false);
   const navigate = useNavigate();
   const [addPost] = useAddBlogMutation();
 
@@ -56,6 +57,7 @@ const AddBlog = () => {
     event.preventDefault();
 
     try {
+      setPosting(true);
       if (image === null) return;
 
       const imageRef = ref(storage, `Blog-images/${image.name + v4()}`);
@@ -70,6 +72,7 @@ const AddBlog = () => {
       setTitle("");
       setImage(null);
       setContent("");
+      setPosting(false);
 
       navigate("/manage-blogs");
       window.location.reload();
@@ -168,7 +171,7 @@ const AddBlog = () => {
                   type="submit"
                   className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] w-20 text-white font-semibold py-2 px-4 rounded"
                 >
-                  Post
+                  {posting ? "posting..." : "Post"}
                 </button>
               </div>
             </form>

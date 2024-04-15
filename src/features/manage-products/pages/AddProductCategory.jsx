@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
 import { useAddProductCategoryMutation } from "../api/productsApi";
 
-
 const AddProductCategory = () => {
-  const { isDarkMode ,initializeDarkMode } = useDarkMode();
+  const { isDarkMode, initializeDarkMode } = useDarkMode();
+  const [adding, setAdding] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
   const [addProductCategory] = useAddProductCategoryMutation();
@@ -17,8 +17,10 @@ const AddProductCategory = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(categoryName , description)
+    
     try {
+      setAdding(true);
+
       await addProductCategory({
         name: categoryName,
         description,
@@ -26,6 +28,7 @@ const AddProductCategory = () => {
 
       setCategoryName("");
       setDescription("");
+      setAdding(false);
       navigate("/manage-product-category");
       window.location.reload();
       console.log("product category added successfully");
@@ -100,7 +103,7 @@ const AddProductCategory = () => {
                   type="submit"
                   className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
                 >
-                  Add Category
+                  {adding ? "adding..." : "Add Category"}
                 </button>
               </div>
             </form>

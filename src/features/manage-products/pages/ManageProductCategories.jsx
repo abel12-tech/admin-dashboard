@@ -56,7 +56,7 @@ const ManageProductCategories = () => {
       }`}
     >
       <div className="flex flex-col flex-1 w-full">
-        <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
+        <div className="w-full container h-screen p-6 rounded-lg shadow-xs">
           <div className="flex justify-end mt-4 mb-4">
             <Link
               to="/add-product-category"

@@ -7,15 +7,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
 const EditBlogCategory = () => {
-  const { isDarkMode ,initializeDarkMode } = useDarkMode();
+  const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
+  const [updating, setUpdating] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
   const { data: categoryData, isSuccess } = useGetBlogCategoryByIdQuery(id);
   const [updateBlogCategory] = useUpdateBlogCategoryMutation();
-
 
   useEffect(() => {
     initializeDarkMode();
@@ -31,11 +31,13 @@ const EditBlogCategory = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      setUpdating(true);
       await updateBlogCategory({
         _id: id,
         name: categoryName,
         description,
       }).unwrap();
+      setUpdating(false);
 
       setCategoryName("");
       setDescription("");
@@ -114,7 +116,7 @@ const EditBlogCategory = () => {
                   type="submit"
                   className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
                 >
-                  Update Category
+                  {updating ? "updating..." : "Update"}
                 </button>
               </div>
             </form>

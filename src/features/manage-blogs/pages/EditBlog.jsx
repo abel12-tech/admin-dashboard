@@ -15,6 +15,7 @@ const EditBlog = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
   const [content, setContent] = useState("");
+  const [updating , setUpdating] = useState(false)
   const [updatePost] = useUpdateBlogMutation();
   const { data: blog, isLoading, isError } = useGetBlogByIdQuery(id);
 
@@ -44,6 +45,7 @@ const EditBlog = () => {
   const submitFormHandler = async (event) => {
     event.preventDefault();
     try {
+      setUpdating(true)
       let imageUrl = blog.blog.image;
 
       if (image !== null) {
@@ -62,6 +64,7 @@ const EditBlog = () => {
       setTitle("");
       setImage(null);
       setContent("");
+      setUpdating(false)
 
       navigate("/manage-blogs");
       window.location.reload();
@@ -177,9 +180,9 @@ const EditBlog = () => {
                 </div>
                 <button
                   type="submit"
-                  className=" w-20 mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
+                  className=" w-30 mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
                 >
-                  Post
+                  {updating ? "updating...": "Edit"}
                 </button>
               </div>
             </form>

@@ -3,11 +3,11 @@ import { useAddBlogCategoryMutation } from "../api/blogApi";
 import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
 
-
 const AddBlogCategory = () => {
-  const { isDarkMode ,initializeDarkMode } = useDarkMode();
+  const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [categoryName, setCategoryName] = useState("");
   const [description, setDescription] = useState("");
+  const [adding, setAdding] = useState(false);
   const [addBlogCategory] = useAddBlogCategoryMutation();
   const navigate = useNavigate();
 
@@ -18,6 +18,7 @@ const AddBlogCategory = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      setAdding(true);
       await addBlogCategory({
         name: categoryName,
         description,
@@ -25,6 +26,7 @@ const AddBlogCategory = () => {
 
       setCategoryName("");
       setDescription("");
+      setAdding(false);
       navigate("/manage-blog-category");
       window.location.reload();
       console.log("Blog category added successfully");
@@ -99,7 +101,7 @@ const AddBlogCategory = () => {
                   type="submit"
                   className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
                 >
-                  Add Category
+                  {adding ? "adding..." : "Add Category"}
                 </button>
               </div>
             </form>

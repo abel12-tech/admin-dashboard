@@ -19,7 +19,35 @@ export const paymentApi = createApi({
       query: () => "/payment",
       method: "GET",
     }),
+    getAllPaymentOrgs: builder.query({
+      query: () => "/payment-org",
+      method: "GET",
+    }),
+    deletePaymentOrg: builder.mutation({
+      query: (id) => ({
+        url: `payment-org/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
+      }),
+    }),
+    updatePaymentOrg: builder.mutation({
+      query: (data) => ({
+        url: `payment-org/${data._id}/`,
+        method: "PATCH",
+        body: data,
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetAllPaymentsQuery } = paymentApi;
+export const {
+  useGetAllPaymentsQuery,
+  useGetAllPaymentOrgsQuery,
+  useDeletePaymentOrgMutation,
+  useUpdatePaymentOrgMutation,
+} = paymentApi;

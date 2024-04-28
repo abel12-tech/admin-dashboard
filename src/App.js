@@ -23,6 +23,7 @@ import ManageUsers from "./features/manage-users/pages/ManageUsers";
 import Profile from "./features/manage-users/pages/Profile";
 import ManagePayments from "./features/manage-payments/pages/ManagePayments";
 import ManageFarmers from "./features/manage-farmers/page/ManageFarmers";
+import ManagePaymentOrgs from "./features/manage-payments/pages/ManagePaymentOrgs";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -227,6 +228,18 @@ function App() {
           isAuthenticated ? (
             <Layout>
               <ManagePayments />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/manage-payment-organizations"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <ManagePaymentOrgs />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

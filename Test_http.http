@@ -30,7 +30,7 @@ content-type: application/json
 }
 
 ###
-GET https://farmerecommerce.onrender.com/api/v1/product
+GET https://farmerecommerce.onrender.com/api/v1/payment-org
 
 ###
 POST https://farmerecommerce.onrender.com/api/v1/product-category

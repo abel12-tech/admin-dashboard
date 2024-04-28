@@ -25,7 +25,21 @@ export const farmerApi = createApi({
         method: "DELETE",
       }),
     }),
+    payforFarmer: builder.mutation({
+      query: (data) => ({
+        url: "/payment-for-farmer",
+        method: "POST",
+        body: data,
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetAllFarmersQuery ,useDeleteFarmerMutation } = farmerApi;
+export const {
+  useGetAllFarmersQuery,
+  useDeleteFarmerMutation,
+  usePayforFarmerMutation,
+} = farmerApi;

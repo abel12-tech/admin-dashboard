@@ -1,10 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useDarkMode } from "../../../shared/darkModeContext";
 import { useGetAllOrdersQuery } from "../api/ordersApi";
+import Modal from "../../../components/Modal";
 
 const ManageOrders = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
+  const [showModal, setShowModal] = useState(false);
+  const [remark, setRemark] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [screenshot, setScreenshot] = useState("");
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleSubmit = () => {
+    console.log("Form submitted:", { remark, amount, screenshot });
+    setRemark("");
+    setAmount(0);
+    setScreenshot("");
+    setShowModal(false);
+  };
   const { data: orders, isLoading, isSuccess } = useGetAllOrdersQuery();
   const itemsPerPage = 5;
 
@@ -88,10 +105,10 @@ const ManageOrders = () => {
                         </div>
                       </td>
                       <td className="px-4 py-3 text-sm">
-                      {order.farmer?.fullName}
+                        {order.farmer?.fullName}
                       </td>
                       <td className="px-4 py-3 text-sm">
-                      {order.user?.phoneNumber}
+                        {order.user?.phoneNumber}
                       </td>
 
                       <td className="px-4 py-3 text-sm">{order.totalPrice}</td>
@@ -108,6 +125,7 @@ const ManageOrders = () => {
                             <button
                               className="flex items-center border bg-[#9333EA] text-white justify-between px-6 py-2 text-sm font-medium leading-5 rounded-lg focus:outline-none focus:shadow-outline-gray"
                               aria-label="Mark as Paid"
+                              onClick={() => setShowModal(true)}
                             >
                               PayforFarmer
                             </button>
@@ -154,7 +172,8 @@ const ManageOrders = () => {
                         viewBox="0 0 20 20"
                       >
                         <path
-                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a
+                          1 1 0 011.414 0z"
                           clipRule="evenodd"
                           fillRule="evenodd"
                         />
@@ -203,6 +222,18 @@ const ManageOrders = () => {
           </div>
         </div>
       </div>
+      {showModal && (
+        <Modal
+          remark={remark}
+          setRemark={setRemark}
+          amount={amount}
+          setAmount={setAmount}
+          screenshot={screenshot}
+          setScreenshot={setScreenshot}
+          handleSubmit={handleSubmit}
+          closeModal={handleCloseModal}
+        />
+      )}
     </div>
   );
 };

@@ -46,13 +46,14 @@ Get https://farmerecommerce.onrender.com/api/v1/order
 
 ### 
 GET https://farmerecommerce.onrender.com/api/v1/farmer
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmYyZWI0NDBmYjdkYzlmYzQ2M2E2YSIsImlhdCI6MTcxMTg3MDM2NywiZXhwIjoxNzEyNzM0MzY3fQ.XQvxIO_PR12oMlXE-EX3PzMsOpNwPUO_9xYpr1_NjuM
 ###
-POST https://farmerecommerce.onrender.com/api/v1/payment-for-farmer
+POST https://farmerecommerce.onrender.com/api/v1/payment-for-farmer/
 content-type: application/json
 
 {
-    "remark": "Payment for order3",
+    "remark": "Payment fo",
     "amount": 500.5,
-    "screenshot": "path/to/screenshot.jpg",
+    "screenshot": "path/to/screenshot.jpg"
 }
+###
+GET https://farmerecommerce.onrender.com/api/v1/payment-for-farmer

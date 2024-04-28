@@ -1,52 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDarkMode } from "../../../shared/darkModeContext";
-import { useGetAllOrdersQuery } from "../api/ordersApi";
-import Modal from "../../../components/Modal";
-import { storage } from "../../../firebase";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
-import { usePayforFarmerMutation } from "../../manage-farmers/api/farmerApi";
+import { useGetPaymentMadeForFarmerQuery } from "../../manage-farmers/api/farmerApi";
 
-const ManageOrders = () => {
+
+const PaymentMadeForFarmer = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
-  const [showModal, setShowModal] = useState(false);
-  const [remark, setRemark] = useState("");
-  const [amount, setAmount] = useState(0);
-  const [screenshot, setScreenshot] = useState("");
-  const [paying, setPaying] = useState(false);
-  const [payForFarmer] = usePayforFarmerMutation();
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const handleSubmit = async () => {
-    try {
-      setPaying(true);
-      const screenshotRef = ref(
-        storage,
-        `Blog-images/${screenshot.name + v4()}`
-      );
-      await uploadBytes(screenshotRef, screenshot);
-      const screenshotUrl = await getDownloadURL(screenshotRef);
-      await payForFarmer({
-        remark,
-        amount,
-        screenshot: screenshotUrl,
-      });
-      setRemark("");
-      setAmount(0);
-      setScreenshot("");
-      setShowModal(false);
-      setPaying(false);
-    } catch (error) {
-      console.error("Error paying for farmer:", error);
-      setPaying(false);
-    }
-  };
-
-  const { data: orders, isLoading, isSuccess } = useGetAllOrdersQuery();
+  const { data: payments, isLoading, isSuccess } = useGetPaymentMadeForFarmerQuery();
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -67,10 +27,10 @@ const ManageOrders = () => {
     setCurrentPage(page);
   };
 
-  const totalPages = Math.ceil(orders?.length / itemsPerPage) || 1;
+  const totalPages = Math.ceil(payments?.length / itemsPerPage) || 1;
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, orders?.length);
+  const endIndex = Math.min(startIndex + itemsPerPage, payments?.length);
 
   return (
     <div
@@ -79,7 +39,7 @@ const ManageOrders = () => {
       }`}
     >
       <div className="flex flex-col flex-1 w-full">
-        <div className="w-full container h-screen p-6 rounded-lg shadow-xs">
+        <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
           <div className="w-full overflow-x-auto">
             <table className="w-full whitespace-no-wrap">
               <thead>
@@ -90,11 +50,9 @@ const ManageOrders = () => {
                       : "text-gray-500 bg-gray-50"
                   } text-gray-500 uppercase border-b`}
                 >
-                  <th className="px-4 py-3">Products</th>
-                  <th className="px-4 py-3">Farmer</th>
                   <th className="px-4 py-3">User</th>
-                  <th className="px-4 py-3">Total Price</th>
-                  <th className="px-4 py-3">Actions</th>
+                  <th className="px-4 py-3">Amount</th>
+                  <th className="px-4 py-3">Status</th>
                 </tr>
               </thead>
               <tbody
@@ -111,63 +69,33 @@ const ManageOrders = () => {
                       Loading...
                     </td>
                   </tr>
-                ) : isSuccess && orders ? (
-                  orders.slice(startIndex, endIndex).map((order) => (
+                ) : isSuccess ? (
+                  payments.slice(startIndex, endIndex).map((payment) => (
                     <tr
-                      key={order._id}
+                      key={payment._id}
                       className={`${
                         isDarkMode ? "text-gray-400" : "text-gray-700"
                       }`}
                     >
-                      <td className="px-4 py-3 text-sm">
-                        <div className="">
-                          <ul>
-                            {order.products.map((product) => (
-                              <li key={product._id}>{product.name}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 text-sm">
-                        {order.farmer?.fullName}
-                      </td>
-                      <td className="px-4 py-3 text-sm">
-                        {order.user?.phoneNumber}
-                      </td>
-
-                      <td className="px-4 py-3 text-sm">{order.totalPrice}</td>
-                      <td className="px-4 py-3 text-sm">
-                        <div className="flex items-center space-x-4 text-sm">
-                          {order.paidForFarmer ? (
-                            <button
-                              className="flex items-center border bg-green-400 justify-between px-6 py-2 text-sm font-medium leading-5 text-white rounded-lg  focus:outline-none focus:shadow-outline-gray"
-                              aria-label="Navigate to Payment Page"
-                            >
-                              Paid
-                            </button>
-                          ) : (
-                            <button
-                              className="flex items-center border bg-[#9333EA] text-white justify-between px-6 py-2 text-sm font-medium leading-5 rounded-lg focus:outline-none focus:shadow-outline-gray"
-                              aria-label="Mark as Paid"
-                              onClick={() => setShowModal(true)}
-                            >
-                              PayforFarmer
-                            </button>
-                          )}
-                        </div>
-                      </td>
+                      <td className="px-4 py-3 text-sm">{payment.user}</td>
+                      <td className="px-4 py-3 text-sm">{payment.amount}</td>
+                      <td className="px-4 py-3 text-sm">{payment.status}</td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="4" className="px-4 py-3 text-center">
-                      Error fetching orders.
+                    <td
+                      colSpan="6"
+                      className="px-4 py-3 text-center text-red-500"
+                    >
+                      Error fetching data. Please try again later.
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
           </div>
+
           <div
             className={`grid px-4 py-3 text-xs font-semibold tracking-wide ${
               isDarkMode
@@ -176,7 +104,7 @@ const ManageOrders = () => {
             }  uppercase border-t  sm:grid-cols-9`}
           >
             <span className="flex items-center col-span-3">
-              Showing {startIndex + 1}-{endIndex} of {orders?.length}
+              Showing {startIndex + 1}-{endIndex} of {payments?.length}
             </span>
             <span className="col-span-2" />
             {/* Pagination */}
@@ -196,8 +124,7 @@ const ManageOrders = () => {
                         viewBox="0 0 20 20"
                       >
                         <path
-                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a
-                          1 1 0 011.414 0z"
+                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
                           clipRule="evenodd"
                           fillRule="evenodd"
                         />
@@ -246,21 +173,8 @@ const ManageOrders = () => {
           </div>
         </div>
       </div>
-      {showModal && (
-        <Modal
-          remark={remark}
-          setRemark={setRemark}
-          amount={amount}
-          setAmount={setAmount}
-          screenshot={screenshot}
-          setScreenshot={setScreenshot}
-          handleSubmit={handleSubmit}
-          closeModal={handleCloseModal}
-          paying={paying}
-        />
-      )}
     </div>
   );
 };
 
-export default ManageOrders;
+export default PaymentMadeForFarmer;

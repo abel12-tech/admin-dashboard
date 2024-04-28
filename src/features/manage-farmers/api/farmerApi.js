@@ -19,6 +19,10 @@ export const farmerApi = createApi({
       query: () => "/farmer",
       method: "GET",
     }),
+    getPaymentMadeForFarmer: builder.query({
+      query: () => "/payment-for-farmer",
+      method: "GET",
+    }),
     deleteFarmer: builder.mutation({
       query: (id) => ({
         url: `/farmer/${id}`,
@@ -42,4 +46,5 @@ export const {
   useGetAllFarmersQuery,
   useDeleteFarmerMutation,
   usePayforFarmerMutation,
+  useGetPaymentMadeForFarmerQuery,
 } = farmerApi;

@@ -9,6 +9,7 @@ const Modal = ({
   screenshot,
   setScreenshot,
   handleSubmit,
+  paying
 }) => {
   const modalRef = useRef(null);
 
@@ -28,12 +29,12 @@ const Modal = ({
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-gray-800 bg-opacity-75 flex justify-center items-center">
       <div ref={modalRef} className="bg-white rounded-lg p-8 max-w-md w-full">
-        <h2 className="text-lg font-semibold mb-4 text-center">
+        <h2 className="text-lg font-semibold text-gray-700 mb-4 text-center">
           Pay for Farmer
         </h2>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-600 text-sm font-bold mb-2"
             htmlFor="remark"
           >
             Remark
@@ -49,7 +50,7 @@ const Modal = ({
         </div>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-600 text-sm font-bold mb-2"
             htmlFor="amount"
           >
             Amount
@@ -65,7 +66,7 @@ const Modal = ({
         </div>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-600 text-sm font-bold mb-2"
             htmlFor="screenshot"
           >
             Screenshot Path
@@ -90,7 +91,7 @@ const Modal = ({
             className="px-3 py-1 focus:shadow-outline-purple text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
             onClick={handleSubmit}
           >
-            Pay
+            {paying ? "Paying...":"Pay"}
           </button>
         </div>
       </div>

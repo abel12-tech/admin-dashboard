@@ -58,4 +58,29 @@ content-type: application/json
     "screenshot": "path/to/screenshot.jpg"
 }
 ###
+POST https://farmerecommerce.onrender.com/api/v1/payment-org
+Content-Type: application/json
+
+{
+      "name": "Telebirr",
+      "logo": "telebirr.png"
+}
+
+###
+POST https://farmerecommerce.onrender.com/api/v1/admin/startSystem/
+Content-Type: application/json
+
+{
+      "fullName": "New Super Admin",
+      "phoneNumber": "123123",
+      "password":"123456"
+}
+
+###
+GET  https://farmerecommerce.onrender.com/api/v1/admin/startSystem/
+###
+
+GET https://farmerecommerce.onrender.com/api/v1/payment-org
+
+###
 GET https://farmerecommerce.onrender.com/api/v1/payment-for-farmer

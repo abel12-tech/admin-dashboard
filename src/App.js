@@ -13,7 +13,11 @@ import AddBlogCategory from "./features/manage-blogs/pages/AddBlogCategory";
 import EditBlogCategory from "./features/manage-blogs/pages/EditBlogCategory";
 import Login from "./features/authentication/pages/Login";
 import Layout from "./shared/Layout";
-import { selectIsAuthenticated } from "./features/authentication/slice/authSlice";
+import {
+  selectIsAdmin,
+  selectIsAuthenticated,
+  selectIsSuper,
+} from "./features/authentication/slice/authSlice";
 import { useSelector } from "react-redux";
 import AddWarehouse from "./features/manage-warehouse/pages/AddWarehouse";
 import ManageWareHouses from "./features/manage-warehouse/pages/ManageWareHouses";
@@ -25,9 +29,14 @@ import ManagePayments from "./features/manage-payments/pages/ManagePayments";
 import ManageFarmers from "./features/manage-farmers/page/ManageFarmers";
 import ManagePaymentOrgs from "./features/manage-payments/pages/ManagePaymentOrgs";
 import AddPaymentOrg from "./features/manage-payments/pages/AddPaymentOrg";
+import ContactFarmer from "./features/contact/pages/ContactFarmer";
+import OrderInMyWarehouse from "./features/admin-only/pages/OrderInMyWarehouse";
+import ManageAdmins from "./features/manage-farmers/page/ManageAdmins";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isSuper = useSelector(selectIsSuper);
+  const isAdmin = useSelector(selectIsAdmin);
 
   return (
     <Routes>
@@ -37,6 +46,18 @@ function App() {
           isAuthenticated ? (
             <Layout>
               <MainContent />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/contact-farmer"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <ContactFarmer />
             </Layout>
           ) : (
             <Navigate to="/login" replace />
@@ -58,9 +79,33 @@ function App() {
       <Route
         path="/manage-orders"
         element={
-          isAuthenticated ? (
+          isAuthenticated && isSuper ? (
             <Layout>
               <ManageOrders />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/manage-orders"
+        element={
+          isAuthenticated && isAdmin ? (
+            <Layout>
+              <OrderInMyWarehouse />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+            <Route
+        path="/manage-admins"
+        element={
+          isAuthenticated && isSuper ? (
+            <Layout>
+              <ManageAdmins />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

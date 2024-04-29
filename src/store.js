@@ -13,6 +13,7 @@ import { dataApi } from "./features/dashboard-summary/dataApi";
 import { usersApi } from "./features/manage-users/api/usersApi";
 import { paymentApi } from "./features/manage-payments/api/paymentApi";
 import { farmerApi } from "./features/manage-farmers/api/farmerApi";
+import { contactApi } from "./features/contact/api/contactApi";
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
     [dataApi.reducerPath]: dataApi.reducer,
     [paymentApi.reducerPath]: paymentApi.reducer,
     [farmerApi.reducerPath]: farmerApi.reducer,
+    [contactApi.reducerPath]: contactApi.reducer,
     blogs: blogSliceReducer,
     auth: authSliceReducer,
   },
@@ -39,7 +41,8 @@ export const store = configureStore({
       paymentApi.middleware,
       dataApi.middleware,
       usersApi.middleware,
-      farmerApi.middleware
+      farmerApi.middleware,
+      contactApi.middleware
     ),
   devTools: true,
 });

@@ -12,17 +12,25 @@ import { MdOutlineWarehouse } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { GoOrganization } from "react-icons/go";
 import { GiFarmer } from "react-icons/gi";
-// import { GrUserAdmin } from "react-icons/gr";
+import { IoIosChatboxes } from "react-icons/io";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { selectIsSuper } from "../features/authentication/slice/authSlice";
+import { useSelector } from "react-redux";
 
 const Sidebar = ({ isSideMenuOpen }) => {
   const [activeLink, setActiveLink] = useState("/");
   const [isUsersDropdownOpen, setIsUsersDropdownOpen] = useState(false);
   const [isPaymentDropDownOpen, setIsPaymentDropdownOpen] = useState(false);
+  const [isContactDropDownOpen, setIsContactDropdownOpen] = useState(false);
   const { isDarkMode } = useDarkMode();
+  const isSuper = useSelector(selectIsSuper);
 
   const handleUserDropdownToggle = () => {
     setIsUsersDropdownOpen(!isUsersDropdownOpen);
+  };
+  const handleContactDropdownToggle = () => {
+    setIsContactDropdownOpen(!isContactDropDownOpen);
   };
 
   const handlePaymentDropdownToggle = () => {
@@ -41,7 +49,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
         isDarkMode ? "bg-gray-800" : "bg-white"
       } md:block flex-shrink-0`}
     >
-      <div className={`py-4 ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+      <div
+        className={`py-4 h-screen ${
+          isDarkMode ? "text-gray-400" : "text-gray-500"
+        }`}
+      >
         {/* Logo */}
         <Link
           to="/"
@@ -77,6 +89,58 @@ const Sidebar = ({ isSideMenuOpen }) => {
         </ul>
         {/* More navigation links */}
         <ul>
+          <li className="relative px-6 py-3">
+            <button
+              onClick={handleContactDropdownToggle}
+              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 focus:outline-none ${
+                isDarkMode
+                  ? "dark:hover:text-gray-200"
+                  : "text-gray-800 dark:hover:text-gray-600"
+              }`}
+            >
+              <IoIosChatboxes className="w-5 h-5 font-bold " />
+              <span className="ml-4">Contact</span>
+              {isContactDropDownOpen ? (
+                <RiArrowDropDownLine className=" ml-10 w-5 h-5" />
+              ) : (
+                <RiArrowDropDownLine className=" ml-10 w-5 h-5" />
+              )}
+            </button>
+            {isContactDropDownOpen && (
+              <ul>
+                <li className="relative px-6 py-3">
+                  <Link
+                    to="/contact-farmer"
+                    onClick={() => handleLinkClick("/contact-farmer")}
+                    className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                      isDarkMode
+                        ? "dark:hover:text-gray-200"
+                        : "text-gray-800 dark:hover:text-gray-600"
+                    }`}
+                  >
+                    <GiFarmer className="w-5 h-5" />
+                    <span className="ml-4">Contact Farmer</span>
+                  </Link>
+                </li>
+                {isSuper && (
+                  <li className="relative px-6 py-3">
+                    <Link
+                      to="/contact-admin"
+                      onClick={() => handleLinkClick("/contact-admin")}
+                      className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                        isDarkMode
+                          ? "dark:hover:text-gray-200"
+                          : "text-gray-800 dark:hover:text-gray-600"
+                      }`}
+                    >
+                      <MdOutlineAdminPanelSettings className="w-5 h-5" />
+                      <span className="ml-4">Contact Admin</span>
+                    </Link>
+                  </li>
+                )}
+              </ul>
+            )}
+          </li>
           <li className="relative px-6 py-3">
             {activeLink === "/manage-products" && (
               <span
@@ -134,7 +198,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
               }`}
             >
               <BsBorderStyle className="w-5 h-5" />
-              <span className="ml-4">Manage Orders</span>
+              {isSuper ? (
+                <span className="ml-4">Manage Orders</span>
+              ) : (
+                <span className="ml-4">Manage Order In Warehouse</span>
+              )}
             </Link>
           </li>
           <li className="relative px-6 py-3">
@@ -170,20 +238,20 @@ const Sidebar = ({ isSideMenuOpen }) => {
                     <span className="ml-4">Manage Farmers</span>
                   </Link>
                 </li>
-                {/* <li className="relative px-6 py-3">
+                <li className="relative px-6 py-3">
                   <Link
-                    to="/manage-admin"
-                    onClick={() => handleLinkClick("/manage-admin")}
+                    to="/manage-admins"
+                    onClick={() => handleLinkClick("/manage-admins")}
                     className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                       isDarkMode
                         ? "dark:hover:text-gray-200"
                         : "text-gray-800 dark:hover:text-gray-600"
                     }`}
                   >
-                    <GrUserAdmin className="w-5 h-5" />
+                    <MdOutlineAdminPanelSettings className="w-5 h-5" />
                     <span className="ml-4">Manage Admins</span>
                   </Link>
-                </li> */}
+                </li>
               </ul>
             )}
           </li>

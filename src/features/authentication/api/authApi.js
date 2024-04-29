@@ -15,7 +15,12 @@ export const authApi = createApi({
         body: data,
       }),
     }),
-
+    deleteAdmin: builder.mutation({
+      query: (id) => ({
+        url: `/admin/${id}`,
+        method: "DELETE",
+      }),
+    }),
     login: builder.mutation({
       query: (data) => ({
         url: `/admin/login`,
@@ -26,4 +31,9 @@ export const authApi = createApi({
   }),
 });
 
-export const { useGetAllAdminsQuery , useAddAdminMutation ,useLoginMutation } = authApi;
+export const {
+  useGetAllAdminsQuery,
+  useAddAdminMutation,
+  useLoginMutation,
+  useDeleteAdminMutation,
+} = authApi;

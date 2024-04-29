@@ -139,7 +139,7 @@ function App() {
       <Route
         path="/manage-warehouse"
         element={
-          isAuthenticated ? (
+          isAuthenticated && isSuper ? (
             <Layout>
               <ManageWareHouses />
             </Layout>

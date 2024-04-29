@@ -54,6 +54,16 @@ const ManagePaymentOrgs = () => {
     >
       <div className="flex flex-col flex-1 w-full">
         <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
+        <div className="flex justify-end mt-4 mb-4">
+            <Link
+              to="/add-payment-org"
+              className={`items ${
+                isDarkMode ? "text-gray-300" : "text-gray-100"
+              } bg-[#9333EA] px-3 py-2 rounded`}
+            >
+              Add Payment Org.
+            </Link>
+          </div>
           <div className="w-full overflow-x-auto">
             <table className="w-full whitespace-no-wrap">
               <thead>
@@ -91,8 +101,8 @@ const ManagePaymentOrgs = () => {
                         isDarkMode ? "text-gray-400" : "text-gray-700"
                       }`}
                     >
-                      <td className="px-4 py-3 text-sm">{org.user}</td>
-                      <td className="px-4 py-3 text-sm">{org.amount}</td>
+                      <td className="px-4 py-3 text-sm">{org.logo}</td>
+                      <td className="px-4 py-3 text-sm">{org.name}</td>
                       <td className="px-4 py-3 text-sm">
                         <div className="flex items-center space-x-4 text-sm">
                           <Link

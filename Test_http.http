@@ -50,8 +50,10 @@ GET https://farmerecommerce.onrender.com/api/v1/farmer
 POST https://farmerecommerce.onrender.com/api/v1/payment-for-farmer/
 content-type: application/json
 
-{
-    "remark": "Payment fo",
+{   
+    "order":"660d996df663effc6b6934f0",
+    "farmer":"6609c267f0c629b2a882be2e",
+    "remark": "Payment fonnnn",
     "amount": 500.5,
     "screenshot": "path/to/screenshot.jpg"
 }

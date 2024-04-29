@@ -42,6 +42,16 @@ export const paymentApi = createApi({
         },
       }),
     }),
+    addPaymentOrg: builder.mutation({
+      query: (data) => ({
+        url: `/payment-org`,
+        method: "POST",
+        body: data,
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
+      }),
+    }),
   }),
 });
 
@@ -50,4 +60,5 @@ export const {
   useGetAllPaymentOrgsQuery,
   useDeletePaymentOrgMutation,
   useUpdatePaymentOrgMutation,
+  useAddPaymentOrgMutation,
 } = paymentApi;

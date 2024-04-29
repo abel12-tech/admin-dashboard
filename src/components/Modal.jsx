@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const Modal = ({
   closeModal,
@@ -6,12 +6,19 @@ const Modal = ({
   setRemark,
   amount,
   setAmount,
-  screenshot,
   setScreenshot,
   handleSubmit,
-  paying
+  orderId,
+  farmerId,
 }) => {
   const modalRef = useRef(null);
+  const [paying, setPaying] = useState(false);
+
+  const handlePay = async () => {
+    setPaying(true);
+    await handleSubmit(orderId, farmerId);
+    setPaying(false);
+  };
 
   const handleClickOutside = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -76,8 +83,7 @@ const Modal = ({
             id="screenshot"
             type="file"
             placeholder="Screenshot Path"
-            value={screenshot}
-            onChange={(e) => setScreenshot(e.target.value)}
+            onChange={(e) => setScreenshot(e.target.files[0])}
           />
         </div>
         <div className="flex justify-end">
@@ -89,9 +95,10 @@ const Modal = ({
           </button>
           <button
             className="px-3 py-1 focus:shadow-outline-purple text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
-            onClick={handleSubmit}
+            onClick={handlePay}
+            disabled={paying}
           >
-            {paying ? "Paying...":"Pay"}
+            {paying ? "Paying..." : "Pay"}
           </button>
         </div>
       </div>

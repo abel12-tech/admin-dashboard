@@ -14,16 +14,16 @@ const ManageOrders = () => {
   const [remark, setRemark] = useState("");
   const [amount, setAmount] = useState(0);
   const [screenshot, setScreenshot] = useState("");
-  const [paying, setPaying] = useState(false);
   const [payForFarmer] = usePayforFarmerMutation();
+  
 
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (orderId, farmerId) => {
+    console.log(orderId, farmerId);
     try {
-      setPaying(true);
       const screenshotRef = ref(
         storage,
         `Blog-images/${screenshot.name + v4()}`
@@ -31,6 +31,8 @@ const ManageOrders = () => {
       await uploadBytes(screenshotRef, screenshot);
       const screenshotUrl = await getDownloadURL(screenshotRef);
       await payForFarmer({
+        order: orderId,
+        farmer: farmerId,
         remark,
         amount,
         screenshot: screenshotUrl,
@@ -39,10 +41,10 @@ const ManageOrders = () => {
       setAmount(0);
       setScreenshot("");
       setShowModal(false);
-      setPaying(false);
+      window.location.reload();
+
     } catch (error) {
       console.error("Error paying for farmer:", error);
-      setPaying(false);
     }
   };
 
@@ -149,7 +151,12 @@ const ManageOrders = () => {
                             <button
                               className="flex items-center border bg-[#9333EA] text-white justify-between px-6 py-2 text-sm font-medium leading-5 rounded-lg focus:outline-none focus:shadow-outline-gray"
                               aria-label="Mark as Paid"
-                              onClick={() => setShowModal(true)}
+                              onClick={() =>
+                                setShowModal({
+                                  orderId: order._id,
+                                  farmerId: order.farmer?._id,
+                                })
+                              }
                             >
                               PayforFarmer
                             </button>
@@ -255,8 +262,9 @@ const ManageOrders = () => {
           screenshot={screenshot}
           setScreenshot={setScreenshot}
           handleSubmit={handleSubmit}
+          orderId={showModal.orderId}
+          farmerId={showModal.farmerId}
           closeModal={handleCloseModal}
-          paying={paying}
         />
       )}
     </div>

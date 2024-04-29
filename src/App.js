@@ -24,6 +24,7 @@ import Profile from "./features/manage-users/pages/Profile";
 import ManagePayments from "./features/manage-payments/pages/ManagePayments";
 import ManageFarmers from "./features/manage-farmers/page/ManageFarmers";
 import ManagePaymentOrgs from "./features/manage-payments/pages/ManagePaymentOrgs";
+import AddPaymentOrg from "./features/manage-payments/pages/AddPaymentOrg";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -216,6 +217,18 @@ function App() {
           isAuthenticated ? (
             <Layout>
               <ManageBlogCategory />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/add-payment-org"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <AddPaymentOrg />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

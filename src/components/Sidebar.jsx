@@ -181,30 +181,49 @@ const Sidebar = ({ isSideMenuOpen }) => {
               <span className="ml-4">Manage Product Categories</span>
             </Link>
           </li>
-          <li className="relative px-6 py-3">
-            {activeLink === "/manage-orders" && (
-              <span
-                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              ></span>
-            )}
-            <Link
-              to="/manage-orders"
-              onClick={() => handleLinkClick("/manage-orders")}
-              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
-                isDarkMode
-                  ? "dark:hover:text-gray-200"
-                  : "text-gray-800 dark:hover:text-gray-600"
-              }`}
-            >
-              <BsBorderStyle className="w-5 h-5" />
-              {isSuper ? (
-                <span className="ml-4">Manage Orders</span>
-              ) : (
-                <span className="ml-4">Manage Order In Warehouse</span>
+          {isSuper ? (
+            <li className="relative px-6 py-3">
+              {activeLink === "/manage-orders" && (
+                <span
+                  className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                  aria-hidden="true"
+                ></span>
               )}
-            </Link>
-          </li>
+              <Link
+                to="/manage-orders"
+                onClick={() => handleLinkClick("/manage-orders")}
+                className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                  isDarkMode
+                    ? "dark:hover:text-gray-200"
+                    : "text-gray-800 dark:hover:text-gray-600"
+                }`}
+              >
+                <BsBorderStyle className="w-5 h-5" />
+                <span className="ml-4">Manage Orders</span>
+              </Link>
+            </li>
+          ) : (
+            <li className="relative px-6 py-3">
+              {activeLink === "/manage-order-in-my-warehouse" && (
+                <span
+                  className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                  aria-hidden="true"
+                ></span>
+              )}
+              <Link
+                to="/manage-order-in-my-warehouse"
+                onClick={() => handleLinkClick("/manage-order-in-my-warehouse")}
+                className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                  isDarkMode
+                    ? "dark:hover:text-gray-200"
+                    : "text-gray-800 dark:hover:text-gray-600"
+                }`}
+              >
+                <BsBorderStyle className="w-5 h-5" />
+                  <span className="ml-4">Manage Order In My Warehouse</span>
+              </Link>
+            </li>
+          )}
           <li className="relative px-6 py-3">
             <button
               onClick={handleUserDropdownToggle}
@@ -238,20 +257,22 @@ const Sidebar = ({ isSideMenuOpen }) => {
                     <span className="ml-4">Manage Farmers</span>
                   </Link>
                 </li>
-                <li className="relative px-6 py-3">
-                  <Link
-                    to="/manage-admins"
-                    onClick={() => handleLinkClick("/manage-admins")}
-                    className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
-                      isDarkMode
-                        ? "dark:hover:text-gray-200"
-                        : "text-gray-800 dark:hover:text-gray-600"
-                    }`}
-                  >
-                    <MdOutlineAdminPanelSettings className="w-5 h-5" />
-                    <span className="ml-4">Manage Admins</span>
-                  </Link>
-                </li>
+                {isSuper && (
+                  <li className="relative px-6 py-3">
+                    <Link
+                      to="/manage-admins"
+                      onClick={() => handleLinkClick("/manage-admins")}
+                      className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                        isDarkMode
+                          ? "dark:hover:text-gray-200"
+                          : "text-gray-800 dark:hover:text-gray-600"
+                      }`}
+                    >
+                      <MdOutlineAdminPanelSettings className="w-5 h-5" />
+                      <span className="ml-4">Manage Admins</span>
+                    </Link>
+                  </li>
+                )}
               </ul>
             )}
           </li>

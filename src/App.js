@@ -89,7 +89,7 @@ function App() {
         }
       />
       <Route
-        path="/manage-orders"
+        path="/manage-order-in-my-warehouse"
         element={
           isAuthenticated && isAdmin ? (
             <Layout>

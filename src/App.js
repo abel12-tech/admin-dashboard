@@ -31,7 +31,8 @@ import ManagePaymentOrgs from "./features/manage-payments/pages/ManagePaymentOrg
 import AddPaymentOrg from "./features/manage-payments/pages/AddPaymentOrg";
 import ContactFarmer from "./features/contact/pages/ContactFarmer";
 import OrderInMyWarehouse from "./features/admin-only/pages/OrderInMyWarehouse";
-import ManageAdmins from "./features/manage-farmers/page/ManageAdmins";
+import ManageAdmins from "./features/authentication/pages/ManageAdmins";
+import AddAdmin from "./features/authentication/pages/AddAdmin";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -100,12 +101,24 @@ function App() {
           )
         }
       />
-            <Route
+      <Route
         path="/manage-admins"
         element={
           isAuthenticated && isSuper ? (
             <Layout>
               <ManageAdmins />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/add-admin"
+        element={
+          isAuthenticated && isSuper ? (
+            <Layout>
+              <AddAdmin />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

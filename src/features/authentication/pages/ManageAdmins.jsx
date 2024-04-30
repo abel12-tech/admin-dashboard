@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDarkMode } from "../../../shared/darkModeContext";
-import {
-  useDeleteAdminMutation,
-  useGetAllAdminsQuery,
-} from "../../authentication/api/authApi";
+import { useDeleteAdminMutation, useGetAllAdminsQuery } from "../api/authApi";
+import { Link } from "react-router-dom";
+
 
 const ManageAdmins = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
@@ -53,6 +52,16 @@ const ManageAdmins = () => {
     >
       <div className="flex flex-col flex-1 w-full">
         <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
+          <div className="flex justify-end mt-4 mb-4">
+            <Link
+              to="/add-admin"
+              className={`items ${
+                isDarkMode ? "text-gray-300" : "text-gray-100"
+              } bg-[#9333EA] px-3 py-2 rounded`}
+            >
+              Add admin
+            </Link>
+          </div>
           <div className="w-full overflow-x-auto">
             <table className="w-full whitespace-no-wrap">
               <thead>

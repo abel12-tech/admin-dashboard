@@ -10,7 +10,7 @@ const ContactFarmer = () => {
   const [selectedFarmer, setSelectedFarmer] = useState("");
   const [send] = useContactFarmerMutation();
   const { data: farmers, isLoading, isSuccess } = useGetAllFarmersQuery();
-  console.log(farmers)
+  
 
   useEffect(() => {
     initializeDarkMode();

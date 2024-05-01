@@ -1,42 +1,53 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
-import { useAddPaymentOrgMutation } from "../api/paymentApi";
 import { storage } from "../../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+import {
+  useGetPaymentOrgByIdQuery,
+  useUpdatePaymentOrgMutation,
+} from "../api/paymentApi";
 
-const AddPaymentOrg = () => {
+const EditPaymentOrg = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
+  const { id } = useParams();
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
-  const [adding, setAdding] = useState(false);
-  const [addOrg] = useAddPaymentOrgMutation();
+  const [editing, setEditing] = useState(false);
+  const [editOrg] = useUpdatePaymentOrgMutation();
   const navigate = useNavigate();
+  const { data: orgData, isLoading } = useGetPaymentOrgByIdQuery(id);
 
   useEffect(() => {
     initializeDarkMode();
-  }, [initializeDarkMode]);
+    if (!isLoading && orgData) {
+      setName(orgData.paymentOrg.name);
+    }
+  }, [initializeDarkMode, isLoading, orgData]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      setAdding(true);
-      const imageRef = ref(storage, `Blog-images/${image.name + v4()}`);
-      await uploadBytes(imageRef, image);
-      const imageUrl = await getDownloadURL(imageRef);
+      setEditing(true);
+      let imageUrl = orgData?.paymentOrg.logo;
+      if (image) {
+        const imageRef = ref(storage, `Blog-images/${image.name + v4()}`);
+        await uploadBytes(imageRef, image);
+        imageUrl = await getDownloadURL(imageRef);
+      }
 
-      await addOrg({
+      await editOrg({
+        _id: id,
         name: name,
         logo: imageUrl,
       });
 
-      setName("");
-      setAdding(false);
+      setEditing(false);
       navigate("/manage-payment-organizations");
       window.location.reload();
     } catch (error) {
-      console.error("Error adding org.:", error);
+      console.error("Error editing org:", error);
     }
   };
 
@@ -49,13 +60,12 @@ const AddPaymentOrg = () => {
       <div className="flex flex-col flex-1 w-full">
         <main className="h-full pb-16">
           <div className="container px-6 mx-auto grid">
-            {/* General elements */}
             <h4
               className={`mb-4 text-center p-4 text-lg font-semibold ${
                 isDarkMode ? "text-gray-300" : "text-gray-600"
               }`}
             >
-              Add Payment Organizations
+              Edit Payment Organization
             </h4>
             <form onSubmit={handleSubmit}>
               <div
@@ -104,7 +114,7 @@ const AddPaymentOrg = () => {
                   type="submit"
                   className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
                 >
-                  {adding ? "adding..." : "Add Org."}
+                  {editing ? "Editing..." : "Edit Org."}
                 </button>
               </div>
             </form>
@@ -115,4 +125,4 @@ const AddPaymentOrg = () => {
   );
 };
 
-export default AddPaymentOrg;
+export default EditPaymentOrg;

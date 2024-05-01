@@ -19,6 +19,13 @@ export const ordersApi = createApi({
       query: () => "/order",
       method: "GET",
     }),
+    getOrdersInMyWarehouse: builder.query({
+      query: () => "/order/in-my-warehouse/",
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${getTokenFromCookies()}`,
+      },
+    }),
     deleteOrder: builder.mutation({
       query: (orderId) => ({
         url: `/order/${orderId}`,
@@ -28,4 +35,8 @@ export const ordersApi = createApi({
   }),
 });
 
-export const { useGetAllOrdersQuery, useDeleteOrderMutation } = ordersApi;
+export const {
+  useGetAllOrdersQuery,
+  useDeleteOrderMutation,
+  useGetOrdersInMyWarehouseQuery,
+} = ordersApi;

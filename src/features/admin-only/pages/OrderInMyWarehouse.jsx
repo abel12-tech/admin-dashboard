@@ -4,8 +4,11 @@ import Modal from "../../../components/Modal";
 import { storage } from "../../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+import { useGetOrdersInMyWarehouseQuery } from "../../manage-orders/api/ordersApi";
 import { usePayforFarmerMutation } from "../../manage-farmers/api/farmerApi";
-import { useGetAllOrdersQuery } from "../../manage-orders/api/ordersApi";
+
+
+
 
 const OrderInMyWarehouse = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
@@ -48,7 +51,9 @@ const OrderInMyWarehouse = () => {
     }
   };
 
-  const { data: orders, isLoading, isSuccess } = useGetAllOrdersQuery();
+  const { data: orders, isLoading, isSuccess } = useGetOrdersInMyWarehouseQuery();
+  console.log(orders)
+
   const itemsPerPage = 5;
 
   useEffect(() => {

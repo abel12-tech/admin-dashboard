@@ -61,7 +61,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
             isDarkMode ? "text-gray-200" : "text-gray-800"
           }`}
         >
-          Admin Dashboard
+          {isSuper ? "Admin Dashboard" : "Jimma Warehouse"}
         </Link>
 
         {/* Navigation links */}
@@ -83,7 +83,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
               }`}
             >
               <MdOutlineDashboard className="w-5 h-5" />
-              <span className="ml-4">Dashboard</span>
+              {isSuper ? (
+                <span className="ml-4">Dashboard</span>
+              ) : (
+                <span className="ml-4">Warehouse Summary</span>
+              )}
             </Link>
           </li>
         </ul>
@@ -220,7 +224,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
                 }`}
               >
                 <BsBorderStyle className="w-5 h-5" />
-                <span className="ml-4">Manage Order In My Warehouse</span>
+                <span className="ml-4">Manage Orders In Warehouse</span>
               </Link>
             </li>
           )}
@@ -243,20 +247,39 @@ const Sidebar = ({ isSideMenuOpen }) => {
             </button>
             {isUsersDropdownOpen && (
               <ul>
-                <li className="relative px-6 py-3">
-                  <Link
-                    to="/manage-farmers"
-                    onClick={() => handleLinkClick("/manage-farmers")}
-                    className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
-                      isDarkMode
-                        ? "dark:hover:text-gray-200"
-                        : "text-gray-800 dark:hover:text-gray-600"
-                    }`}
-                  >
-                    <GiFarmer className="w-5 h-5" />
-                    <span className="ml-4">Manage Farmers</span>
-                  </Link>
-                </li>
+                {isSuper ? (
+                  <li className="relative px-6 py-3">
+                    <Link
+                      to="/manage-farmers"
+                      onClick={() => handleLinkClick("/manage-farmers")}
+                      className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                        isDarkMode
+                          ? "dark:hover:text-gray-200"
+                          : "text-gray-800 dark:hover:text-gray-600"
+                      }`}
+                    >
+                      <GiFarmer className="w-5 h-5" />
+                      <span className="ml-4">Manage Farmers</span>
+                    </Link>
+                  </li>
+                ) : (
+                  <li className="relative px-6 py-3">
+                    <Link
+                      to="/manage-farmers"
+                      onClick={() => handleLinkClick("/manage-farmers")}
+                      className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                        isDarkMode
+                          ? "dark:hover:text-gray-200"
+                          : "text-gray-800 dark:hover:text-gray-600"
+                      }`}
+                    >
+                      <GiFarmer className="w-5 h-5" />
+                      <span className="ml-4">
+                        Manage Farmers We Work With
+                      </span>
+                    </Link>
+                  </li>
+                )}
                 {isSuper && (
                   <li className="relative px-6 py-3">
                     <Link

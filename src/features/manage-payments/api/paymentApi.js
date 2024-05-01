@@ -23,6 +23,10 @@ export const paymentApi = createApi({
       query: () => "/payment-org",
       method: "GET",
     }),
+    getPaymentOrgById: builder.query({
+      query: (id) => `/payment-org/${id}`,
+      method: "GET",
+    }),
     deletePaymentOrg: builder.mutation({
       query: (id) => ({
         url: `payment-org/${id}`,
@@ -61,4 +65,5 @@ export const {
   useDeletePaymentOrgMutation,
   useUpdatePaymentOrgMutation,
   useAddPaymentOrgMutation,
+  useGetPaymentOrgByIdQuery,
 } = paymentApi;

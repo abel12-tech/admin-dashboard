@@ -54,7 +54,7 @@ const ManagePaymentOrgs = () => {
     >
       <div className="flex flex-col flex-1 w-full">
         <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
-        <div className="flex justify-end mt-4 mb-4">
+          <div className="flex justify-end mt-4 mb-4">
             <Link
               to="/add-payment-org"
               className={`items ${
@@ -101,7 +101,19 @@ const ManagePaymentOrgs = () => {
                         isDarkMode ? "text-gray-400" : "text-gray-700"
                       }`}
                     >
-                      <td className="px-4 py-3 text-sm">{org.logo}</td>
+                      <td className="px-4 py-3 text-sm">
+                        <div className="relative hidden w-12 h-12 mr-3  md:block">
+                          <img
+                            className="object-cover w-full h-full "
+                            src={org.logo}
+                            alt={org.name}
+                          />
+                          <div
+                            className="absolute inset-0 rounded-full shadow-inner"
+                            aria-hidden="true"
+                          />
+                        </div>
+                      </td>
                       <td className="px-4 py-3 text-sm">{org.name}</td>
                       <td className="px-4 py-3 text-sm">
                         <div className="flex items-center space-x-4 text-sm">

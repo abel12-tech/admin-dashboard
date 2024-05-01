@@ -3,14 +3,17 @@ import "alpinejs";
 import { Chart } from "chart.js/auto";
 import { useDarkMode } from "../shared/darkModeContext";
 import { useGetAllDataQuery } from "../features/dashboard-summary/dataApi";
+import { selectIsSuper } from "../features/authentication/slice/authSlice";
+import { useSelector } from "react-redux";
 
 const MainContent = () => {
   const pieChartRef = useRef(null);
   const lineChartRef = useRef(null);
-  const { isDarkMode ,initializeDarkMode } = useDarkMode();
+  const { isDarkMode, initializeDarkMode } = useDarkMode();
+  const isSuper = useSelector(selectIsSuper);
 
   const { data: datas, isSuccess } = useGetAllDataQuery();
-  
+
   useEffect(() => {
     initializeDarkMode();
   }, [initializeDarkMode]);
@@ -114,14 +117,18 @@ const MainContent = () => {
         <h2
           className={`my-6 text-2xl font-semibold ${
             isDarkMode ? "text-gray-200" : "text-gray-700"
-          }`}
+          } ${isSuper ? "" : "text-center"} `}
         >
-          Dashboard
+          {isSuper ? "Dashboard" : "Warehouse in ..."}
         </h2>
         {/* CTA */}
 
         {/* Cards */}
-        <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+        <div
+          className={`grid gap-6 mb-8 md:grid-cols-2 ${
+            isSuper ? "xl:grid-cols-4" : "xl:grid-cols-2"
+          } `}
+        >
           {/* Card */}
           <div
             className={`flex items-center p-4 rounded-lg shadow-xs  ${
@@ -220,11 +227,7 @@ const MainContent = () => {
           >
             <div className="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-                  clipRule="evenodd"
-                />
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
               </svg>
             </div>
             <div>
@@ -249,70 +252,74 @@ const MainContent = () => {
 
         {/* Charts */}
 
-        <div className="grid gap-6 mb-8 md:grid-cols-2">
-          <div
-            className={`min-w-0 p-4 rounded-lg shadow-xs ${
-              isDarkMode ? "bg-gray-800" : "bg-white"
-            }`}
-          >
-            <h4
-              className={`mb-4 font-semibold ${
-                isDarkMode ? "text-gray-300" : "text-gray-800"
-              }`}
-            >
-              Revenue
-            </h4>
-            <canvas id="pie" />
+        {isSuper ? (
+          <div className="grid gap-6 mb-8 md:grid-cols-2">
             <div
-              className={`flex justify-center mt-4 space-x-3 text-sm ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
+              className={`min-w-0 p-4 rounded-lg shadow-xs ${
+                isDarkMode ? "bg-gray-800" : "bg-white"
               }`}
             >
-              {/* Chart legend */}
-              <div className="flex items-center">
-                <span className="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full" />
-                <span>Bananas</span>
+              <h4
+                className={`mb-4 font-semibold ${
+                  isDarkMode ? "text-gray-300" : "text-gray-800"
+                }`}
+              >
+                Revenue
+              </h4>
+              <canvas id="pie" />
+              <div
+                className={`flex justify-center mt-4 space-x-3 text-sm ${
+                  isDarkMode ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
+                {/* Chart legend */}
+                <div className="flex items-center">
+                  <span className="inline-block w-3 h-3 mr-1 bg-blue-500 rounded-full" />
+                  <span>Bananas</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full" />
+                  <span>Oranges</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full" />
+                  <span>Onions</span>
+                </div>
               </div>
-              <div className="flex items-center">
-                <span className="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full" />
-                <span>Oranges</span>
-              </div>
-              <div className="flex items-center">
-                <span className="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full" />
-                <span>Onions</span>
+            </div>
+            <div
+              className={`min-w-0 p-4 rounded-lg shadow-xs ${
+                isDarkMode ? "bg-gray-800" : "bg-white"
+              }`}
+            >
+              <h4
+                className={`mb-4 font-semibold ${
+                  isDarkMode ? "text-gray-300" : "text-gray-800"
+                }`}
+              >
+                Traffic
+              </h4>
+              <canvas id="line" />
+              <div
+                className={`flex justify-center mt-4 space-x-3 text-sm ${
+                  isDarkMode ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
+                {/* Chart legend */}
+                <div className="flex items-center">
+                  <span className="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full" />
+                  <span>Or</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full" />
+                  <span>Paid</span>
+                </div>
               </div>
             </div>
           </div>
-          <div
-            className={`min-w-0 p-4 rounded-lg shadow-xs ${
-              isDarkMode ? "bg-gray-800" : "bg-white"
-            }`}
-          >
-            <h4
-              className={`mb-4 font-semibold ${
-                isDarkMode ? "text-gray-300" : "text-gray-800"
-              }`}
-            >
-              Traffic
-            </h4>
-            <canvas id="line" />
-            <div
-              className={`flex justify-center mt-4 space-x-3 text-sm ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              {/* Chart legend */}
-              <div className="flex items-center">
-                <span className="inline-block w-3 h-3 mr-1 bg-teal-600 rounded-full" />
-                <span>Or</span>
-              </div>
-              <div className="flex items-center">
-                <span className="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full" />
-                <span>Paid</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        ) : (
+          ""
+        )}
       </div>
     </main>
   );

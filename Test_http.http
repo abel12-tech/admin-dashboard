@@ -42,7 +42,8 @@ content-type: application/json
 }
 
 ### 
-Get https://farmerecommerce.onrender.com/api/v1/order
+Get https://farmerecommerce.onrender.com/api/v1/order/in-my-warehouse
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmYyZWI0NDBmYjdkYzlmYzQ2M2E2YSIsImlhdCI6MTcxNDUwNDM5MSwiZXhwIjoxNzE1MzY4MzkxfQ.kJPxvZ1dc1BlzFLSyminuC88sK62CBSgbrHfn1e1roE
 
 ### 
 GET https://farmerecommerce.onrender.com/api/v1/farmer

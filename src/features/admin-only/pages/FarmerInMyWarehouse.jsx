@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useDarkMode } from "../../../shared/darkModeContext";
 import {
   useDeleteFarmerMutation,
-  useGetAllFarmersQuery,
-} from "../api/farmerApi";
+  useGetFarmerInMyWarehouseQuery,
+} from "../../manage-farmers/api/farmerApi";
 
 const FarmerInMyWarehouse = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: farmers, isLoading, isSuccess } = useGetAllFarmersQuery();
+  const {
+    data: farmers,
+    isLoading,
+    isSuccess,
+  } = useGetFarmerInMyWarehouseQuery();
   const [deleteFarmer] = useDeleteFarmerMutation();
 
   const itemsPerPage = 5;

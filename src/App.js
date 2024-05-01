@@ -33,6 +33,7 @@ import ContactFarmer from "./features/contact/pages/ContactFarmer";
 import OrderInMyWarehouse from "./features/admin-only/pages/OrderInMyWarehouse";
 import ManageAdmins from "./features/authentication/pages/ManageAdmins";
 import AddAdmin from "./features/authentication/pages/AddAdmin";
+import EditPaymentOrg from "./features/manage-payments/pages/EditPaymentOrg";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -215,6 +216,18 @@ function App() {
           isAuthenticated ? (
             <Layout>
               <EditProduct />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/edit-payment-org/:id"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <EditPaymentOrg />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

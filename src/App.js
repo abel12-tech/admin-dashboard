@@ -36,6 +36,7 @@ import AddAdmin from "./features/authentication/pages/AddAdmin";
 import EditPaymentOrg from "./features/manage-payments/pages/EditPaymentOrg";
 import ContactAdmin from "./features/contact/pages/ContactAdmin";
 import PaymentMadeForFarmer from "./features/manage-payments/pages/PaymentMadeForFarmer";
+import UpdateProfile from "./features/authentication/pages/UpdateProfile";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -230,6 +231,18 @@ function App() {
           isAuthenticated ? (
             <Layout>
               <AddWarehouse />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/update-profile/:id"
+        element={
+          isAuthenticated ? (
+            <Layout>
+              <UpdateProfile />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

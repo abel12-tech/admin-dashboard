@@ -7,7 +7,6 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
-      console.log("Original headers:", headers);
       const token = getTokenFromCookies();
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
@@ -19,8 +18,19 @@ export const authApi = createApi({
     getAllAdmins: builder.query({
       query: () => `/admin`,
     }),
+    getAdminById: builder.query({
+      query: (id) => `/admin/${id}`,
+      method: "GET",
+    }),
     getAdminProfile: builder.query({
       query: () => `/admin/profile/`,
+    }),
+    updateAdminProfile: builder.mutation({
+      query: (data) => ({
+        url: `/admin/${data._id}/`,
+        method: "PATCH",
+        body: data,
+      }),
     }),
     addAdmin: builder.mutation({
       query: (data) => ({
@@ -51,4 +61,6 @@ export const {
   useLoginMutation,
   useDeleteAdminMutation,
   useGetAdminProfileQuery,
+  useUpdateAdminProfileMutation,
+  useGetAdminByIdQuery,
 } = authApi;

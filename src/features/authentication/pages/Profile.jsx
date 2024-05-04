@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDarkMode } from "../../../shared/darkModeContext";
 import { useGetAdminProfileQuery } from "../api/authApi";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
-  const { data: profile, isLoading, isSuccess } = useGetAdminProfileQuery();
-  console.log('profileee',profile)
+  const { data: profile } = useGetAdminProfileQuery();
 
   useEffect(() => {
     initializeDarkMode();
@@ -42,13 +42,17 @@ const Profile = () => {
             />
           </div>
           <div className="text-center mt-4">
-            <h1 className="text-2xl font-bold text-gray-500">Abebe Balcha</h1>
-            <p className="text-gray-500">System Admin</p>
+            <h1 className="text-2xl font-bold text-gray-500">
+              {profile?.profile.fullName}
+            </h1>
+            <p className="text-gray-500">{profile?.profile.role}</p>
           </div>
           <div className="mt-6">
-            <button className="w-full bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded">
-              Update Profile
-            </button>
+            <Link to={`/update-profile/${profile?.profile._id}`}>
+              <button className="w-full bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded">
+                Update Profile
+              </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ export const ordersApi = createApi({
     prepareHeaders: async (headers) => {
       const token = getTokenFromCookies();
       if (token) {
-        headers.Authorization = `Bearer ${token}`;
+        headers.set("Authorization", `Bearer ${token}`);
       }
       return headers;
     },
@@ -22,9 +22,6 @@ export const ordersApi = createApi({
     getOrdersInMyWarehouse: builder.query({
       query: () => "/order/in-my-warehouse/",
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${getTokenFromCookies()}`,
-      },
     }),
     deleteOrder: builder.mutation({
       query: (orderId) => ({

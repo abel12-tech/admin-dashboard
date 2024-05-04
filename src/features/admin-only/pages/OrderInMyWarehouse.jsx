@@ -53,7 +53,6 @@ const OrderInMyWarehouse = () => {
 
   const { data: orders, isLoading, isSuccess } = useGetOrdersInMyWarehouseQuery();
   console.log(orders)
-
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -74,10 +73,10 @@ const OrderInMyWarehouse = () => {
     setCurrentPage(page);
   };
 
-  const totalPages = Math.ceil(orders?.length / itemsPerPage) || 1;
+  const totalPages = Math.ceil(orders?.myOrders.length / itemsPerPage) || 1;
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, orders?.length);
+  const endIndex = Math.min(startIndex + itemsPerPage, orders?.myOrders.length);
 
   return (
     <div
@@ -119,7 +118,7 @@ const OrderInMyWarehouse = () => {
                     </td>
                   </tr>
                 ) : isSuccess && orders ? (
-                  orders.slice(startIndex, endIndex).map((order) => (
+                  orders?.myOrders.slice(startIndex, endIndex).map((order) => (
                     <tr
                       key={order._id}
                       className={`${

@@ -85,3 +85,6 @@ GET https://farmerecommerce.onrender.com/api/v1/payment-org
 
 ###
 GET https://farmerecommerce.onrender.com/api/v1/payment-for-farmer
+###
+GET https://farmerecommerce.onrender.com/api/v1/admin/profile/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MmZlYmYwMjkwNWMzOThlY2YxZWJhOCIsImlhdCI6MTcxNDc2MDg1MSwiZXhwIjoxNzE1NjI0ODUxfQ.iNRenqCz_Bltcp102Kihh42JZAU-j3pfPZVTIBv1KY4

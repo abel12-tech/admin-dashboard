@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDarkMode } from "../../../shared/darkModeContext";
-import { useContactFarmerMutation } from "../api/contactApi";
+import { useContactAdminMutation } from "../api/contactApi";
 import { useGetAllAdminsQuery } from "../../authentication/api/authApi";
 
 const ContactAdmin = () => {
@@ -8,7 +8,7 @@ const ContactAdmin = () => {
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState("");
   const [selectedAdmin, setSelectedAdmin] = useState("");
-  const [send] = useContactFarmerMutation();
+  const [send] = useContactAdminMutation();
   const { data: admins, isLoading, isSuccess } = useGetAllAdminsQuery();
 
   useEffect(() => {

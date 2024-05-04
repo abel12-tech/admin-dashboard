@@ -24,7 +24,7 @@ import ManageWareHouses from "./features/manage-warehouse/pages/ManageWareHouses
 import EditWarehouse from "./features/manage-warehouse/pages/EditWarehouse";
 import EditProductCategory from "./features/manage-products/pages/EditProductCategory";
 import ManageUsers from "./features/manage-users/pages/ManageUsers";
-import Profile from "./features/manage-users/pages/Profile";
+import Profile from "./features/authentication/pages/Profile";
 import ManagePayments from "./features/manage-payments/pages/ManagePayments";
 import ManageFarmers from "./features/manage-farmers/page/ManageFarmers";
 import ManagePaymentOrgs from "./features/manage-payments/pages/ManagePaymentOrgs";

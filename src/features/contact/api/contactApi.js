@@ -25,7 +25,17 @@ export const contactApi = createApi({
         },
       }),
     }),
+    contactAdmin: builder.mutation({
+      query: (data) => ({
+        url: `/contact-admin`,
+        method: "POST",
+        body: data,
+        headers: {
+          Authorization: `Bearer ${getTokenFromCookies()}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useContactFarmerMutation } = contactApi;
+export const { useContactFarmerMutation, useContactAdminMutation } = contactApi;

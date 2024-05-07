@@ -15,7 +15,10 @@ import { GiFarmer } from "react-icons/gi";
 import { IoIosChatboxes } from "react-icons/io";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
-import { selectIsSuper } from "../features/authentication/slice/authSlice";
+import {
+  selectAdminwarehouseInfo,
+  selectIsSuper,
+} from "../features/authentication/slice/authSlice";
 import { useSelector } from "react-redux";
 
 const Sidebar = ({ isSideMenuOpen }) => {
@@ -25,6 +28,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
   const [isContactDropDownOpen, setIsContactDropdownOpen] = useState(false);
   const { isDarkMode } = useDarkMode();
   const isSuper = useSelector(selectIsSuper);
+  const warehouse = useSelector(selectAdminwarehouseInfo);
 
   const handleUserDropdownToggle = () => {
     setIsUsersDropdownOpen(!isUsersDropdownOpen);
@@ -61,7 +65,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
             isDarkMode ? "text-gray-200" : "text-gray-800"
           }`}
         >
-          {isSuper ? "Admin Dashboard" : "Jimma Warehouse"}
+          {isSuper ? "Admin Dashboard" : `${warehouse.name} Warehouse`}
         </Link>
 
         {/* Navigation links */}
@@ -274,9 +278,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
                       }`}
                     >
                       <GiFarmer className="w-5 h-5" />
-                      <span className="ml-4">
-                        Manage Farmers We Work With
-                      </span>
+                      <span className="ml-4">Manage Farmers We Work With</span>
                     </Link>
                   </li>
                 )}

@@ -1,20 +1,21 @@
-import React, { useState ,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../features/authentication/slice/authSlice";
 import { useDarkMode } from "../shared/darkModeContext";
+import { useGetAdminProfileQuery } from "../features/authentication/api/authApi";
 
 const Header = ({ toggleSideMenu }) => {
-  const { isDarkMode, toggleDarkMode ,initializeDarkMode } = useDarkMode();
+  const { isDarkMode, toggleDarkMode, initializeDarkMode } = useDarkMode();
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const { data: profile } = useGetAdminProfileQuery();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     initializeDarkMode();
   }, [initializeDarkMode]);
-
 
   const onLogout = () => {
     dispatch(logout());
@@ -202,7 +203,7 @@ const Header = ({ toggleSideMenu }) => {
             >
               <img
                 className="object-cover w-8 h-8 rounded-full"
-                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2ZpbGUlMjBwaWN0dXJlc3xlbnwwfHwwfHx8MA%3D%3D"
+                src={profile?.profile.image}
                 alt="no"
                 aria-hidden="true"
               />

@@ -3,7 +3,10 @@ import "alpinejs";
 import { Chart } from "chart.js/auto";
 import { useDarkMode } from "../shared/darkModeContext";
 import { useGetAllDataQuery } from "../features/dashboard-summary/dataApi";
-import { selectIsSuper } from "../features/authentication/slice/authSlice";
+import {
+  selectAdminwarehouseInfo,
+  selectIsSuper,
+} from "../features/authentication/slice/authSlice";
 import { useSelector } from "react-redux";
 
 const MainContent = () => {
@@ -11,6 +14,9 @@ const MainContent = () => {
   const lineChartRef = useRef(null);
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const isSuper = useSelector(selectIsSuper);
+  const warehouse = useSelector(selectAdminwarehouseInfo);
+
+ 
 
   const { data: datas, isSuccess } = useGetAllDataQuery();
 
@@ -119,7 +125,7 @@ const MainContent = () => {
             isDarkMode ? "text-gray-200" : "text-gray-700"
           } ${isSuper ? "" : "text-center"} `}
         >
-          {isSuper ? "Dashboard" : "Warehouse in ..."}
+          {isSuper ? "Dashboard" : `${warehouse.name} Warehouse`}
         </h2>
         {/* CTA */}
 

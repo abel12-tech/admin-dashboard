@@ -6,6 +6,8 @@ const initialState = {
   isAuthenticated: JSON.parse(localStorage.getItem("isAuthenticated")) || false,
   isSuper: JSON.parse(localStorage.getItem("isSuper")) || false,
   isAdmin: JSON.parse(localStorage.getItem("isAdmin")) || false,
+  adminwarehouseInfo:
+    JSON.parse(localStorage.getItem("adminwarehouseInfo")) || null,
 };
 
 const authSlice = createSlice({
@@ -13,6 +15,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action) => {
+      console.log("payload", action.payload);
       state.token = action.payload.token;
       if (action.payload.admin.role === "Super Admin") {
         localStorage.setItem("isSuper", true);
@@ -20,6 +23,10 @@ const authSlice = createSlice({
       } else {
         localStorage.setItem("isAdmin", true);
         localStorage.setItem("isSuper", false);
+        localStorage.setItem(
+          "adminwarehouseInfo",
+          JSON.stringify(action.payload.admin.warehouse)
+        );
       }
       localStorage.setItem("isAuthenticated", true);
       Cookies.set("token", state.token);
@@ -41,3 +48,5 @@ export const selectToken = (state) => state.auth.token;
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 export const selectIsSuper = (state) => state.auth.isSuper;
 export const selectIsAdmin = (state) => state.auth.isAdmin;
+export const selectAdminwarehouseInfo = (state) =>
+  state.auth.adminwarehouseInfo;

@@ -36,7 +36,7 @@ const Profile = () => {
           </div>
           <div className="flex items-center justify-center -mt-16">
             <img
-              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHByb2ZpbGUlMjBwaWN0dXJlc3xlbnwwfHwwfHx8MA%3D%3D"
+              src={profile?.profile.image}
               alt="Profile"
               className="w-32 object-cover h-32 rounded-full border-4 border-white shadow-md"
             />

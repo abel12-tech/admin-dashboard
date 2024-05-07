@@ -65,7 +65,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
             isDarkMode ? "text-gray-200" : "text-gray-800"
           }`}
         >
-          {isSuper ? "Admin Dashboard" : `${warehouse.name} Warehouse`}
+          {isSuper ? "Dashboard" : `${warehouse.name} Warehouse`}
         </Link>
 
         {/* Navigation links */}

@@ -97,7 +97,7 @@ const ContactAdmin = () => {
                     onChange={(e) => setSelectedAdmin(e.target.value)}
                   >
                     {isLoading ? (
-                      <option>Loading Farmers...</option>
+                      <option>Loading admins...</option>
                     ) : (
                       isSuccess &&
                       admins &&

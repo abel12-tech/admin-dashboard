@@ -6,10 +6,10 @@ export const warehouseApi = createApi({
   reducerPath: "warehouseApi",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
-    prepareHeaders: async (headers) => {
+    prepareHeaders: (headers) => {
       const token = getTokenFromCookies();
       if (token) {
-        headers.Authorization = `Bearer ${token}`;
+        headers.set("Authorization", `Bearer ${token}`);
       }
       return headers;
     },

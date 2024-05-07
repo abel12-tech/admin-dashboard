@@ -25,7 +25,6 @@ const OrderInMyWarehouse = () => {
   };
 
   const handleSubmit = async (orderId, farmerId) => {
-    console.log(orderId, farmerId);
     try {
       const screenshotRef = ref(
         storage,

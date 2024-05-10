@@ -8,7 +8,6 @@ const ManageAdmins = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: admins, isLoading, isSuccess } = useGetAllAdminsQuery();
-  console.log(admins)
   const [deleteAdmin] = useDeleteAdminMutation();
 
   const itemsPerPage = 5;

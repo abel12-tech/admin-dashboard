@@ -37,6 +37,7 @@ import EditPaymentOrg from "./features/manage-payments/pages/EditPaymentOrg";
 import ContactAdmin from "./features/contact/pages/ContactAdmin";
 import PaymentMadeForFarmer from "./features/manage-payments/pages/PaymentMadeForFarmer";
 import UpdateProfile from "./features/authentication/pages/UpdateProfile";
+import FarmerInMyWarehouse from "./features/admin-only/pages/FarmerInMyWarehouse";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -82,9 +83,21 @@ function App() {
         }
       />
       <Route
-        path="/contact-admin"
+        path="/contact-admins"
         element={
           isAuthenticated && isSuper ? (
+            <Layout>
+              <ContactAdmin />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/contact-other-admins"
+        element={
+          isAuthenticated && isAdmin ? (
             <Layout>
               <ContactAdmin />
             </Layout>
@@ -204,9 +217,21 @@ function App() {
       <Route
         path="/manage-farmers"
         element={
-          isAuthenticated ? (
+          isAuthenticated && isSuper ? (
             <Layout>
               <ManageFarmers />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/manage-farmer-we-work-with"
+        element={
+          isAuthenticated && isAdmin ? (
+            <Layout>
+              <FarmerInMyWarehouse />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

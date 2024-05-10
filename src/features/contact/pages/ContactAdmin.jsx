@@ -1,41 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useDarkMode } from "../../../shared/darkModeContext";
-import { useContactAdminMutation } from "../api/contactApi";
 import { useGetAllAdminsQuery } from "../../authentication/api/authApi";
+import { PiTelegramLogoLight } from "react-icons/pi";
 
 const ContactAdmin = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
-  const [sending, setSending] = useState(false);
-  const [message, setMessage] = useState("");
-  const [selectedAdmin, setSelectedAdmin] = useState("");
-  const [send] = useContactAdminMutation();
+  const [currentPage, setCurrentPage] = useState(1);
   const { data: admins, isLoading, isSuccess } = useGetAllAdminsQuery();
+
+  const itemsPerPage = 5;
 
   useEffect(() => {
     initializeDarkMode();
   }, [initializeDarkMode]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      setSending(true);
-
-      await send({
-        message,
-        admin: selectedAdmin,
-      }).unwrap();
-
-      setMessage("");
-      setSelectedAdmin("");
-      setSending(false);
-
-      window.location.reload();
-      console.log("Message sent successfully");
-    } catch (error) {
-      console.error("Error sending message:", error);
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
     }
   };
+
+  const goToNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const goToPage = (page) => {
+    setCurrentPage(page);
+  };
+
+  const totalPages = Math.ceil(admins?.length / itemsPerPage) || 1;
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, admins?.length);
 
   return (
     <div
@@ -44,81 +40,153 @@ const ContactAdmin = () => {
       }`}
     >
       <div className="flex flex-col flex-1 w-full">
-        <main className="h-full pb-16">
-          <div className="container px-6 mx-auto grid">
-            <h4
-              className={`mb-4 text-center p-4 text-lg font-semibold ${
-                isDarkMode ? "text-gray-300" : "text-gray-600"
-              }`}
-            >
-              Contact Admin
-            </h4>
-            <form onSubmit={handleSubmit}>
-              <div
-                className={`px-4 py-3 mb-8 ${
-                  isDarkMode ? "bg-gray-800" : "bg-white"
-                } rounded-lg shadow-md`}
-              >
-                <label className="block text-sm">
-                  <span
-                    className={`${
-                      isDarkMode ? "text-gray-400" : "text-gray-700"
-                    }`}
-                  >
-                    Message
-                  </span>
-                  <textarea
-                    className={`${
-                      isDarkMode
-                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
-                        : "border-2 outline-none focus:border-gray-200"
-                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
-                    rows={3}
-                    placeholder="Type your message here"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                  />
-                </label>
-                <label className="block mt-4 text-sm">
-                  <span
-                    className={`${
-                      isDarkMode ? "text-gray-400" : "text-gray-700"
-                    }`}
-                  >
-                    Select Admin
-                  </span>
-                  <select
-                    className={`${
-                      isDarkMode
-                        ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
-                        : "border-2 outline-none focus:border-gray-200"
-                    } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
-                    value={selectedAdmin}
-                    onChange={(e) => setSelectedAdmin(e.target.value)}
-                  >
-                    {isLoading ? (
-                      <option>Loading admins...</option>
-                    ) : (
-                      isSuccess &&
-                      admins &&
-                      admins.map((admin) => (
-                        <option key={admin._id} value={admin._id}>
-                          {admin.fullName}
-                        </option>
-                      ))
-                    )}
-                  </select>
-                </label>
-                <button
-                  type="submit"
-                  className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] text-white font-semibold py-2 px-4 rounded"
+        <div className="w-full container h-screen p-6 overflow-y-auto rounded-lg shadow-xs">
+          <div className="w-full overflow-x-auto">
+            <table className="w-full whitespace-no-wrap">
+              <thead>
+                <tr
+                  className={`text-xs font-semibold tracking-wide text-left ${
+                    isDarkMode
+                      ? "border-gray-700 text-gray-400 bg-gray-800"
+                      : "text-gray-500 bg-gray-50"
+                  } text-gray-500 uppercase border-b`}
                 >
-                  {sending ? "Sending..." : "Send Message"}
-                </button>
-              </div>
-            </form>
+                  <th className="px-4 py-3">Full Name</th>
+                  <th className="px-4 py-3">Contact by telegram</th>
+                </tr>
+              </thead>
+              <tbody
+                className={`divide-y  ${
+                  isDarkMode ? "divide-gray-700 bg-gray-800" : "bg-white"
+                }`}
+              >
+                {isLoading ? (
+                  <tr>
+                    <td
+                      colSpan="6"
+                      className="px-4 py-3 text-center text-gray-500"
+                    >
+                      Loading...
+                    </td>
+                  </tr>
+                ) : isSuccess ? (
+                  admins
+                    .filter((admin) => admin.role === "Admin")
+                    .slice(startIndex, endIndex)
+                    .map((admin) => (
+                      <tr
+                        key={admin._id}
+                        className={`${
+                          isDarkMode ? "text-gray-400" : "text-gray-700"
+                        }`}
+                      >
+                        <td className="px-4 py-3 text-sm">{admin.fullName}</td>
+                        <td className="px-4 py-3 text-sm">
+                          <div className="flex items-center space-x-4 text-sm">
+                            <button
+                              className="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                              aria-label="Delete"
+                            >
+                              <PiTelegramLogoLight className="w-5 h-5 mr-1 text-blue-500" />
+                              <a href={`https://t.me/${admin.username}`}>
+                                {admin.userName}
+                              </a>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="6"
+                      className="px-4 py-3 text-center text-red-500"
+                    >
+                      Error fetching data. Please try again later.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
-        </main>
+
+          <div
+            className={`grid px-4 py-3 text-xs font-semibold tracking-wide ${
+              isDarkMode
+                ? "border-gray-700 text-gray-400 bg-gray-800"
+                : "text-gray-500 bg-gray-50"
+            }  uppercase border-t  sm:grid-cols-9`}
+          >
+            <span className="flex items-center col-span-3">
+              Showing {startIndex + 1}-{endIndex} of
+              {admins?.filter((admin) => admin.role === "Admin").length}
+            </span>
+            <span className="col-span-2" />
+            {/* Pagination */}
+            <span className="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+              <nav aria-label="Table navigation">
+                <ul className="inline-flex items-center">
+                  <li>
+                    <button
+                      className="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                      aria-label="Previous"
+                      onClick={goToPreviousPage}
+                      disabled={currentPage === 1}
+                    >
+                      <svg
+                        aria-hidden="true"
+                        className="w-4 h-4 fill-current"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                          fillRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <li key={page}>
+                        <button
+                          className={`px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple ${
+                            currentPage === page
+                              ? "text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
+                              : ""
+                          }`}
+                          onClick={() => goToPage(page)}
+                        >
+                          {page}
+                        </button>
+                      </li>
+                    )
+                  )}
+                  <li>
+                    <button
+                      className="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                      aria-label="Next"
+                      onClick={goToNextPage}
+                      disabled={currentPage === totalPages}
+                    >
+                      <svg
+                        className="w-4 h-4 fill-current"
+                        aria-hidden="true"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                          clipRule="evenodd"
+                          fillRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

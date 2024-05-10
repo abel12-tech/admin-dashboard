@@ -44,7 +44,7 @@ const FarmerInMyWarehouse = () => {
     setCurrentPage(page);
   };
 
-  const totalPages = Math.ceil(farmers?.length / itemsPerPage) || 1;
+  const totalPages = Math.ceil(farmers?.Farmers.length / itemsPerPage) || 1;
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, farmers?.length);
@@ -87,7 +87,7 @@ const FarmerInMyWarehouse = () => {
                     </td>
                   </tr>
                 ) : isSuccess ? (
-                  farmers.slice(startIndex, endIndex).map((farmer) => (
+                  farmers?.Farmers.slice(startIndex, endIndex).map((farmer) => (
                     <tr
                       key={farmer._id}
                       className={`${

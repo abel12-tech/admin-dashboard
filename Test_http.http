@@ -8,9 +8,11 @@ content-type: application/json
     "password":"123456",
     "email": "abelk3@gmail.com",
     "phoneNumber": "936722189",
-    "role": "Admin"
 }
 ### 
+GET https://farmerecommerce.onrender.com/api/v1/admin
+
+###
 
 POST https://farmerecommerce.onrender.com/api/v1/admin/login
 content-type: application/json

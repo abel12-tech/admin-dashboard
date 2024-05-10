@@ -29,6 +29,12 @@ const AddAdmin = () => {
     initializeDarkMode();
   }, [initializeDarkMode]);
 
+  useEffect(() => {
+    if (warehouses && warehouses.length > 0) {
+      setSelectedWarehouse(warehouses[0]._id);
+    }
+  }, [warehouses]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 

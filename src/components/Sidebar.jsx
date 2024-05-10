@@ -65,7 +65,7 @@ const Sidebar = ({ isSideMenuOpen }) => {
             isDarkMode ? "text-gray-200" : "text-gray-800"
           }`}
         >
-          {isSuper ? "Dashboard" : `${warehouse.name} Warehouse`}
+          {isSuper ? "Dashboard" : `${warehouse.name}`}
         </Link>
 
         {/* Navigation links */}
@@ -130,11 +130,11 @@ const Sidebar = ({ isSideMenuOpen }) => {
                     <span className="ml-4">Contact Farmer</span>
                   </Link>
                 </li>
-                {isSuper && (
+                {isSuper ? (
                   <li className="relative px-6 py-3">
                     <Link
-                      to="/contact-admin"
-                      onClick={() => handleLinkClick("/contact-admin")}
+                      to="/contact-admins"
+                      onClick={() => handleLinkClick("/contact-admins")}
                       className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                         isDarkMode
                           ? "dark:hover:text-gray-200"
@@ -143,6 +143,21 @@ const Sidebar = ({ isSideMenuOpen }) => {
                     >
                       <MdOutlineAdminPanelSettings className="w-5 h-5" />
                       <span className="ml-4">Contact Admin</span>
+                    </Link>
+                  </li>
+                ) : (
+                  <li className="relative px-6 py-3">
+                    <Link
+                      to="/contact-other-admins"
+                      onClick={() => handleLinkClick("/contact-other-admins")}
+                      className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                        isDarkMode
+                          ? "dark:hover:text-gray-200"
+                          : "text-gray-800 dark:hover:text-gray-600"
+                      }`}
+                    >
+                      <MdOutlineAdminPanelSettings className="w-5 h-5" />
+                      <span className="ml-4">Contact Other Admins</span>
                     </Link>
                   </li>
                 )}
@@ -269,8 +284,10 @@ const Sidebar = ({ isSideMenuOpen }) => {
                 ) : (
                   <li className="relative px-6 py-3">
                     <Link
-                      to="/manage-farmers"
-                      onClick={() => handleLinkClick("/manage-farmers")}
+                      to="/manage-farmer-we-work-with"
+                      onClick={() =>
+                        handleLinkClick("/manage-farmer-we-work-with")
+                      }
                       className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
                         isDarkMode
                           ? "dark:hover:text-gray-200"

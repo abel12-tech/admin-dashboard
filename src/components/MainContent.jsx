@@ -125,7 +125,7 @@ const MainContent = () => {
             isDarkMode ? "text-gray-200" : "text-gray-700"
           } ${isSuper ? "" : "text-center"} `}
         >
-          {isSuper ? "Dashboard" : `${warehouse.name} Warehouse`}
+          {isSuper ? "Dashboard" : `${warehouse.name}`}
         </h2>
         {/* CTA */}
 

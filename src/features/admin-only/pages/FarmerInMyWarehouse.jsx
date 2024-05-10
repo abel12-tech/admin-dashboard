@@ -13,6 +13,7 @@ const FarmerInMyWarehouse = () => {
     isLoading,
     isSuccess,
   } = useGetFarmerInMyWarehouseQuery();
+  console.log(farmers?.Farmers)
   const [deleteFarmer] = useDeleteFarmerMutation();
 
   const itemsPerPage = 5;
@@ -47,7 +48,7 @@ const FarmerInMyWarehouse = () => {
   const totalPages = Math.ceil(farmers?.Farmers.length / itemsPerPage) || 1;
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, farmers?.length);
+  const endIndex = Math.min(startIndex + itemsPerPage, farmers?.Farmers.length);
 
   return (
     <div

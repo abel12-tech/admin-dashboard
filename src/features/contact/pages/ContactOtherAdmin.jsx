@@ -5,11 +5,14 @@ import { PiTelegramLogoLight } from "react-icons/pi";
 import { selectAdminPhoneNumber } from "../../authentication/slice/authSlice";
 import { useSelector } from "react-redux";
 
+
 const ContactOtherAdmin = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: admins, isLoading, isSuccess } = useGetAllAdminsQuery();
-  const phoneNumber = useSelector(selectAdminPhoneNumber);
+  const phoneNumber = useSelector(selectAdminPhoneNumber)
+  
+  
 
   const itemsPerPage = 5;
 
@@ -74,8 +77,8 @@ const ContactOtherAdmin = () => {
                   </tr>
                 ) : isSuccess ? (
                   admins
-                    .filter((admin) => admin.phoneNumber !== phoneNumber)
-                    .slice(startIndex, endIndex)
+                  .filter((admin) => admin.phoneNumber !== phoneNumber)
+                  .slice(startIndex, endIndex)
                     .map((admin) => (
                       <tr
                         key={admin._id}

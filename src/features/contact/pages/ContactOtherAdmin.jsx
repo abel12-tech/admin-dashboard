@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDarkMode } from "../../../shared/darkModeContext";
 import { useGetAllAdminsQuery } from "../../authentication/api/authApi";
 import { PiTelegramLogoLight } from "react-icons/pi";
+import { selectAdminPhoneNumber } from "../../authentication/slice/authSlice";
+import { useSelector } from "react-redux";
 
 const ContactOtherAdmin = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
   const [currentPage, setCurrentPage] = useState(1);
   const { data: admins, isLoading, isSuccess } = useGetAllAdminsQuery();
+  const phoneNumber = useSelector(selectAdminPhoneNumber);
 
   const itemsPerPage = 5;
 
@@ -71,7 +74,7 @@ const ContactOtherAdmin = () => {
                   </tr>
                 ) : isSuccess ? (
                   admins
-                    .filter((admin) => admin.role === "Admin")
+                    .filter((admin) => admin.phoneNumber !== phoneNumber)
                     .slice(startIndex, endIndex)
                     .map((admin) => (
                       <tr

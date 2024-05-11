@@ -38,6 +38,7 @@ import ContactAdmin from "./features/contact/pages/ContactAdmin";
 import PaymentMadeForFarmer from "./features/manage-payments/pages/PaymentMadeForFarmer";
 import UpdateProfile from "./features/authentication/pages/UpdateProfile";
 import FarmerInMyWarehouse from "./features/admin-only/pages/FarmerInMyWarehouse";
+import ContactOtherAdmin from "./features/contact/pages/ContactOtherAdmin";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -99,7 +100,7 @@ function App() {
         element={
           isAuthenticated && isAdmin ? (
             <Layout>
-              <ContactAdmin />
+              <ContactOtherAdmin />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

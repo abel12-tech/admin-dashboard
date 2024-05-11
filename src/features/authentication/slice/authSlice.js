@@ -8,6 +8,8 @@ const initialState = {
   isAdmin: JSON.parse(localStorage.getItem("isAdmin")) || false,
   adminwarehouseInfo:
     JSON.parse(localStorage.getItem("adminwarehouseInfo")) || null,
+  adminPhonenumber:
+    JSON.parse(localStorage.getItem("adminPhonenumber")) || null,
 };
 
 const authSlice = createSlice({
@@ -26,6 +28,10 @@ const authSlice = createSlice({
         localStorage.setItem(
           "adminwarehouseInfo",
           JSON.stringify(action.payload.admin.warehouse)
+        );
+        localStorage.setItem(
+          "adminPhonenumber",
+          JSON.stringify(action.payload.admin.phoneNumber)
         );
       }
       localStorage.setItem("isAuthenticated", true);
@@ -50,3 +56,4 @@ export const selectIsSuper = (state) => state.auth.isSuper;
 export const selectIsAdmin = (state) => state.auth.isAdmin;
 export const selectAdminwarehouseInfo = (state) =>
   state.auth.adminwarehouseInfo;
+export const selectAdminPhoneNumber = (state) => state.auth.adminPhonenumber;

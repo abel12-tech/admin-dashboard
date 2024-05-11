@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import QuillEditor from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useAddBlogMutation } from "../api/blogApi";
+import { useAddBlogMutation, useGetAllBlogsQuery } from "../api/blogApi";
 import { useNavigate } from "react-router-dom";
 import { storage } from "../../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { useDarkMode } from "../../../shared/darkModeContext";
+import { useGetAllBlogCategoriesQuery } from "../api/blogApi";
 
 const AddBlog = () => {
   const { isDarkMode, initializeDarkMode } = useDarkMode();
@@ -14,8 +15,21 @@ const AddBlog = () => {
   const [image, setImage] = useState(null);
   const [content, setContent] = useState("");
   const [posting, setPosting] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const {
+    data: categories,
+    isLoading,
+    isSuccess,
+  } = useGetAllBlogCategoriesQuery();
   const navigate = useNavigate();
   const [addPost] = useAddBlogMutation();
+
+  useEffect(() => {
+    if (categories && categories.length > 0) {
+      setSelectedCategory(categories[0]._id);
+    }
+  }, [categories]);
+
 
   useEffect(() => {
     initializeDarkMode();
@@ -67,6 +81,7 @@ const AddBlog = () => {
         title,
         image: imageUrl,
         content,
+        category:selectedCategory
       }).unwrap();
 
       setTitle("");
@@ -104,6 +119,38 @@ const AddBlog = () => {
                   isDarkMode ? "bg-gray-800" : "bg-white"
                 } rounded-lg shadow-md`}
               >
+                <div>
+                  <label className="block mt-4 text-sm">
+                    <span
+                      className={`${
+                        isDarkMode ? "text-gray-400" : "text-gray-700"
+                      }`}
+                    >
+                      Select Category
+                    </span>
+                    <select
+                      className={`${
+                        isDarkMode
+                          ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                          : "border-2 outline-none focus:border-gray-200"
+                      } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
+                      {isLoading ? (
+                        <option>Loading category...</option>
+                      ) : (
+                        isSuccess &&
+                        categories &&
+                        categories.map((category) => (
+                          <option key={category._id} value={category._id}>
+                            {category.name}
+                          </option>
+                        ))
+                      )}
+                    </select>
+                  </label>
+                </div>
                 <div>
                   <label
                     htmlFor="post-title"
@@ -169,7 +216,7 @@ const AddBlog = () => {
                 </div>
                 <button
                   type="submit"
-                  className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] w-20 text-white font-semibold py-2 px-4 rounded"
+                  className="mt-4 bg-[#9333EA] hover:bg-[#c190ee] w-50 text-white font-semibold py-2 px-4 rounded"
                 >
                   {posting ? "posting..." : "Post"}
                 </button>

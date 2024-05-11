@@ -13,7 +13,6 @@ const FarmerInMyWarehouse = () => {
     isLoading,
     isSuccess,
   } = useGetFarmerInMyWarehouseQuery();
-  console.log(farmers?.Farmers)
   const [deleteFarmer] = useDeleteFarmerMutation();
 
   const itemsPerPage = 5;

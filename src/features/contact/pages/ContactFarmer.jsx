@@ -10,7 +10,6 @@ const ContactFarmer = () => {
   const [selectedFarmer, setSelectedFarmer] = useState("");
   const [send] = useContactFarmerMutation();
   const { data: farmers, isLoading, isSuccess } = useGetAllFarmersQuery();
-  
 
   useEffect(() => {
     initializeDarkMode();
@@ -24,15 +23,14 @@ const ContactFarmer = () => {
 
       await send({
         message,
-        farmer: selectedFarmer 
+        farmer: selectedFarmer,
       }).unwrap();
 
       setMessage("");
-      setSelectedFarmer(""); 
+      setSelectedFarmer("");
       setSending(false);
 
       window.location.reload();
-      console.log("Message sent successfully");
     } catch (error) {
       console.error("Error sending message:", error);
     }

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDarkMode } from "../../../shared/darkModeContext";
+import { storage } from "../../../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 import {
   useGetAdminByIdQuery,
   useUpdateAdminProfileMutation,
@@ -10,10 +13,17 @@ const UpdateProfile = () => {
   const { isDarkMode } = useDarkMode();
   const { id } = useParams();
   const { data: adminData } = useGetAdminByIdQuery(id);
+  const [image, setImage] = useState(null);
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [updating, setUpdating] = useState(false);
+
   const [updateAdminProfile, { isLoading }] = useUpdateAdminProfileMutation();
   const navigate = useNavigate();
+
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+  };
 
   useEffect(() => {
     if (adminData) {
@@ -24,7 +34,22 @@ const UpdateProfile = () => {
 
   const handleUpdate = async () => {
     try {
-      await updateAdminProfile({ _id: id, fullName, phoneNumber });
+      setUpdating(true);
+      let imageUrl = adminData?.admin.image;
+
+      if (image !== null) {
+        const imageRef = ref(storage, `Blog-images/${image.name + v4()}`);
+        await uploadBytes(imageRef, image);
+        imageUrl = await getDownloadURL(imageRef);
+      }
+
+      await updateAdminProfile({
+        _id: id,
+        fullName,
+        phoneNumber,
+        image: imageUrl,
+      });
+      setUpdating(false);
       navigate("/profile");
       window.location.reload();
     } catch (error) {
@@ -46,6 +71,27 @@ const UpdateProfile = () => {
                 isDarkMode ? "bg-gray-800" : "bg-white"
               } rounded-lg shadow-md`}
             >
+              <div>
+                <label
+                  htmlFor="image"
+                  className={`${
+                    isDarkMode ? "text-gray-400" : "text-gray-700"
+                  }`}
+                >
+                  Image
+                </label>
+                <input
+                  type="file"
+                  name="image"
+                  id="image"
+                  className={`${
+                    isDarkMode
+                      ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                      : "border-2 outline-none focus:border-gray-200"
+                  } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
+                  onChange={handleImageChange}
+                />
+              </div>
               <div>
                 <label
                   htmlFor="fullName"
@@ -93,12 +139,11 @@ const UpdateProfile = () => {
               </div>
               <button
                 onClick={handleUpdate}
-                disabled={isLoading}
                 className={`mt-4 bg-[#9333EA] hover:bg-[#c190ee] w-50 text-white font-semibold py-2 px-4 rounded ${
                   isLoading && "opacity-50 cursor-not-allowed"
                 }`}
               >
-                {isLoading ? "Updating..." : "Update"}
+                {updating ? "Updating..." : "Update"}
               </button>
             </div>
           </div>

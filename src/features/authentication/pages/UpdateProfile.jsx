@@ -15,6 +15,7 @@ const UpdateProfile = () => {
   const { data: adminData } = useGetAdminByIdQuery(id);
   const [image, setImage] = useState(null);
   const [fullName, setFullName] = useState("");
+  const [userName, setuserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [updating, setUpdating] = useState(false);
 
@@ -28,6 +29,7 @@ const UpdateProfile = () => {
   useEffect(() => {
     if (adminData) {
       setFullName(adminData?.admin.fullName);
+      setuserName(adminData?.admin.userName);
       setPhoneNumber(adminData?.admin.phoneNumber);
     }
   }, [adminData]);
@@ -46,6 +48,7 @@ const UpdateProfile = () => {
       await updateAdminProfile({
         _id: id,
         fullName,
+        userName,
         phoneNumber,
         image: imageUrl,
       });
@@ -112,6 +115,29 @@ const UpdateProfile = () => {
                       : "border-2 outline-none focus:border-gray-200"
                   } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
                   placeholder="Enter your full name"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="userName"
+                  className={`${
+                    isDarkMode ? "text-gray-400" : "text-gray-700"
+                  }`}
+                >
+                  User Name
+                </label>
+                <input
+                  type="text"
+                  id="userName"
+                  value={userName}
+                  onChange={(e) => setuserName(e.target.value)}
+                  className={`${
+                    isDarkMode
+                      ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"
+                      : "border-2 outline-none focus:border-gray-200"
+                  } focus:border-gray-400 focus:outline-none focus:shadow-outline-purple sm:col-span-2 text-sm rounded-lg outline-none block w-full p-2.5`}
+                  placeholder="Enter your user name"
                 />
               </div>
 

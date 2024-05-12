@@ -153,7 +153,6 @@ const EditBlog = () => {
                     type="file"
                     name="image"
                     id="image"
-                    value={image}
                     className={`${
                       isDarkMode
                         ? "border-gray-600 bg-gray-700 text-gray-300 focus:shadow-outline-gray"

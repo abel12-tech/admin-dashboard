@@ -427,20 +427,39 @@ const Sidebar = ({ isSideMenuOpen }) => {
             </button>
             {isPaymentDropDownOpen && (
               <ul>
-                <li className="relative px-6 py-3">
-                  <Link
-                    to="/manage-payments"
-                    onClick={() => handleLinkClick("/manage-payments")}
-                    className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
-                      isDarkMode
-                        ? "dark:hover:text-gray-200"
-                        : "text-gray-800 dark:hover:text-gray-600"
-                    }`}
-                  >
-                    <MdPayment className="w-5 h-5" />
-                    <span className="ml-4">Payments</span>
-                  </Link>
-                </li>
+                {isSuper ? (
+                  <li className="relative px-6 py-3">
+                    <Link
+                      to="/manage-payments"
+                      onClick={() => handleLinkClick("/manage-payments")}
+                      className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                        isDarkMode
+                          ? "dark:hover:text-gray-200"
+                          : "text-gray-800 dark:hover:text-gray-600"
+                      }`}
+                    >
+                      <MdPayment className="w-5 h-5" />
+                      <span className="ml-4">Payments</span>
+                    </Link>
+                  </li>
+                ) : (
+                  <li className="relative px-6 py-3">
+                    <Link
+                      to="/manage-payment-in-my-warehouse"
+                      onClick={() =>
+                        handleLinkClick("/manage-payment-in-my-warehouse")
+                      }
+                      className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                        isDarkMode
+                          ? "dark:hover:text-gray-200"
+                          : "text-gray-800 dark:hover:text-gray-600"
+                      }`}
+                    >
+                      <MdPayment className="w-5 h-5" />
+                      <span className="ml-4">Payment in warehouse</span>
+                    </Link>
+                  </li>
+                )}
                 {isSuper ? (
                   <li className="relative px-6 py-3">
                     <Link

@@ -41,6 +41,7 @@ import FarmerInMyWarehouse from "./features/admin-only/pages/FarmerInMyWarehouse
 import ContactOtherAdmin from "./features/contact/pages/ContactOtherAdmin";
 import ProductsInMyWarehouse from "./features/admin-only/pages/ProductsInMyWarehouse";
 import PaymentMadeForFarmerInMyWarehouse from "./features/admin-only/pages/PaymentMadeForFarmerInMyWarehouse";
+import PaymentInMyWarehouse from "./features/admin-only/pages/PaymentInMyWarehouse";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -400,9 +401,21 @@ function App() {
       <Route
         path="/manage-payments"
         element={
-          isAuthenticated ? (
+          isAuthenticated && isSuper ? (
             <Layout>
               <ManagePayments />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/manage-payment-in-my-warehouse"
+        element={
+          isAuthenticated && isAdmin ? (
+            <Layout>
+              <PaymentInMyWarehouse />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

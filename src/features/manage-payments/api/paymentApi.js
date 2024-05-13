@@ -19,6 +19,10 @@ export const paymentApi = createApi({
       query: () => "/payment",
       method: "GET",
     }),
+    getPaymentInWarehouse: builder.query({
+      query: () => "/payment/in-my-warehouse",
+      method: "GET",
+    }),
     getAllPaymentOrgs: builder.query({
       query: () => "/payment-org",
       method: "GET",
@@ -66,4 +70,5 @@ export const {
   useUpdatePaymentOrgMutation,
   useAddPaymentOrgMutation,
   useGetPaymentOrgByIdQuery,
+  useGetPaymentInWarehouseQuery,
 } = paymentApi;

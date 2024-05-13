@@ -18,7 +18,10 @@ export const dataApi = createApi({
     getAllData: builder.query({
       query: () => `/dashboard/summary`,
     }),
+    getDataInWarehouse: builder.query({
+      query: () => `/dashboard/summary-in-my-warehouse`,
+    }),
   }),
 });
 
-export const { useGetAllDataQuery } = dataApi;
+export const { useGetAllDataQuery, useGetDataInWarehouseQuery } = dataApi;

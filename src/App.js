@@ -42,6 +42,7 @@ import ContactOtherAdmin from "./features/contact/pages/ContactOtherAdmin";
 import ProductsInMyWarehouse from "./features/admin-only/pages/ProductsInMyWarehouse";
 import PaymentMadeForFarmerInMyWarehouse from "./features/admin-only/pages/PaymentMadeForFarmerInMyWarehouse";
 import PaymentInMyWarehouse from "./features/admin-only/pages/PaymentInMyWarehouse";
+import WarehouseSummary from "./features/admin-only/pages/WarehouseSummary";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -62,6 +63,18 @@ function App() {
           )
         }
       />
+      {/* <Route
+        path="/warehouse-home"
+        element={
+          isAuthenticated && isAdmin ? (
+            <Layout>
+              <WarehouseSummary />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      /> */}
       <Route
         path="/contact-farmer"
         element={

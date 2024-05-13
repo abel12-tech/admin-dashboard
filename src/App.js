@@ -42,7 +42,6 @@ import ContactOtherAdmin from "./features/contact/pages/ContactOtherAdmin";
 import ProductsInMyWarehouse from "./features/admin-only/pages/ProductsInMyWarehouse";
 import PaymentMadeForFarmerInMyWarehouse from "./features/admin-only/pages/PaymentMadeForFarmerInMyWarehouse";
 import PaymentInMyWarehouse from "./features/admin-only/pages/PaymentInMyWarehouse";
-import WarehouseSummary from "./features/admin-only/pages/WarehouseSummary";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);

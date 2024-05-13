@@ -18,6 +18,9 @@ export const productsApi = createApi({
     getAllProducts: builder.query({
       query: () => "/product",
     }),
+    getProductsInWarehouse: builder.query({
+      query: () => "/product/filter/in-my-warehouse/",
+    }),
     getProductById: builder.query({
       query: (id) => ({
         url: `/product/${id}`,
@@ -77,4 +80,5 @@ export const {
   useUpdateProductMutation,
   useDeleteProductMutation,
   useGetProductByIdQuery,
+  useGetProductsInWarehouseQuery,
 } = productsApi;

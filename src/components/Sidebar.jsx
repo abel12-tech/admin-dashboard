@@ -164,26 +164,51 @@ const Sidebar = ({ isSideMenuOpen }) => {
               </ul>
             )}
           </li>
-          <li className="relative px-6 py-3">
-            {activeLink === "/manage-products" && (
-              <span
-                className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
-                aria-hidden="true"
-              ></span>
-            )}
-            <Link
-              to="/manage-products"
-              onClick={() => handleLinkClick("/manage-products")}
-              className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
-                isDarkMode
-                  ? "dark:hover:text-gray-200"
-                  : "text-gray-800 dark:hover:text-gray-600"
-              }`}
-            >
-              <RiProductHuntLine className="w-5 h-5" />
-              <span className="ml-4">Manage Products</span>
-            </Link>
-          </li>
+          {isSuper ? (
+            <li className="relative px-6 py-3">
+              {activeLink === "/manage-products" && (
+                <span
+                  className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                  aria-hidden="true"
+                ></span>
+              )}
+              <Link
+                to="/manage-products"
+                onClick={() => handleLinkClick("/manage-products")}
+                className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                  isDarkMode
+                    ? "dark:hover:text-gray-200"
+                    : "text-gray-800 dark:hover:text-gray-600"
+                }`}
+              >
+                <RiProductHuntLine className="w-5 h-5" />
+                <span className="ml-4">Manage Products</span>
+              </Link>
+            </li>
+          ) : (
+            <li className="relative px-6 py-3">
+              {activeLink === "/manage-product-in-my-warehouse" && (
+                <span
+                  className="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
+                  aria-hidden="true"
+                ></span>
+              )}
+              <Link
+                to="/manage-product-in-my-warehouse"
+                onClick={() =>
+                  handleLinkClick("/manage-product-in-my-warehouse")
+                }
+                className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                  isDarkMode
+                    ? "dark:hover:text-gray-200"
+                    : "text-gray-800 dark:hover:text-gray-600"
+                }`}
+              >
+                <RiProductHuntLine className="w-5 h-5" />
+                <span className="ml-4">Manage Product In Warehouse</span>
+              </Link>
+            </li>
+          )}
           <li className="relative px-6 py-3">
             {activeLink === "/manage-product-category" && (
               <span
@@ -416,20 +441,41 @@ const Sidebar = ({ isSideMenuOpen }) => {
                     <span className="ml-4">Payments</span>
                   </Link>
                 </li>
-                <li className="relative px-6 py-3">
-                  <Link
-                    to="/payment-for-farmer"
-                    onClick={() => handleLinkClick("/payment-for-farmer")}
-                    className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
-                      isDarkMode
-                        ? "dark:hover:text-gray-200"
-                        : "text-gray-800 dark:hover:text-gray-600"
-                    }`}
-                  >
-                    <GiFarmer className="w-5 h-5" />
-                    <span className="ml-4">Payment for farmer</span>
-                  </Link>
-                </li>
+                {isSuper ? (
+                  <li className="relative px-6 py-3">
+                    <Link
+                      to="/payment-for-farmer"
+                      onClick={() => handleLinkClick("/payment-for-farmer")}
+                      className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                        isDarkMode
+                          ? "dark:hover:text-gray-200"
+                          : "text-gray-800 dark:hover:text-gray-600"
+                      }`}
+                    >
+                      <GiFarmer className="w-5 h-5" />
+                      <span className="ml-4">Payment for farmer</span>
+                    </Link>
+                  </li>
+                ) : (
+                  <li className="relative px-6 py-3">
+                    <Link
+                      to="/payment-for-farmer-in-my-warehouse"
+                      onClick={() =>
+                        handleLinkClick("/payment-for-farmer-in-my-warehouse")
+                      }
+                      className={`inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 ${
+                        isDarkMode
+                          ? "dark:hover:text-gray-200"
+                          : "text-gray-800 dark:hover:text-gray-600"
+                      }`}
+                    >
+                      <GiFarmer className="w-5 h-5" />
+                      <span className="ml-4">
+                        Payment for farmer in warehouse
+                      </span>
+                    </Link>
+                  </li>
+                )}
               </ul>
             )}
           </li>

@@ -39,6 +39,8 @@ import PaymentMadeForFarmer from "./features/manage-payments/pages/PaymentMadeFo
 import UpdateProfile from "./features/authentication/pages/UpdateProfile";
 import FarmerInMyWarehouse from "./features/admin-only/pages/FarmerInMyWarehouse";
 import ContactOtherAdmin from "./features/contact/pages/ContactOtherAdmin";
+import ProductsInMyWarehouse from "./features/admin-only/pages/ProductsInMyWarehouse";
+import PaymentMadeForFarmerInMyWarehouse from "./features/admin-only/pages/PaymentMadeForFarmerInMyWarehouse";
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -74,9 +76,21 @@ function App() {
       <Route
         path="/payment-for-farmer"
         element={
-          isAuthenticated ? (
+          isAuthenticated && isSuper ? (
             <Layout>
               <PaymentMadeForFarmer />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/payment-for-farmer-in-my-warehouse"
+        element={
+          isAuthenticated && isAdmin ? (
+            <Layout>
+              <PaymentMadeForFarmerInMyWarehouse />
             </Layout>
           ) : (
             <Navigate to="/login" replace />
@@ -110,9 +124,21 @@ function App() {
       <Route
         path="/manage-products"
         element={
-          isAuthenticated ? (
+          isAuthenticated && isSuper ? (
             <Layout>
               <ManageProducts />
+            </Layout>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/manage-product-in-my-warehouse"
+        element={
+          isAuthenticated && isAdmin ? (
+            <Layout>
+              <ProductsInMyWarehouse />
             </Layout>
           ) : (
             <Navigate to="/login" replace />

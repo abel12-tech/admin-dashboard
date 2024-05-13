@@ -63,18 +63,7 @@ function App() {
           )
         }
       />
-      {/* <Route
-        path="/warehouse-home"
-        element={
-          isAuthenticated && isAdmin ? (
-            <Layout>
-              <WarehouseSummary />
-            </Layout>
-          ) : (
-            <Navigate to="/login" replace />
-          )
-        }
-      /> */}
+
       <Route
         path="/contact-farmer"
         element={
